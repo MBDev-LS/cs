@@ -2,9 +2,15 @@ import string
 
 OPERATORS = "+-"
 
+
 class EquationComponent():
-    def __init__(self):
-        pass
+    def __init__(self, component: str, decomposed_sub_equation):
+        if component not in decomposed_sub_equation:
+            return None
+
+        positions = [x for i, x in enumerate(
+            decomposed_sub_equation) if x == component]
+        print(positions)
 
 
 class Equation():
@@ -44,9 +50,10 @@ class Equation():
 
         actual_count = 0
 
-        for i, char in enumerate(self.left): # Repeated code is a product of early testing, real version will store 'left' and 'right' in a list and iterate through it.
+        # Repeated code is a product of early testing, real version will store 'left' and 'right' in a list and iterate through it.
+        for i, char in enumerate(self.left):
             if not i < actual_count:
-                
+
                 if char in OPERATORS:
                     self.left_decomposed.append(char)
                 elif char.isdigit():
@@ -76,22 +83,20 @@ class Equation():
                         actual_count = i + (c - 1)
                     self.left_decomposed.append(num)
 
-                
                 actual_count += 1
-
 
         actual_count = 0
         for i, char in enumerate(self.right):
             if not i < actual_count:
-                
+
                 if char in OPERATORS:
                     self.right_decomposed.append(char)
                 elif char.isdigit():
                     num = char
                     c = 1
-                    if len(self.left)-1 >= i+c:
+                    if len(self.right)-1 >= i+c:
                         while True and len(self.right)-1 >= i+c:
-                            # print(i+c, self.right)
+                            print(i+c, self.right)
                             if self.right[i+c].isdigit() or self.right[i+c] == self.var:
                                 num += self.right[i+c]
                             else:
@@ -103,9 +108,11 @@ class Equation():
                     num = char
                     c = 1
                     if len(self.right)-1 >= i+c:
+                        print("working")
                         while True and len(self.right)-1 >= i+c:
-                            # print(i+c, self.right)
+                            print(i+c, self.right)
                             if self.right[i+c].isdigit() or self.right[i+c] == self.var:
+                                print("working")
                                 num += self.right[i+c]
                             else:
                                 break
@@ -113,11 +120,12 @@ class Equation():
                         actual_count = i + (c - 1)
                     self.right_decomposed.append(num)
 
-                
                 actual_count += 1
-        
+
         print(self.left_decomposed, self.right_decomposed)
 
+        for item in self.right_decomposed:
+            subEq = EquationComponent(item, self.right_decomposed)
 
     def __str__(self):
         return self.eq
