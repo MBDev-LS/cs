@@ -8,8 +8,7 @@ class EquationComponent():
         if component not in decomposed_sub_equation:
             return None
 
-        positions = [x for i, x in enumerate(
-            decomposed_sub_equation) if x == component]
+        positions = [x for i, x in enumerate(decomposed_sub_equation) if x == component]
         print(positions)
 
 
