@@ -1,6 +1,9 @@
 import string
 
-OPERATORS = "+-/*^()"
+OPERATORS_STRING = "+-/*^()"
+OPERATORS = {'+': 2, '-': 2, '/': 3, '*': 3, '^': 4}
+OPERATORS_ASSOCIATIVITY = {'+': 'left', '-': 'left',
+                           '/': 'left', '*': 'left', '^': 'right'}
 
 
 class EquationComponent():
@@ -54,7 +57,7 @@ class Equation():
         for i, char in enumerate(self.left):
             if not i < actual_count:
 
-                if char in OPERATORS:
+                if char in OPERATORS_STRING:
                     self.left_decomposed.append(char)
                 elif char.isdigit():
                     num = char
@@ -89,7 +92,7 @@ class Equation():
         for i, char in enumerate(self.right):
             if not i < actual_count:
 
-                if char in OPERATORS:
+                if char in OPERATORS_STRING:
                     self.right_decomposed.append(char)
                 elif char.isdigit():
                     num = char
@@ -137,11 +140,6 @@ class Equation():
         return self.eq
 
 
-Eq = Equation("x=1/(2*2)+(2^4+4)/2", 'x')
-Eq.verify()
-decomosedEq = Eq.decompose()
-
-
 def lsplit(lst, item):
     try:
         index = lst.index(item)
@@ -150,47 +148,45 @@ def lsplit(lst, item):
         return [lst, lst]
 
 
-operators = {'+': 2, '-': 2, '/': 3, '*': 3, '^': 4}
-operators_associativity = {'+': 'left', '-': 'left', '/': 'left', '*': 'left', '^': 'right'}
-stack = []
-output = ''
+def infix_to_postfix(Eq):
 
-# print(decomosedEq)
+    decomosedEq = Eq.decompose()
 
-for comp in decomosedEq[1]:
-    # print(comp)
-    if comp == '(':
-        stack.append(comp)
-    elif comp == ')':
-        if len(stack) == 0:
-            continue
-        while stack[len(stack)-1] != '(': # Terrible way of doing this, what if there are missmatched brackets?
-            # print(stack[len(stack)-1], stack)
-            output += stack.pop() + ' '
-            print(stack, len(stack)-1)
+    stack = []
+    output = ''
+
+    for comp in decomosedEq[1]:
+        if comp == '(':
+            stack.append(comp)
+        elif comp == ')':
             if len(stack) == 0:
-                print("Mismatching brackets.")
-                exit()
-        if stack[len(stack)-1] == '(':
-            stack.pop()
-        
+                continue
+            while stack[len(stack)-1] != '(':
+                output += stack.pop() + ' '
+                if len(stack) == 0:
+                    print("Mismatching brackets.")
+                    exit()
+            if stack[len(stack)-1] == '(':
+                stack.pop()
 
-    elif not comp in list(operators.keys()):
-        output += comp + ' '
-    else:
-        if len(lsplit(stack, '(')[1]) > 0 and (operators[stack[len(stack)-1]] > operators[comp] or (operators[stack[len(stack)-1]] == operators[comp] and operators_associativity[comp] == 'left')):
-            output += stack.pop() + ' '
-        stack.append(comp)
+        elif not comp in list(OPERATORS.keys()):
+            output += comp + ' '
+        else:
+            if len(lsplit(stack, '(')[1]) > 0 and (OPERATORS[stack[len(stack)-1]] > OPERATORS[comp] or (OPERATORS[stack[len(stack)-1]] == OPERATORS[comp] and OPERATORS_ASSOCIATIVITY[comp] == 'left')):
+                output += stack.pop() + ' '
+            stack.append(comp)
+
+    stack.reverse()
+
+    for comp in stack:
+        if comp != '(':
+            output += comp + ' '
+
+    return output
 
 
-stack.reverse()
-
-for comp in stack:
-    if comp != '(':
-        output += comp + ' '
+Eq = Equation("x=1/(2*2)+(2^4+4)/2", 'x')
+Eq.verify()
 
 
-# output += ''.join([comp for comp in stack if not '('])
-
-
-print(stack, output)
+print(infix_to_postfix(Eq))
