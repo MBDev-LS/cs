@@ -141,7 +141,7 @@ class Equation():
         return self.eq
 
 
-Eq = Equation("x=1/(2*2)(+(2^4+4)/2", 'x')
+Eq = Equation("x=1/(2*2)+(2^4+4)/2", 'x')
 
 if not Eq.verify():
     exit()
@@ -176,7 +176,7 @@ for comp in decomosedEq[1]:
         while stack[len(stack)-1] != '(':
             # print(stack[len(stack)-1], stack)
             output += stack.pop() + ' '
-            print(stack, len(stack)-1)
+            # print(stack, len(stack)-1)
             if len(stack) == 0:
                 print("Mismatching brackets.")
                 exit()
@@ -201,4 +201,4 @@ for comp in stack:
 # output += ''.join([comp for comp in stack if not '('])
 
 
-print(stack, output)
+print(output)
