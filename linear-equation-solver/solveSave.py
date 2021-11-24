@@ -158,7 +158,6 @@ output = ''
 # print(decomosedEq)
 
 for comp in decomosedEq[1]:
-    
     # print(comp)
     if comp == '(':
         stack.append(comp)
@@ -168,22 +167,19 @@ for comp in decomosedEq[1]:
         while stack[len(stack)-1] != '(': # Terrible way of doing this, what if there are missmatched brackets?
             # print(stack[len(stack)-1], stack)
             output += stack.pop() + ' '
+            print(stack, len(stack)-1)
+            if len(stack) == 0:
+                print("Mismatching brackets.")
+                exit()
         if stack[len(stack)-1] == '(':
             stack.pop()
-        if len(stack) == 0:
-            print("There are mismatching brackets in the expression.")
-            exit(1)
+        
 
     elif not comp in list(operators.keys()):
         output += comp + ' '
     else:
-        print(stack, output)
-        print(len(lsplit(stack, '(')[1]) > 0 and (operators[stack[len(stack)-1]] > operators[comp] or (operators[stack[len(stack)-1]] == operators[comp] and operators_associativity[comp] == 'left')))
-        if len(lsplit(stack, '(')[1]) > 0:
-            if (operators[stack[len(stack)-1]] > operators[comp] or (operators[stack[len(stack)-1]] == operators[comp] and operators_associativity[comp] == 'left')):
-                output += stack.pop() + ' '
-        elif len(stack) > 0:
-            stack.append(comp)
+        if len(lsplit(stack, '(')[1]) > 0 and (operators[stack[len(stack)-1]] > operators[comp] or (operators[stack[len(stack)-1]] == operators[comp] and operators_associativity[comp] == 'left')):
+            output += stack.pop() + ' '
         stack.append(comp)
 
 
