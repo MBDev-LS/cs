@@ -40,6 +40,10 @@ class Equation():
             print("The must be at least one character on each side of the '=' sign.")
             return False
 
+        if self.eq.count('(') != self.eq.count(')'):
+            print("Mismatched brackets.")
+            return False
+
         return True
 
     def decompose(self):
@@ -137,8 +141,11 @@ class Equation():
         return self.eq
 
 
-Eq = Equation("x=1/(2*2)+(2^4+4)/2", 'x')
-Eq.verify()
+Eq = Equation("x=1/(2*2)(+(2^4+4)/2", 'x')
+
+if not Eq.verify():
+    exit()
+
 decomosedEq = Eq.decompose()
 
 
@@ -151,7 +158,8 @@ def lsplit(lst, item):
 
 
 operators = {'+': 2, '-': 2, '/': 3, '*': 3, '^': 4}
-operators_associativity = {'+': 'left', '-': 'left', '/': 'left', '*': 'left', '^': 'right'}
+operators_associativity = {'+': 'left', '-': 'left',
+                           '/': 'left', '*': 'left', '^': 'right'}
 stack = []
 output = ''
 
@@ -164,7 +172,8 @@ for comp in decomosedEq[1]:
     elif comp == ')':
         if len(stack) == 0:
             continue
-        while stack[len(stack)-1] != '(': # Terrible way of doing this, what if there are missmatched brackets?
+        # Terrible way of doing this, what if there are missmatched brackets?
+        while stack[len(stack)-1] != '(':
             # print(stack[len(stack)-1], stack)
             output += stack.pop() + ' '
             print(stack, len(stack)-1)
@@ -173,7 +182,6 @@ for comp in decomosedEq[1]:
                 exit()
         if stack[len(stack)-1] == '(':
             stack.pop()
-        
 
     elif not comp in list(operators.keys()):
         output += comp + ' '
