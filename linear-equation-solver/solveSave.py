@@ -150,14 +150,17 @@ def lsplit(lst, item):
     except:
         return [lst, lst]
 
+operators = {'+': 2, '-': 2, '/': 3, '*': 3, '^': 4}
+operators_associativity = {'+': 'left', '-': 'left', '/': 'left', '*': 'left', '^': 'right'}
+
+
+decomosedEq = Eq.decompose()
 
 def infix_to_postfix(Eq):
 
-    decomosedEq = Eq.decompose()
-
     stack = []
     output = ''
-
+    
     for comp in decomosedEq[1]:
         # print(comp)
         if comp == '(':
@@ -165,23 +168,24 @@ def infix_to_postfix(Eq):
         elif comp == ')':
             if len(stack) == 0:
                 continue
-            # Terrible way of doing this, what if there are missmatched brackets?
-            while stack[len(stack)-1] != '(':
+            while stack[len(stack)-1] != '(': # Terrible way of doing this, what if there are missmatched brackets?
                 # print(stack[len(stack)-1], stack)
                 output += stack.pop() + ' '
-                # print(stack, len(stack)-1)
+                print(stack, len(stack)-1)
                 if len(stack) == 0:
                     print("Mismatching brackets.")
                     exit()
             if stack[len(stack)-1] == '(':
                 stack.pop()
+            
 
-        elif not comp in list(OPERATORS.keys()):
+        elif not comp in list(operators.keys()):
             output += comp + ' '
         else:
-            if len(lsplit(stack, '(')[1]) > 0 and (OPERATORS[stack[len(stack)-1]] > OPERATORS[comp] or (OPERATORS[stack[len(stack)-1]] == OPERATORS[comp] and OPERATORS_ASSOCIATIVITY[comp] == 'left')):
+            if len(lsplit(stack, '(')[1]) > 0 and (operators[stack[len(stack)-1]] > operators[comp] or (operators[stack[len(stack)-1]] == operators[comp] and operators_associativity[comp] == 'left')):
                 output += stack.pop() + ' '
             stack.append(comp)
+
 
     stack.reverse()
 
@@ -189,6 +193,10 @@ def infix_to_postfix(Eq):
         if comp != '(':
             output += comp + ' '
 
-    return output
+
+    # output += ''.join([comp for comp in stack if not '('])
+
+
+    print(stack, output)
 
 print(infix_to_postfix(Eq))
