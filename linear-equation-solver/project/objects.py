@@ -2,6 +2,13 @@
 import string
 from config import OPERATORS_STRING, OPERATORS, OPERATORS_ASSOCIATIVITY
 
+def lsplit(lst, item):
+    try:
+        index = lst.index(item)
+        return [lst[:index], lst[index+1:]]
+    except:
+        return [lst, lst]
+
 class Equation():
     def __init__(self, equation: str, var: str):
 
@@ -109,6 +116,24 @@ class Equation():
                     self.right_decomposed.append(num)
 
                 actual_count += 1
+        
+        for comp in self.left_decomposed:
+            if self.var in comp:
+                factors = [char for char in comp]
+                for i in range(1, len(factors)):
+                    factors.insert(i, '*')
+                newlistparts = lsplit(self.left_decomposed, comp)
+                newlist = newlistparts[0] + factors + newlistparts[1]
+                self.left_decomposed = newlist
+
+        for comp in self.right_decomposed:
+            if self.var in comp:
+                factors = [char for char in comp]
+                for i in range(1, len(factors)):
+                    factors.insert(i, '*')
+                newlistparts = lsplit(self.right_decomposed, comp)
+                newlist = newlistparts[0] + factors + newlistparts[1]
+                self.right_decomposed = newlist
 
         return [self.left_decomposed, self.right_decomposed]
 

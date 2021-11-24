@@ -1,5 +1,14 @@
 from config import OPERATORS_STRING, OPERATORS, OPERATORS_ASSOCIATIVITY
 
+
+def lsplit(lst, item):
+    try:
+        index = lst.index(item)
+        return [lst[:index], lst[index+1:]]
+    except:
+        return [lst, lst]
+
+
 def infix_to_postfix(Eq):
 
     decomosedEq = Eq.decompose()
@@ -40,3 +49,38 @@ def infix_to_postfix(Eq):
         results.append(output)
 
     return results
+
+
+def eval_postfix(expression: str, var):
+    expression = expression.replace(' ', '')
+
+    stack = []
+
+    for comp in expression:
+        # print(stack)
+        if comp in OPERATORS.keys():
+            var_in = False
+            operands = [stack.pop(), stack.pop()]
+
+            for i, operand in enumerate(operands):
+                if var in operand:
+                    print(operand)
+                    var_in = True
+                    if operand == var:
+                        operands[i] = 1
+                    else:
+                        factors = operand.split(var)
+                        print('F', factors)
+                        operands[i] = 1
+
+            calc = f"{operands[1]} {comp} {operands[0]}".replace('^', '**')
+            # print(calc)
+            res = eval(calc)
+            stack.append(str(res) + 'x')
+        else:
+            stack.append(comp)
+    # print(stack)
+    return stack[0]
+
+
+print(eval_postfix("1 2 2 * x * 2 * / 2 4 ^ 4 + 2 / + ", 'x'))

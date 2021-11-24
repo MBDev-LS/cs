@@ -5,12 +5,7 @@ from config import OPERATORS_STRING, OPERATORS, OPERATORS_ASSOCIATIVITY
 from notation import infix_to_postfix
 
 
-def lsplit(lst, item):
-    try:
-        index = lst.index(item)
-        return [lst[:index], lst[index+1:]]
-    except:
-        return [lst, lst]
+
 
 
 def get_var_to_one_side(sides, Eq):
@@ -23,7 +18,7 @@ def get_var_to_one_side(sides, Eq):
         return sides
 
 
-Eq = Equation("1x=1/(2*2)+(2^4+4)/2", 'x')
+Eq = Equation("1-1x*4=1/(2*2)+(2x^4+4)/2", 'x')
 Eq.verify()
 
 sides = infix_to_postfix(Eq)
