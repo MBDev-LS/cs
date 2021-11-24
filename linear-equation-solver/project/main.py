@@ -5,9 +5,6 @@ from config import OPERATORS_STRING, OPERATORS, OPERATORS_ASSOCIATIVITY
 from notation import infix_to_postfix
 
 
-
-
-
 def get_var_to_one_side(sides, Eq):
     has_x = []
     for i, expression in enumerate(sides):

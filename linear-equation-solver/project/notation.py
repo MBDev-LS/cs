@@ -1,5 +1,5 @@
 from config import OPERATORS_STRING, OPERATORS, OPERATORS_ASSOCIATIVITY
-
+import math
 
 def lsplit(lst, item):
     try:
@@ -7,6 +7,14 @@ def lsplit(lst, item):
         return [lst[:index], lst[index+1:]]
     except:
         return [lst, lst]
+
+
+def isfloat(value: str):
+    try:
+        float(value)
+        return True
+    except:
+        return False
 
 
 def infix_to_postfix(Eq):
@@ -57,28 +65,38 @@ def eval_postfix(expression: str, var):
     stack = []
 
     for comp in expression:
-        # print(stack)
+        print('Stack:', stack)
         if comp in OPERATORS.keys():
             var_in = False
             operands = [stack.pop(), stack.pop()]
 
             for i, operand in enumerate(operands):
                 if var in operand:
-                    print(operand)
+                    # print(operand)
                     var_in = True
                     if operand == var:
                         operands[i] = 1
                     else:
                         factors = operand.split(var)
+                        for j, factor in enumerate(factors):
+                            if not isfloat(factor):
+                                factors.pop(j)
+                            else:
+                                if factor.isdigit():
+                                    factors[j] = int(factor)
+                                elif isfloat(factor):
+                                    factors[j] = float(factor)
+
                         print('F', factors)
-                        operands[i] = 1
+                        operands[i] = str(math.prod(factors))
 
             calc = f"{operands[1]} {comp} {operands[0]}".replace('^', '**')
+            print(calc)
             # print(calc)
             res = eval(calc)
-            stack.append(str(res) + 'x')
+            stack.append(str(res) + 'x' if var_in else str(res))
         else:
-            stack.append(comp)
+            stack.append(str(comp))
     # print(stack)
     return stack[0]
 
