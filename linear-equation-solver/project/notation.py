@@ -1,6 +1,7 @@
 from config import OPERATORS_STRING, OPERATORS, OPERATORS_ASSOCIATIVITY
 import math
 
+
 def lsplit(lst, item):
     try:
         index = lst.index(item)
@@ -28,6 +29,7 @@ def infix_to_postfix(Eq):
         output = ''
 
         for comp in side:
+            print(comp)
             if comp == '(':
                 stack.append(comp)
             elif comp == ')':
@@ -101,4 +103,4 @@ def eval_postfix(expression: str, var):
     return stack[0]
 
 
-print(eval_postfix("1 2 2 * x * 2 * / 2 4 ^ 4 + 2 / + ", 'x'))
+# print(eval_postfix("1 2 2 * x * 2 * / 2 4 ^ 4 + 2 / + ", 'x'))

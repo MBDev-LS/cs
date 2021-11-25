@@ -123,7 +123,7 @@ class Equation():
                 for i in range(1, len(factors)):
                     factors.insert(i, '*')
                 newlistparts = lsplit(self.left_decomposed, comp)
-                newlist = newlistparts[0] + factors + newlistparts[1]
+                newlist = newlistparts[0] + ['('] + factors + [')'] +  newlistparts[1]
                 self.left_decomposed = newlist
 
         for comp in self.right_decomposed:
@@ -132,7 +132,7 @@ class Equation():
                 for i in range(1, len(factors)):
                     factors.insert(i, '*')
                 newlistparts = lsplit(self.right_decomposed, comp)
-                newlist = newlistparts[0] + factors + newlistparts[1]
+                newlist = newlistparts[0] + ['('] + factors + [')'] +  newlistparts[1]
                 self.right_decomposed = newlist
 
         return [self.left_decomposed, self.right_decomposed]
