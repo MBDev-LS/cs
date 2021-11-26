@@ -18,62 +18,121 @@ def isfloat(value: str):
 		return False
 
 
-def infix_to_postfix(Eq):
+def decompose(expression, var):
+	decomposed = []
 
-	decomosedEq = Eq.decompose()
+	actual_count = 0
+
+	for i, char in enumerate(expression):
+		if not i < actual_count:
+
+			if char in OPERATORS_STRING:
+				decomposed.append(char)
+			elif char.isdigit():
+				num = char
+				c = 1
+				if len(expression)-1 >= i+c:
+					while True and len(expression)-1 >= i+c:
+						# print(i+c, expression)
+						if expression[i+c].isdigit() or expression[i+c] == var:
+							num += expression[i+c]
+						else:
+							break
+						c += 1
+					actual_count = i + (c - 1)
+				decomposed.append(num)
+			elif char == var:
+				num = char
+				c = 1
+				if len(expression)-1 >= i+c:
+					while True and len(expression)-1 >= i+c:
+						# print(i+c, self.left)
+						if expression[i+c].isdigit() or expression[i+c] == var:
+							num += expression[i+c]
+						else:
+							break
+						c += 1
+					actual_count = i + (c - 1)
+				decomposed.append(num)
+
+			actual_count += 1
+
+			actual_count += 1
+	
+	for comp in decomposed:
+		if var in comp:
+			factors = [char for char in comp]
+			for i in range(1, len(factors)):
+				factors.insert(i, '*')
+			newlistparts = lsplit(decomposed, comp)
+			newlist = newlistparts[0] + ['('] + factors + [')'] +  newlistparts[1]
+			decomposed = newlist
+
+	return decomposed
+
+
+def infix_to_postfix(side, var):
+	print('Side: ', side)
+
+	
 	results = []
 
-	for side in decomosedEq:
+	print('e', side)
 
-		stack = []
-		output = ''
+	print('b', side)
 
-		for i, comp in enumerate(side):
-			print(comp)
-			if comp == '(':
-				toeval = ''
-				c = 1
-				bracket_count = 1
-				while bracket_count > 0:
-					print(side, i+c)
-					current_comp = side.pop(i+1)
-					
-					if current_comp == '(':
-						bracket_count += 1
-					elif current_comp == ')':
-						bracket_count -= 1
-					
-					if bracket_count > 0:
-						toeval += current_comp
-					
-					print('e', toeval)
-					c += 1
-				stack.append(comp)
-			elif comp == ')':
+	stack = []
+	output = ''
+
+	for i, comp in enumerate(side):
+		# print(comp)
+		if comp == '(':
+			# print('True')
+			toeval = ''
+			c = 1
+			bracket_count = 1
+			while bracket_count > 0:
+				print(side, i+c)
+				
+				current_comp = side.pop(i+1)
+				
+				if current_comp == '(':
+					bracket_count += 1
+				elif current_comp == ')':
+					bracket_count -= 1
+				
+				if bracket_count > 0:
+					toeval += current_comp
+				
+				# print('e', toeval)
+				c += 1
+			print('Look here:', infix_to_postfix(decompose(toeval, var), var))
+			output.join(infix_to_postfix(decompose(toeval, var), var))
+		elif comp == ')':
+			if len(stack) == 0:
+				continue
+			while stack[len(stack)-1] != '(':
+				output += stack.pop() + ' '
 				if len(stack) == 0:
-					continue
-				while stack[len(stack)-1] != '(':
-					output += stack.pop() + ' '
-					if len(stack) == 0:
-						print("Mismatching brackets.")
-						exit()
-				if stack[len(stack)-1] == '(':
-					stack.pop()
+					print("Mismatching brackets.")
+					exit()
+			if stack[len(stack)-1] == '(':
+				stack.pop()
 
-			elif not comp in list(OPERATORS.keys()):
-				output += comp + ' '
-			else:
-				if len(lsplit(stack, '(')[1]) > 0 and (OPERATORS[stack[len(stack)-1]] > OPERATORS[comp] or (OPERATORS[stack[len(stack)-1]] == OPERATORS[comp] and OPERATORS_ASSOCIATIVITY[comp] == 'left')):
-					output += stack.pop() + ' '
-				stack.append(comp)
+		elif not comp in list(OPERATORS.keys()):
+			output += comp + ' '
+		else:
+			if len(lsplit(stack, '(')[1]) > 0 and (OPERATORS[stack[len(stack)-1]] > OPERATORS[comp] or (OPERATORS[stack[len(stack)-1]] == OPERATORS[comp] and OPERATORS_ASSOCIATIVITY[comp] == 'left')):
+				output += stack.pop() + ' '
+			stack.append(comp)
 
-		stack.reverse()
+	stack.reverse()
 
-		for comp in stack:
-			if comp != '(':
-				output += comp + ' '
+	for comp in stack:
+		if comp != '(':
+			output += comp + ' '
 
-		results.append(output)
+	results.append(output)
 
 	return results
 
@@ -121,3 +180,5 @@ def eval_postfix(expression: str, var):
 
 
 # print(eval_postfix("1 2 2 * x * 2 * / 2 4 ^ 4 + 2 / + ", 'x'))
+
+print(decompose("(2*x)^4+4)", 'x'))

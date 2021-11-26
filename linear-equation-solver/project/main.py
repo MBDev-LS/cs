@@ -17,7 +17,15 @@ def get_var_to_one_side(sides, Eq):
 
 Eq = Equation("1-1x*4=1/(2*2)+(2x^4+4)/2", 'x')
 Eq.verify()
-print(Eq.decompose())
-sides = infix_to_postfix(Eq)
+
+decomosedEq = Eq.decompose()
+sides = []
+for side in decomosedEq:
+    print("Side: ", side)
+    sides.append(infix_to_postfix(side, Eq.var))
+
+# sides = infix_to_postfix(decomosedEq, Eq.var)
+
+
 
 print(get_var_to_one_side(sides, Eq))
