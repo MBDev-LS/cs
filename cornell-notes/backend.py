@@ -28,7 +28,7 @@ def getTopics(subject):
 def loadTopic(subject, topic):
     try:
         topicFile = topic + '.json'
-        with open(NOTE_DIR / subject / topicFile,"rt") as fp:
+        with open(NOTE_DIR / subject / topicFile, "rt") as fp:
             loadedJson = json.loads(fp.read())
             return {"success": True, "topic": loadedJson}
     except:
