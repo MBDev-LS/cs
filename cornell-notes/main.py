@@ -44,7 +44,12 @@ def list_topics():
 		print('\nerror: '+ topic_dict["error"] + '\n')
 
 def review_topic():
-	pass
+	subject = input("Enter the subject of the topic you would like to study: ").rstrip()
+	print(subject, backend.getSubjects()['subjects'])
+	if subject not in [check_subject.lower() for check_subject in backend.getSubjects()['subjects']]:
+		print("Subject not found, you can use the menu to list subjects.")
+		return
+	topic = input(f"Enter the topic in {subject} you would like to review: ")
 
 def quit_function():
 	print("Exiting.")
@@ -64,7 +69,7 @@ def menu(options):
 	
 	return options[int(user_input)-1]
 
-option_functions = {"List subjects": list_subjects, "List Topics": list_topics, "Review Topic": pass_function, "Quit": quit_function}
+option_functions = {"List subjects": list_subjects, "List Topics": list_topics, "Review Topic": review_topic, "Quit": quit_function}
 
 while True:
 	action = menu(list(option_functions.keys()))
