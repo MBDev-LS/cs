@@ -1,11 +1,13 @@
 import backend
 import time
+import random
 
 from pprint import pprint
 
-
 def review_cards(topic_cards):
 	print("Enter 'q' picking a difficulty to exit the topic.")
+	random.shuffle(topic_cards)
+	# print(', '.join(card["question"] for card in topic_cards))
 	for card in topic_cards:
 		print(card)
 		if time.time() < card["meta_data"]["next_review"]:
@@ -23,6 +25,7 @@ def review_cards(topic_cards):
 		time_reviewed = round(time.time())
 		card["meta_data"]["last_reviewed"] = time_reviewed
 		card["meta_data"]["next_review"] = time_reviewed + time_to_wait[int(user_input)-1]
+		print(card)
 
 	return topic_cards
 
@@ -63,6 +66,37 @@ def review_topic():
 	newCardList = review_cards(loadCards[topic]["cards"])
 	backend.saveCards(subject, topic, newCardList)
 
+def review_subject():
+	subject = input("Enter the subject of the topic you would like to study: ").rstrip()
+
+	if subject.lower() not in [check_subject.lower() for check_subject in backend.getSubjects()['subjects']]:
+		print("Subject not found, you can use the menu to list subjects.")
+		return
+	
+	load_result = backend.loadSubjectCards(subject)
+
+	if not load_result["success"]:
+		print("error: " + load_result["error"])
+	
+
+
+	newCardList = review_cards(load_result["subject_cards"])
+	
+	list_of_topics = []
+	for card in newCardList:
+		new_card = True
+		for i, topic_cards in enumerate(list_of_topics):
+			if card["meta_data"]["topic"] == topic_cards[0]["meta_data"]["topic"]:
+				list_of_topics[i].append(card)
+				new_card = False
+		if new_card:
+			list_of_topics.append([card])
+	
+	for topic_cards in list_of_topics:
+		backend.saveCards(subject, topic_cards[0]["meta_data"]["topic"], topic_cards)
+
+
+
 def quit_function():
 	print("Exiting.")
 	exit()
@@ -81,7 +115,7 @@ def menu(options):
 	
 	return options[int(user_input)-1]
 
-option_functions = {"List subjects": list_subjects, "List Topics": list_topics, "Review Topic": review_topic, "Quit": quit_function}
+option_functions = {"List subjects": list_subjects, "List Topics": list_topics, "Review Topic": review_topic, "Review Subject": review_subject, "Quit": quit_function}
 
 while True:
 	action = menu(list(option_functions.keys()))
