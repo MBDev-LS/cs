@@ -1,6 +1,8 @@
 import backend
 import time
 
+from pprint import pprint
+
 
 def review_cards(topic_cards):
 	print("Enter 'q' picking a difficulty to exit the topic.")
@@ -32,6 +34,7 @@ def list_subjects():
 
 def list_topics():
 	subject_to_list = input('Enter the subject that would would like to list of the topics from: ').rstrip()
+
 	topic_dict = backend.getTopics(subject_to_list)
 
 	if topic_dict['success'] == True:
