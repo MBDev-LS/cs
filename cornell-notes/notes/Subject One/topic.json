@@ -4,8 +4,12 @@
     },
     "cards": [
         {
-            "question": "Q",
-            "answer": "A"
+            "meta_data": {
+                "last_reviewed": 1,
+                "next_review": 2
+            },
+            "answer": "A1",
+            "question": "Q1"
         }
     ]
 }
