@@ -2,20 +2,8 @@ import backend
 import time
 
 
-def review_cards(topic_name):
-	# topic_cards = backend.loadTopic()
-	topic_cards = [
-		{"meta_data": {"last_reviewed": 1, "next_review": 2, },
-			"answer": "A1", "question": "Q1"},
-		{"meta_data": {"last_reviewed": 1, "next_review": 2, },
-			"answer": "A2", "question": "Q2"},
-		{"meta_data": {"last_reviewed": 1, "next_review": 2, },
-			"answer": "A3", "question": "Q3"},
-		{"meta_data": {"last_reviewed": 1, "next_review": 2, },
-			"answer": "A4", "question": "Q4"}
-	]
-	print(
-		f"You are now reviewing {topic_name}, enter 'q' picking a difficulty to exit the topic.")
+def review_cards(topic_cards):
+	print("Enter 'q' picking a difficulty to exit the topic.")
 	for card in topic_cards:
 		if not time.time() > card["meta_data"]["next_review"]:
 			continue
@@ -34,12 +22,24 @@ def review_cards(topic_name):
 
 
 def list_subjects():
-	res_dict = backend.getSubjects()
-	if res_dict['success'] == True:
+	subject_dict = backend.getSubjects()
+
+	if subject_dict['success'] == True:
 		print("\nSUBJECT LIST")
-		print(''.join('- ' + subject + '\n' for subject in res_dict["subjects"]))
+		print(''.join('- ' + subject + '\n' for subject in subject_dict["subjects"]))
 	else:
-		print('\nerror: '+ res_dict["error"] + '\n')
+		print('\nerror: '+ subject_dict["error"] + '\n')
+
+def list_topics():
+	subject_to_list = input('Enter the subject that would would like to list of the topics from: ')
+	topic_dict = backend.getTopics(subject_to_list)
+
+	if topic_dict['success'] == True:
+		print(f"\nTOPIC LIST FOR {subject_to_list.upper()}")
+		print(''.join('- ' + subject + '\n' for subject in topic_dict["topics"]))
+	else:
+		print('\nerror: '+ topic_dict["error"] + '\n')
+
 
 def quit_function():
 	print("Exiting.")
@@ -57,7 +57,7 @@ def menu(options):
 		user_input = input("Enter a valid choice: ")
 	return options[int(user_input)-1]
 
-option_functions = {"List subjects": list_subjects, "List Topics": pass_function, "Review Topic": pass_function, "Quit": quit_function}
+option_functions = {"List subjects": list_subjects, "List Topics": list_topics, "Review Topic": pass_function, "Quit": quit_function}
 
 while True:
 	action = menu(list(option_functions.keys()))
