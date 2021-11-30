@@ -3,7 +3,7 @@ import time
 
 
 def review_cards(topic_name):
-	# topic_cards = backend.getTopic()
+	# topic_cards = backend.loadTopic()
 	topic_cards = [
 		{"meta_data": {"last_reviewed": 1, "next_review": 2, },
 			"answer": "A1", "question": "Q1"},
