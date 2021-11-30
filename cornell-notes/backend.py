@@ -25,6 +25,3 @@ def getTopics(subject):
 
 def loadTopic(subject,topic):
 	pass
-
-print(getSubjects())
-print(getTopics("Subjecet One"))
