@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent
 NOTE_DIR = BASE_DIR / 'notes'
 
 def is_injection_path(string_to_check: str):
-    if '..' in string_to_check or '~' in string_to_check:
+    if '..' in string_to_check or '~' in string_to_check or '/' in string_to_check or '\\' in string_to_check:
         return True
     return False
 
