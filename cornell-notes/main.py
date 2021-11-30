@@ -31,11 +31,15 @@ def review_cards(topic_name):
 		time_to_wait = [60, 600, 86400, 345600]
 		card["next_review"] = round(time.time()) + time_to_wait[int(user_input)-1]
 		print(round(time.time()), card["next_review"])
-	
+
 
 def list_subjects():
-	print("\nSUBJECT LIST")
-	print(''.join('- ' + subject + '\n' for subject in backend.getSubjects()))
+	res_dict = backend.getSubjects()
+	if res_dict['success'] == True:
+		print("\nSUBJECT LIST")
+		print(''.join('- ' + subject + '\n' for subject in res_dict["subjects"]))
+	else:
+		print('\nerror: '+ res_dict["error"] + '\n')
 
 def quit_function():
 	print("Exiting.")
