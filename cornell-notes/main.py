@@ -13,7 +13,7 @@ def review_cards(topic_cards):
 		input()
 		print(card["answer"])
 		user_input = input("1: Again, 2: Hard, 3: Good, 4: Easy\n")
-		while user_input not in ["1", "2", "3", "4"]:
+		while user_input not in ["1", "2", "3", "4", "q"]:
 			user_input = input("1: Again, 2: Hard, 3: Good, 4: Easy\n")
 		if user_input == 'q':
 			return
@@ -46,10 +46,16 @@ def list_topics():
 def review_topic():
 	subject = input("Enter the subject of the topic you would like to study: ").rstrip()
 	print(subject, backend.getSubjects()['subjects'])
-	if subject not in [check_subject.lower() for check_subject in backend.getSubjects()['subjects']]:
+	if subject.lower() not in [check_subject.lower() for check_subject in backend.getSubjects()['subjects']]:
 		print("Subject not found, you can use the menu to list subjects.")
 		return
 	topic = input(f"Enter the topic in {subject} you would like to review: ")
+	topics_in_subject = backend.getTopics(subject)
+	if not topic in topics_in_subject:
+		print(f"Topic not found in {subject}.")
+	loadCards = backend.loadTopic(subject, topic)
+	print(loadCards)
+	review_cards(loadCards["topic"]["cards"])
 
 def quit_function():
 	print("Exiting.")
