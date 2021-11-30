@@ -37,3 +37,4 @@ def loadTopic(subject,topic):
             return {"success": False, "error": "the notes directory cannot be found"}
         else:
             return {"success": False, "error": "this topic does not exist"}
+
