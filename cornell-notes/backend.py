@@ -50,3 +50,18 @@ def loadTopic(subject, topic):
             return {"success": False, "error": "the notes directory cannot be found"}
         else:
             return {"success": False, "error": "this topic does not exist"}
+
+def loadSubjectCards(subject):
+    subjectCards = []
+    topicsList = getTopics(subject)
+    if not topicsList["success"]:
+        return {"success": False, "error": topicsList["error"]}
+    for i, fileName in enumerate(topicsList["topics"]):
+        loadedTopic = loadTopic(subject,fileName)
+        if loadedTopic["success"]:
+            subjectCards += loadedTopic["topic"]["cards"]
+        else:
+            return {"success": False, "error": "unknown program error"}
+    return {"success": True, "subject_cards": subjectCards}
+
+print(loadSubjectCards("Subject One"))
