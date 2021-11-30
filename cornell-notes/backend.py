@@ -5,8 +5,11 @@ BASE_DIR = Path(__file__).resolve().parent
 NOTE_DIR = BASE_DIR / 'notes'
 
 def getSubjects():
-	directoryContents = os.listdir(NOTE_DIR/'e')
-	return directoryContents
+	try:
+		directoryContents = os.listdir(NOTE_DIR)
+		return {"success": True, "subjects": directoryContents}
+	except FileNotFoundError:
+		return {"success": False, "error": "the notes directory cannot be found"}
 
 def getTopics(subject):
 	try:
@@ -23,5 +26,5 @@ def getTopics(subject):
 def loadTopic(subject,topic):
 	pass
 
-getSubjects()
+print(getSubjects())
 print(getTopics("Subjecet One"))
