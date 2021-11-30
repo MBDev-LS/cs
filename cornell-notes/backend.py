@@ -25,9 +25,10 @@ def getTopics(subject):
             return {"success": False, "error": "this subject does not exist"}
 
 
-def loadTopic(subject,topic):
+def loadTopic(subject, topic):
     try:
-        with open(NOTE_DIR / subject / topic + '.json',"rt") as fp:
+        topicFile = topic + '.json'
+        with open(NOTE_DIR / subject / topicFile,"rt") as fp:
             loadedJson = json.loads(fp.read())
             return {"success": True, "topic": loadedJson}
     except:
@@ -38,3 +39,4 @@ def loadTopic(subject,topic):
         else:
             return {"success": False, "error": "this topic does not exist"}
 
+print(loadTopic("Subject One", 'topic'))
