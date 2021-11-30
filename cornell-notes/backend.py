@@ -23,9 +23,12 @@ def getTopics(subject):
     elif subject == '':
         return {"success": False, "error": "no subject provided"}
     try:
-        directoryContents = os.listdir(NOTE_DIR / subject)
-        
-        return {"success": True, "topics": [file[:-5] for file in directoryContents]}
+        checkPresence = os.listdir(NOTE_DIR)
+        if subject in checkPresence:
+            directoryContents = os.listdir(NOTE_DIR / subject)
+            return {"success": True, "topics": [file[:-5] for file in directoryContents]}
+        else:
+            return {"success": False, "error": "subject not found"}
     except FileNotFoundError:
         try:
             os.listdir(NOTE_DIR)
@@ -63,5 +66,8 @@ def loadSubjectCards(subject):
         else:
             return {"success": False, "error": "unknown program error"}
     return {"success": True, "subject_cards": subjectCards}
+
+#def saveCards(topic,cards):
+
 
 print(loadSubjectCards("Subject One"))
