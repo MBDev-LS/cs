@@ -1,12 +1,12 @@
 import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+NOTE_DIR = BASE_DIR / 'notes'
 
 def getSubjects():
-	path = os.path.join(os.getcwd(),"cornell-notes","notes")
-	directoryContents = os.listdir(path)
-	for i in range(len(directoryContents)):
-		print(directoryContents[i])
-
-getSubjects()
+	directoryContents = os.listdir(NOTE_DIR)
+	return directoryContents
 
 def getTopics(subject):
 	pass
