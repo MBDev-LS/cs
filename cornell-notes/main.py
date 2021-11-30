@@ -31,7 +31,7 @@ def list_subjects():
 		print('\nerror: '+ subject_dict["error"] + '\n')
 
 def list_topics():
-	subject_to_list = input('Enter the subject that would would like to list of the topics from: ')
+	subject_to_list = input('Enter the subject that would would like to list of the topics from: ').rstrip()
 	topic_dict = backend.getTopics(subject_to_list)
 
 	if topic_dict['success'] == True:
@@ -40,6 +40,8 @@ def list_topics():
 	else:
 		print('\nerror: '+ topic_dict["error"] + '\n')
 
+def review_topic():
+	pass
 
 def quit_function():
 	print("Exiting.")
@@ -52,9 +54,11 @@ def pass_function():
 def menu(options):
 	prompt = '\n'.join([str(i+1) + ' - ' + options[i] for i in range(0, len(options))])
 	print(prompt)
+
 	user_input = input("Enter a valid choice: ")
 	while user_input not in [str(i+1) for i in range(0, len(options))]:
 		user_input = input("Enter a valid choice: ")
+	
 	return options[int(user_input)-1]
 
 option_functions = {"List subjects": list_subjects, "List Topics": list_topics, "Review Topic": pass_function, "Quit": quit_function}
