@@ -5,6 +5,7 @@
     "cards": [
         {
             "meta_data": {
+                "topic": "topic",
                 "last_reviewed": 1,
                 "next_review": 2
             },
@@ -13,6 +14,7 @@
         },
         {
             "meta_data": {
+                "topic": "topic",
                 "last_reviewed": 1,
                 "next_review": 2
             },
@@ -21,6 +23,7 @@
         },
         {
             "meta_data": {
+                "topic": "topic",
                 "last_reviewed": 1,
                 "next_review": 2
             },
@@ -29,6 +32,7 @@
         },
         {
             "meta_data": {
+                "topic": "topic",
                 "last_reviewed": 1,
                 "next_review": 2
             },
