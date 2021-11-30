@@ -7,7 +7,8 @@ from pprint import pprint
 def review_cards(topic_cards):
 	print("Enter 'q' picking a difficulty to exit the topic.")
 	for card in topic_cards:
-		if not time.time() > card["meta_data"]["next_review"]:
+		print(card)
+		if time.time() < card["meta_data"]["next_review"]:
 			continue
 		print(card["question"])
 		input()
@@ -16,11 +17,14 @@ def review_cards(topic_cards):
 		while user_input not in ["1", "2", "3", "4", "q"]:
 			user_input = input("1: Again, 2: Hard, 3: Good, 4: Easy\n")
 		if user_input == 'q':
-			return
+			return topic_cards
 		# 1 minute, 10 minutes, 1 day, 4 days
 		time_to_wait = [60, 600, 86400, 345600]
-		card["next_review"] = round(time.time()) + time_to_wait[int(user_input)-1]
-		print(round(time.time()), card["next_review"])
+		time_reviewed = round(time.time())
+		card["meta_data"]["last_reviewed"] = time_reviewed
+		card["meta_data"]["next_review"] = time_reviewed + time_to_wait[int(user_input)-1]
+
+	return topic_cards
 
 
 def list_subjects():
@@ -51,11 +55,13 @@ def review_topic():
 		return
 	topic = input(f"Enter the topic in {subject} you would like to review: ")
 	topics_in_subject = backend.getTopics(subject)
-	if not topic in topics_in_subject:
+	if not topic in topics_in_subject["topics"]:
 		print(f"Topic not found in {subject}.")
+		return
 	loadCards = backend.loadTopic(subject, topic)
 	print(loadCards)
-	review_cards(loadCards["topic"]["cards"])
+	newCardList = review_cards(loadCards[topic]["cards"])
+	backend.saveCards(subject, topic, newCardList)
 
 def quit_function():
 	print("Exiting.")

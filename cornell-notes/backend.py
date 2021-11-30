@@ -67,7 +67,19 @@ def loadSubjectCards(subject):
             return {"success": False, "error": "unknown program error"}
     return {"success": True, "subject_cards": subjectCards}
 
-#def saveCards(topic,cards):
+def saveCards(subject, topic, cards):
+    checkPresence = os.listdir(NOTE_DIR)
+    if not subject in checkPresence:
+        return {"success": False, "error": "subject not found"}
 
+    directoryContents = os.listdir(NOTE_DIR / subject)
+    fileName = topic + '.json'
+    if fileName not in directoryContents:
+        return {"success": False, "error": f"topic not found in subject '{subject}'"}
+    with open(NOTE_DIR / subject / fileName, 'r') as fp:
+        file_dict = json.loads(fp.read())
+    file_dict["cards"] = cards
+    with open(NOTE_DIR / subject / fileName, 'w') as fp:
+        fp.write(json.dumps(file_dict))
 
-print(loadSubjectCards("Subject One"))
+# print(saveCards("Subject One", "topic", []))
