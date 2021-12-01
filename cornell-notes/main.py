@@ -13,10 +13,15 @@ def seconds_to_days(value):
 
 def proccess_undergrad_card(card, indication):
 	time_reviewed = round(time.time())
+
 	card["meta_data"]["last_reviewed"] = time_reviewed
-	card["meta_data"]["next_review"] = time_reviewed + config.undergrad_intervals[int(indication)-1]
-	card["meta_data"]["interval"] = config.undergrad_intervals[int(indication)-1]
+	card["meta_data"]["interval"] = config.undergrad_changes[indication]["new_interval"]
+	card["meta_data"]["next_review"] = time_reviewed + card["meta_data"]["interval"]
+
+	card["meta_data"]["confidence"] = card["meta_data"]["confidence"] * config.undergrad_changes[indication]["confidence_percentage_change_result"]
 	return card
+
+
 
 def review_cards(topic_cards):
 	print("Enter 'q' picking a difficulty to exit the topic.")
