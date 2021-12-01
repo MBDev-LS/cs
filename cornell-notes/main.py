@@ -12,16 +12,79 @@ def seconds_to_days(value):
 	return value / 86400
 
 def proccess_undergrad_card(card, indication):
+	if (card["metadata"]["last_review_indicator"] == "3" and indication == "3") or indication == "4":
+		card["metadata"]["state"] = "postgrad"
+
 	time_reviewed = round(time.time())
 
-	card["meta_data"]["last_reviewed"] = time_reviewed
-	card["meta_data"]["interval"] = config.undergrad_changes[indication]["new_interval"]
-	card["meta_data"]["next_review"] = time_reviewed + card["meta_data"]["interval"]
+	card["metadata"]["last_reviewed"] = time_reviewed
+	card["metadata"]["interval"] = config.indicator_to_change[indication]["new_interval"]
+	card["metadata"]["next_review"] = time_reviewed + card["metadata"]["interval"]
 
-	card["meta_data"]["confidence"] = card["meta_data"]["confidence"] * config.undergrad_changes[indication]["confidence_percentage_change_result"]
+	card["metadata"]["last_review_indicator"] = indication
+
 	return card
 
 
+testing_result = proccess_undergrad_card({
+            "metadata": {
+                "topic": "topic",
+                "state": "postgrad",
+                "confidence": 250,
+                "interval": 60,
+                "last_reviewed": None,
+                "next_review": None,
+                "last_review_indicator": "3"
+            },
+            "question": "Q",
+            "answer": "A"
+        }, "3")
+
+print('\n')
+
+pprint(testing_result)
+
+print('\n')
+
+
+
+
+def proccess_postgrad_card(card, indication):
+
+	time_reviewed = round(time.time())
+	
+	card["metadata"]["last_reviewed"] = time_reviewed
+	card["metadata"]["next_review"] = time_reviewed + card["metadata"]["interval"]
+
+	if indication == "1":
+		card["metadata"]["state"] == "undergrad"
+		card["metadata"]["interval"] = config.indicator_to_change[indication]["new_interval"]
+	else:
+		card["metadata"]["interval"] = card["metadata"]["interval"] * (card["metadata"]["confidence"] / 100)
+
+	card["metadata"]["confidence"] = card["metadata"]["confidence"] * config.indicator_to_change[indication]["confidence_percentage_change_result"]
+
+	return card
+
+testing_result = proccess_postgrad_card({
+            "metadata": {
+                "topic": "topic",
+                "state": "postgrad",
+                "confidence": 250,
+                "interval": 60,
+                "last_reviewed": None,
+                "next_review": None,
+                "last_review_indicator": "3"
+            },
+            "question": "Q",
+            "answer": "A"
+        }, "3")
+
+print('\n')
+
+pprint(testing_result)
+
+print('\n')
 
 def review_cards(topic_cards):
 	print("Enter 'q' picking a difficulty to exit the topic.")
@@ -31,9 +94,9 @@ def review_cards(topic_cards):
 	for i, card in enumerate(topic_cards):
 		print(card)
 
-		if card["meta_data"]["last_reviewed"] != None:
+		if card["metadata"]["last_reviewed"] != None:
 			print("HAS BEEN REVIEWED")
-			if time.time() < card["meta_data"]["next_review"]:
+			if time.time() < card["metadata"]["next_review"]:
 				print("SKIPPING")
 				continue
 
@@ -49,7 +112,11 @@ def review_cards(topic_cards):
 			return topic_cards
 		
 		# 1 minute, 10 minutes, 1 day, 4 days
-		resulting_cards[i] = proccess_undergrad_card(card, user_indication)
+		if card["metadata"]["state"] == "undergrad":
+			resulting_cards[i] = proccess_undergrad_card(card, user_indication)
+		elif card["metadata"]["state"] == "graduated":
+			resulting_cards[i] = config.indicator_to_change(card, user_indication)
+
 		
 		print(resulting_cards[i])
 
@@ -122,7 +189,7 @@ def review_subject():
 		subject_file_name_index = [check_subject.lower() for check_subject in backend.getSubjects()['subjects']].index(subject.lower())
 		subject_file_name = backend.getSubjects()['subjects'][subject_file_name_index]
 	except:
-		print("error: unknown program error (code: rt01)")
+		print("error: unknown program error (code: rs01)")
 
 	load_result = backend.loadSubjectCards(subject_file_name)
 
@@ -137,7 +204,7 @@ def review_subject():
 	for card in newCardList:
 		new_card = True
 		for i, topic_cards in enumerate(list_of_topics):
-			if card["meta_data"]["topic"] == topic_cards[0]["meta_data"]["topic"]:
+			if card["metadata"]["topic"] == topic_cards[0]["metadata"]["topic"]:
 				list_of_topics[i].append(card)
 				new_card = False
 		if new_card:
@@ -145,7 +212,7 @@ def review_subject():
 	
 	for topic_cards in list_of_topics:
 		print(topic_cards, len(list_of_topics))
-		print(backend.saveCards(subject_file_name, topic_cards[0]["meta_data"]["topic"], topic_cards))
+		print(backend.saveCards(subject_file_name, topic_cards[0]["metadata"]["topic"], topic_cards))
 
 
 
@@ -167,10 +234,14 @@ def menu(options):
 	
 	return options[int(user_input)-1]
 
-option_functions = {"List subjects": list_subjects, "List Topics": list_topics, "Review Topic": review_topic, "Review Subject": review_subject, "Quit": quit_function}
+option_functions = {"List subjects": list_subjects,
+					"List Topics": list_topics,
+					"Review Topic": review_topic,
+					"Review Subject": review_subject,
+					"Quit": quit_function,}
 
-while True:
-	action = menu(list(option_functions.keys()))
-	print()
-	option_functions[action]()
+# while True:
+# 	action = menu(list(option_functions.keys()))
+# 	print()
+# 	option_functions[action]()
 
