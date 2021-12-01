@@ -18,8 +18,6 @@ def proccess_undergrad_card(card, indication):
 	card["meta_data"]["interval"] = config.undergrad_intervals[int(indication)-1]
 	return card
 
-
-
 def review_cards(topic_cards):
 	print("Enter 'q' picking a difficulty to exit the topic.")
 	resulting_cards = topic_cards
@@ -168,5 +166,6 @@ option_functions = {"List subjects": list_subjects, "List Topics": list_topics, 
 
 while True:
 	action = menu(list(option_functions.keys()))
+	print()
 	option_functions[action]()
 

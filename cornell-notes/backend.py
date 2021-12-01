@@ -18,9 +18,9 @@ def getSubjects():
         return {"success": False, "error": "the notes directory cannot be found"}
 
 def getTopics(subject):
-    if is_injection_path(subject):
-        return {"success": False, "error": "forbidden characters detected"}
-    elif subject == '':
+    # if is_injection_path(subject):
+    #     return {"success": False, "error": "forbidden characters detected"}
+    if subject == '':
         return {"success": False, "error": "no subject provided"}
     try:
         checkPresence = os.listdir(NOTE_DIR)
