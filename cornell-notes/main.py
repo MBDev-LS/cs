@@ -48,7 +48,7 @@ def review_cards(topic_cards):
 		# 1 minute, 10 minutes, 1 day, 4 days
 		resulting_cards[i] = proccess_undergrad_card(card, user_indication)
 		
-		print(card)
+		print(resulting_cards[i])
 
 	return resulting_cards
 
@@ -105,7 +105,8 @@ def review_topic():
 		print(f"error: {loadCards['error']}")
 	
 	newCardList = review_cards(loadCards["topic"]["cards"])
-	backend.saveCards(subject, topic, newCardList)
+	print(newCardList)
+	backend.saveCards(subject_file_name, topic_file_name, newCardList)
 
 def review_subject():
 	subject = input("Enter the subject of the topic you would like to study: ").rstrip()
@@ -114,7 +115,13 @@ def review_subject():
 		print("Subject not found, you can use the menu to list subjects.")
 		return
 	
-	load_result = backend.loadSubjectCards(subject)
+	try:
+		subject_file_name_index = [check_subject.lower() for check_subject in backend.getSubjects()['subjects']].index(subject.lower())
+		subject_file_name = backend.getSubjects()['subjects'][subject_file_name_index]
+	except:
+		print("error: unknown program error (code: rt01)")
+
+	load_result = backend.loadSubjectCards(subject_file_name)
 
 	if not load_result["success"]:
 		print("error: " + load_result["error"])
@@ -134,7 +141,8 @@ def review_subject():
 			list_of_topics.append([card])
 	
 	for topic_cards in list_of_topics:
-		backend.saveCards(subject, topic_cards[0]["meta_data"]["topic"], topic_cards)
+		print(topic_cards, len(list_of_topics))
+		print(backend.saveCards(subject_file_name, topic_cards[0]["meta_data"]["topic"], topic_cards))
 
 
 
