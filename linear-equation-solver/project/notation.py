@@ -85,14 +85,13 @@ def infix_to_postfix(side, var):
 	output = ''
 
 	for i, comp in enumerate(side):
-		# print(comp)
 		if comp == '(':
 			# print('True')
 			toeval = ''
 			c = 1
 			bracket_count = 1
 			while bracket_count > 0:
-				print(side, i+c)
+				print('Side & i+c:', side, i+c)
 				
 				current_comp = side.pop(i+1)
 				
@@ -102,10 +101,14 @@ def infix_to_postfix(side, var):
 					bracket_count -= 1
 				
 				if bracket_count > 0:
+					print(current_comp)
 					toeval += current_comp
 				
-				# print('e', toeval)
+				
 				c += 1
+			# if toeval == var:
+			# 	return
+			print('Eval Info:', side, toeval)
 			print('Look here:', infix_to_postfix(decompose(toeval, var), var))
 			output.join(infix_to_postfix(decompose(toeval, var), var))
 		elif comp == ')':
