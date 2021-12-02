@@ -27,9 +27,6 @@ def proccess_undergrad_card(card, indication):
 
 
 
-
-
-
 def proccess_postgrad_card(card, indication):
 
 	time_reviewed = round(time.time())
