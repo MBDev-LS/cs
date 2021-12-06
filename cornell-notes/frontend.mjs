@@ -48,3 +48,39 @@ function process_undergrad_card(card, indication) {
 }
 let processedCard = process_undergrad_card(card,"1")
 console.log(processedCard)
+
+function process_postgrad_card(card, indication){
+    /*time_reviewed = round(time.time())
+    
+    card["metadata"]["last_reviewed"] = time_reviewed
+    card["metadata"]["next_review"] = time_reviewed + card["metadata"]["interval"]
+
+    if indication == "1":
+        card["metadata"]["state"] == "undergrad"
+        card["metadata"]["interval"] = config.indicator_to_change[indication]["new_interval"]
+    else:
+        card["metadata"]["interval"] = card["metadata"]["interval"] * (card["metadata"]["confidence"] / 100)
+
+    card["metadata"]["confidence"] = card["metadata"]["confidence"] * config.indicator_to_change[indication]["confidence_percentage_change_result"]
+
+    return card*/
+
+	let time_reviewed = Math.round(time.getTime());
+
+	card["metadata"]["last_reviewed"] = time_reviewed;
+	card["metadata"]["next_review"] = time_reviewed + card["metadata"]["interval"];
+
+	if (indication == 1){
+		card["metadata"]["state"] = "undergrad";
+		card["metadata"]["interval"] = indicator_to_change[indication]["new_interval"];
+	}
+	else{
+		card["metadata"]["interval"] = card["metadata"]["interval"] * (card["metadata"]["confidence"] / 100);
+	}
+
+	card["metadata"]["confidence"] = card["metadata"]["confidence"] * indicator_to_change[indication]["confidence_percentage_change_result"];
+	return card;
+}
+
+processedCard = process_postgrad_card(card,1);
+console.log(processedCard);
