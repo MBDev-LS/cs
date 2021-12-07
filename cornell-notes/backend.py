@@ -2,20 +2,13 @@ import os
 import json
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent
-NOTE_DIR = BASE_DIR / 'notes'
-
-def is_injection_path(string_to_check: str):
-    if '..' in string_to_check or '~' in string_to_check or '/' in string_to_check or '\\' in string_to_check or ':' in string_to_check:
-        return True
-    return False
-
 def getSubjects():
-    try:
-        directoryContents = os.listdir(NOTE_DIR)
-        return {"success": True, "subjects": directoryContents}
-    except FileNotFoundError:
-        return {"success": False, "error": "the notes directory cannot be found"}
+	path = os.path.join(os.getcwd(),"cornell-notes","notes")
+	directoryContents = os.listdir(path)
+	for i in range(len(directoryContents)):
+		print(directoryContents[i])
+
+getSubjects()
 
 def getTopics(subject):
     # if is_injection_path(subject):
