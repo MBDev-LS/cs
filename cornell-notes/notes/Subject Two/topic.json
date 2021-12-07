@@ -4,53 +4,45 @@
     },
     "cards": [
         {
-            "metadata": {
+            "meta_data": {
                 "topic": "topic",
-                "state": "undergrad",
                 "confidence": 250,
                 "interval": 60,
                 "last_reviewed": null,
-                "next_review": null,
-                "last_review_indicator": null
+                "next_review": null
             },
             "question": "Q1",
             "answer": "A1"
         },
         {
-            "metadata": {
+            "meta_data": {
                 "topic": "topic",
-                "state": "undergrad",
                 "confidence": 250,
                 "interval": 60,
                 "last_reviewed": null,
-                "next_review": null,
-                "last_review_indicator": null
+                "next_review": null
             },
             "question": "Q2",
             "answer": "A2"
         },
         {
-            "metadata": {
+            "meta_data": {
                 "topic": "topic",
-                "state": "undergrad",
                 "confidence": 250,
                 "interval": 60,
                 "last_reviewed": null,
-                "next_review": null,
-                "last_review_indicator": null
+                "next_review": null
             },
             "question": "Q3",
             "answer": "A3"
         },
         {
-            "metadata": {
+            "meta_data": {
                 "topic": "topic",
-                "state": "undergrad",
                 "confidence": 250,
                 "interval": 60,
                 "last_reviewed": null,
-                "next_review": null,
-                "last_review_indicator": null
+                "next_review": null
             },
             "question": "Q4",
             "answer": "A4"
