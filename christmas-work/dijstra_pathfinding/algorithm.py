@@ -60,7 +60,7 @@ for node in node_dict_list:
         # print(node, linked_node)
         node0 = get_node_index_by_name(node['name'], node_list)
         node1 = get_node_index_by_name(linked_node['node'], node_list)
-        if node0 is -1 or node1 is -1:
+        if node0 == -1 or node1 == -1:
             raise('node_dict_list not valid')
         
         node_list[node0].links.append( Link(node_list[node0], node_list[node1], linked_node['weight']) )
@@ -110,3 +110,5 @@ t1 = time.perf_counter()
 print('Shortest Path:', ' -> '.join([node.name for node in final_path]))
 print('Path Length:', final_path[-1].cost)
 print(f'Time Taken (seconds): {t1-t0}')
+
+
