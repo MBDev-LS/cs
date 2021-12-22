@@ -19,7 +19,7 @@ INSTRUCTION_SET = {
 	'DAT': None,
 }
 
-memory = [0 for i in range(0, 99)]
+
 
 line_names = {}
 
@@ -40,11 +40,11 @@ def raise_exception(exception_type, line_num, instruction):
 def proccess_dat(instruction: str, line_num: int, data_info: dict) -> dict:
 	if not "DAT" in instruction.upper():
 		return data_info
-	
+
 	instruction_components = instruction.split(' ')
-	if not instruction_components[len(instruction_components)-1].isdigit() and len(instruction_components) != 1:
-		raise_exception('syntax', line_num, instruction)
-	if len(instruction_components) == 2 and instruction_components[0] == 'DAT':
+	# if not instruction_components[-1].isdigit() and len(instruction_components) != 1:
+	# 	raise_exception('syntax', line_num, instruction)
+	if len(instruction_components) == 2 and (not instruction_components[0].isdigit() or not instruction_components[1].isdigit()):
 		data_info['data_locations'].append(line_num)
 	elif len(instruction_components) == 3 and instruction_components[0] not in INSTRUCTION_SET.keys() and instruction_components[1] == 'DAT':
 		data_info['variables'][instruction_components[0]] = line_num
@@ -53,7 +53,7 @@ def proccess_dat(instruction: str, line_num: int, data_info: dict) -> dict:
 		return data_info
 	else:
 		raise_exception('syntax error', line_num, instruction)
-	
+
 	return data_info
 
 
@@ -64,6 +64,7 @@ def assign_line_names(instruction: str, line_num: int):
 		return ' '.join(instruction.split(' ')[1:])
 	else:
 		return instruction
+
 
 def validate(instruction: str, line_num: int, data_info: dict):
 	instruction_components = instruction.split(' ')
@@ -81,15 +82,17 @@ def translate(instruction: str):
 	translated_instruction = ''
 	instruction_components = instruction.split(' ')
 	print(instruction_components)
-
-	if 'DAT'in instruction.upper():
+	
+	if 'DAT' in instruction.upper():
 		if instruction_components[-1].isdigit():
 			return f'0{int(instruction_components[-1]):02d}'
 		else:
 			return '000'
 
-	translated_instruction += str(INSTRUCTION_SET[instruction_components[0].upper()])
-	translated_instruction += instruction_components[1] if instruction_components[1].isdigit() else f"{data_info['variables'][instruction_components[1]]:02d}"
+	translated_instruction += str(
+		INSTRUCTION_SET[instruction_components[0].upper()])
+	translated_instruction += instruction_components[1] if instruction_components[1].isdigit(
+	) else f"{data_info['variables'][instruction_components[1]]:02d}"
 
 	return translated_instruction
 
@@ -99,7 +102,6 @@ new_instruction_list = []
 for line_num, instruction in enumerate(instruction_list):
 	if 'DAT' in instruction.upper():
 		data_info = proccess_dat(instruction, line_num, data_info)
-
 
 	new_instruction_list.append(assign_line_names(instruction, line_num))
 
@@ -114,4 +116,26 @@ for line_num, instruction in enumerate(instruction_list):
 	else:
 		translated_program_list.append(translate(instruction))
 
-print(translated_program_list)
+
+memory = ['000' for i in range(0, 99)]
+
+for i, translated_instruction in enumerate(translated_program_list):
+	if i <= 99:
+		memory[i] = translated_instruction
+
+buffer_register = ''
+program_counter = 0
+instruction_resgister = 0
+address_register = 0
+accumulator = 0
+
+running = True
+
+while running == True:
+	buffer_register = memory[program_counter]
+	program_counter += 1
+
+	instruction_resgister = int(buffer_register[:1])
+	address_register = int(buffer_register[1:])
+	print(instruction_resgister)
+	running = False

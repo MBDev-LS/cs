@@ -1,4 +1,6 @@
-STA one
-two LDA 99
-one DAT 99
-DAT
+INP
+STA num
+INP
+ADD num
+OUT
+num DAT

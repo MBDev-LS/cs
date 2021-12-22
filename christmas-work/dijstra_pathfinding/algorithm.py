@@ -1,6 +1,6 @@
 
 from math import inf
-from graphs import testing_graph_2 as node_dict_list
+from graphs import initial_testing_graph as node_dict_list
 import time
 
 
