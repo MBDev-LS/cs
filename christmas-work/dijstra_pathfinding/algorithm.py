@@ -1,6 +1,7 @@
 
 from math import inf
-from graphs import testing_graph_3 as node_dict_list
+from graphs import testing_graph_2 as node_dict_list
+import time
 
 class Node:
     active = True
@@ -30,6 +31,9 @@ class Link:
     def __str__(self):
         return f'<link n0={self.node0.name} n1={self.node1.name} weight={self.weight}>'
 
+    def __repr__(self):
+        return f'Link(node0={self.node0}, node1={self.node1}, weight={self.weight})'
+
 def get_node_index_by_name(name: Node, node_list: list):
     for i, node in enumerate(node_list):
         if node.name == name:
@@ -38,6 +42,8 @@ def get_node_index_by_name(name: Node, node_list: list):
 
 def sort_node_list(node_list: list):
     return sorted(node_list, key=lambda n: n.cost, reverse=True)
+
+t0 = time.perf_counter()
 
 node_list = []
 
@@ -99,5 +105,8 @@ while final_path[-1].start is not True:
 
 final_path.reverse()
 
+t1 = time.perf_counter()
+
 print('Shortest Path:', ' -> '.join([node.name for node in final_path]))
 print('Path Length:', final_path[-1].cost)
+print(f'Time Taken (seconds): {t1-t0}')
