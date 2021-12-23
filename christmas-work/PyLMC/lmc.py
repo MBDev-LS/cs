@@ -5,18 +5,19 @@ BASE_DIR = Path(__file__).resolve().parent
 
 
 INSTRUCTION_SET = {
-	'HLT': 0,
-	'ADD': 1,
-	'SUB': 2,
-	'STA': 3,
-	"STO": 3,
-	'LDA': 5,
-	'BRA': 6,
-	'BRZ': 7,
-	'BRP': 8,
-	'INP': 9,
-	'OTC': 9,
-	'DAT': None,
+	'HLT': {'code': '000', 'hardcoded': True},
+	'ADD': {'code': 1, 'hardcoded': False},
+	'SUB': {'code': 2, 'hardcoded': False},
+	'STA': {'code': 3, 'hardcoded': False},
+	"STO": {'code': 3, 'hardcoded': False},
+	'LDA': {'code': 5, 'hardcoded': False},
+	'BRA': {'code': 6, 'hardcoded': False},
+	'BRZ': {'code': 7, 'hardcoded': False},
+	'BRP': {'code': 8, 'hardcoded': False},
+	'INP': {'code': '901', 'hardcoded': True},
+	'OUT': {'code': '902', 'hardcoded': True},
+	'OTC': {'code': 9, 'hardcoded': True},
+	'DAT': {'code': None, 'hardcoded': True},
 }
 
 
@@ -45,8 +46,10 @@ def proccess_dat(instruction: str, line_num: int, data_info: dict) -> dict:
 	# if not instruction_components[-1].isdigit() and len(instruction_components) != 1:
 	# 	raise_exception('syntax', line_num, instruction)
 	if len(instruction_components) == 2 and (not instruction_components[0].isdigit() or not instruction_components[1].isdigit()):
-		data_info['data_locations'].append(line_num)
-	elif len(instruction_components) == 3 and instruction_components[0] not in INSTRUCTION_SET.keys() and instruction_components[1] == 'DAT':
+		if instruction_components[0] not in INSTRUCTION_SET:
+			data_info['data_locations'].append(line_num)
+			data_info['variables'][instruction_components[0]] = line_num
+	elif len(instruction_components) == 3 and instruction_components[0] not in INSTRUCTION_SET and instruction_components[1] == 'DAT':
 		data_info['variables'][instruction_components[0]] = line_num
 		data_info['data_locations'].append(line_num)
 	elif len(instruction_components) == 1 and instruction.rstrip() == 'DAT':
@@ -67,43 +70,54 @@ def assign_line_names(instruction: str, line_num: int):
 
 
 def validate(instruction: str, line_num: int, data_info: dict):
+	print(f'Ran this for line {line_num}')
 	instruction_components = instruction.split(' ')
-	if len(instruction_components) != 2 and 'DAT' not in instruction.upper():
-		raise_exception('bad instruction', line_num, instruction)
-	elif instruction_components[0].upper() not in INSTRUCTION_SET:
+	print(instruction_components)
+	
+	if instruction_components[0].upper() not in INSTRUCTION_SET:
+		print('THIS TRAP')
 		raise_exception('unknown instruction', line_num, instruction)
-	elif not instruction_components[1].isdigit() and instruction_components[1] not in data_info['variables']:
-		raise_exception('unknown address label', line_num, instruction)
-	else:
-		return True
+	elif len(instruction_components) != 2 and not INSTRUCTION_SET[instruction_components[0].upper()]['hardcoded']:
+		raise_exception('bad instruction', line_num, instruction)
+	
+	if len(instruction_components) == 2:
+		print(data_info)
+		if not instruction_components[1].isdigit() and instruction_components[1] not in data_info['variables']:
+			raise_exception('unknown address label', line_num, instruction)
+	return True
 
 
 def translate(instruction: str):
 	translated_instruction = ''
 	instruction_components = instruction.split(' ')
-	print(instruction_components)
+
+	if not INSTRUCTION_SET[instruction_components[0]]['hardcoded']:
+		translated_instruction += str(
+			INSTRUCTION_SET[instruction_components[0].upper()]['code'])
+		translated_instruction += instruction_components[1] if instruction_components[1].isdigit() else f"{data_info['variables'][instruction_components[1]]:02d}"
+
+		return translated_instruction
 	
 	if 'DAT' in instruction.upper():
 		if instruction_components[-1].isdigit():
 			return f'0{int(instruction_components[-1]):02d}'
 		else:
 			return '000'
+	
+	return INSTRUCTION_SET[instruction.upper()]['code']
 
-	translated_instruction += str(
-		INSTRUCTION_SET[instruction_components[0].upper()])
-	translated_instruction += instruction_components[1] if instruction_components[1].isdigit(
-	) else f"{data_info['variables'][instruction_components[1]]:02d}"
-
-	return translated_instruction
 
 
 new_instruction_list = []
 
 for line_num, instruction in enumerate(instruction_list):
 	if 'DAT' in instruction.upper():
+		print(f"RAN FOR LINE {line_num}")
 		data_info = proccess_dat(instruction, line_num, data_info)
 
 	new_instruction_list.append(assign_line_names(instruction, line_num))
+
+print(instruction_list, new_instruction_list)
 
 instruction_list = new_instruction_list
 
@@ -139,3 +153,5 @@ while running == True:
 	address_register = int(buffer_register[1:])
 	print(instruction_resgister)
 	running = False
+
+print(memory)

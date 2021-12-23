@@ -8,7 +8,7 @@ class Node:
 	active = True
 
 	def __init__(self, name: str, links: list = None, start: bool = False, end: bool = False):
-		if start:
+		if start is True:
 			self.cost = 0
 		else:
 			self.cost = inf
