@@ -16,11 +16,9 @@ INSTRUCTION_SET = {
 	'BRP': {'code': 8, 'hardcoded': False},
 	'INP': {'code': '901', 'hardcoded': True},
 	'OUT': {'code': '902', 'hardcoded': True},
-	'OTC': {'code': 9, 'hardcoded': True},
+	'OTC': {'code': '922', 'hardcoded': True},
 	'DAT': {'code': None, 'hardcoded': True},
 }
-
-
 
 line_names = {}
 
@@ -67,13 +65,9 @@ def proccess_dat(instruction: str, line_num: int, data_info: dict) -> dict:
 
 
 def assign_line_names(instruction: str, line_num: int, data_info: dict) -> tuple:
-	print(instruction.upper(), tuple(INSTRUCTION_SET))
-	print(instruction, not instruction.upper().startswith(tuple(INSTRUCTION_SET)))
-	if not instruction.upper().startswith(tuple(INSTRUCTION_SET.keys())):
-		print(instruction)
+	if not instruction.upper().split()[0] in INSTRUCTION_SET:
 		data_info['address_variables'][instruction.split(' ')[0]] = line_num
-
-		print(' '.join(instruction.split(' ')[1:]))
+	
 		return ' '.join(instruction.split(' ')[1:]), data_info
 	else:
 		return instruction, data_info
@@ -106,6 +100,8 @@ def translate(instruction: str):
 	
 	if 'DAT' in instruction.upper():
 		if instruction_components[-1].isdigit():
+			if len(instruction_components[-1]) == 3:
+				return f'{int(instruction_components[-1]):03d}'
 			return f'0{int(instruction_components[-1]):02d}'
 		else:
 			return '000'
@@ -123,9 +119,6 @@ def print_instruction(line_num, instruction):
 			print(f'[{line_num:02d}] {instruction.strip().split()[0].upper()} 00')
 		else:
 			print(f'[{line_num:02d}] {instruction.strip().split()[0].upper()}')
-
-
-
 
 new_instruction_list = []
 
@@ -154,7 +147,7 @@ for line_num, instruction in enumerate(instruction_list):
 	print_instruction(line_num, instruction)
 
 
-memory = ['000' for i in range(0, 99)]
+memory = ['000' for i in range(0, 100)]
 
 for i, translated_instruction in enumerate(translated_program_list):
 	if i <= 99:
@@ -168,13 +161,13 @@ accumulator = 0
 
 running = True
 
-# while running == True:
-# 	buffer_register = memory[program_counter]
-# 	program_counter += 1
+while running == True:
+	buffer_register = memory[program_counter]
+	program_counter += 1
 
-# 	instruction_resgister = int(buffer_register[:1])
-# 	address_register = int(buffer_register[1:])
-# 	print(instruction_resgister)
-# 	running = False
+	instruction_resgister = int(buffer_register[:1])
+	address_register = int(buffer_register[1:])
+	print(instruction_resgister)
+	running = False
 
 print(memory)
