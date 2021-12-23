@@ -1,10 +1,6 @@
 lda space
 sta char
 loop    lda char
-out
-lda space
-otc
-lda char
 otc
 add one
 sta char
@@ -14,5 +10,5 @@ bra loop
 end     hlt
 space   dat 32
 one     dat 1
-max     dat 97
+max     dat 127
 char    dat

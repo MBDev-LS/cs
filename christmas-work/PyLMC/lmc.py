@@ -3,6 +3,99 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
 
+class Lmc:
+	def __init__(self, memory: list) -> None:
+		self.memory = memory
+
+		self.program_counter = 0
+		self.buffer_register = 0
+		self.instruction_register = 0
+		self.address_register = 0
+		self.accumulator = 0
+
+		self.instruction_set = {
+			0: self.HLT,
+			1: self.ADD,
+			2: self.SUB,
+			3: self.STA,
+			# Need to add an error for 4
+			5: self.LDA,
+			6: self.BRA,
+			7: self.BRZ,
+			8: self.BRP,
+			9: self.INP_and_OUT_and_OTC,
+		}
+	
+	def log(self, log_type, log_message, exit_program=False) -> None:
+		print(f'[{log_type}] {log_message}')
+		if exit_program is True:
+			exit()
+
+	def HLT(self) -> None:
+		print('[HLT] Halting LMC.')
+		exit()
+	
+	def ADD(self) -> None:
+		self.accumulator = self.accumulator + int(self.memory[self.address_register])
+	
+	def SUB(self) -> None:
+		self.accumulator = self.accumulator - int(self.memory[self.address_register])
+	
+	def STA(self) -> None:
+		self.memory[self.address_register] = f'{self.accumulator:02d}'
+	
+	def LDA(self) -> None:
+		self.accumulator = int(self.memory[self.address_register])
+
+	def BRA(self) -> None:
+		self.program_counter = self.instruction_register
+	
+	def BRZ(self) -> None:
+		if self.accumulator == 0:
+			self.program_counter = self.instruction_register
+	
+	def BRP(self) -> None:
+		if self.accumulator >= 0:
+			self.program_counter = self.instruction_register
+	
+	def INP_and_OUT_and_OTC(self):
+		if self.address_register == 1:
+			self.INP()
+		elif self.address_register == 2:
+			self.OUT()
+		elif self.address_register == 22:
+			self.OTC()
+
+	def INP(self) -> int:
+		user_input = input('[INP] Enter a numerical input: ')
+		while not user_input.isdigit():
+			print('[INP] Invalid input.')
+			user_input = input('[INP] Enter a numerical input: ')
+		
+		self.accumulator = int(user_input)
+	
+	def OUT(self) -> None:
+		print(f'[OUT] {self.accumulator}')
+	
+	def OTC(self) -> None:
+		print(f'[OTC] {chr(self.accumulator)}')
+	
+	def run_cycle(self) -> None:
+		self.buffer_register = memory[self.program_counter]
+		self.log('BUFFER', f"Setting buffer register to '{self.buffer_register}'")
+
+		self.program_counter += 1
+		self.log('PROGRAM COUNTER', f"Incrementing program counter by one, now: '{self.program_counter}'")
+
+		self.instruction_resgister = int(self.buffer_register[:1])
+		self.log('INSTRUCTION REGISTER', f"Setting instruction resgister to '{self.instruction_resgister}'")
+
+		self.address_register = int(self.buffer_register[1:])
+		self.log('ADDRESS REGISTER', f"Setting address register to '{self.address_register}'")
+
+		self.instruction_set[self.instruction_resgister]()
+		print(self.program_counter, self.accumulator, self.instruction_resgister, self.address_register)
+		print(self.memory)
 
 INSTRUCTION_SET = {
 	'HLT': {'code': '000', 'hardcoded': True},
@@ -67,7 +160,7 @@ def proccess_dat(instruction: str, line_num: int, data_info: dict) -> dict:
 def assign_line_names(instruction: str, line_num: int, data_info: dict) -> tuple:
 	if not instruction.upper().split()[0] in INSTRUCTION_SET:
 		data_info['address_variables'][instruction.split(' ')[0]] = line_num
-	
+
 		return ' '.join(instruction.split(' ')[1:]), data_info
 	else:
 		return instruction, data_info
@@ -153,21 +246,10 @@ for i, translated_instruction in enumerate(translated_program_list):
 	if i <= 99:
 		memory[i] = translated_instruction
 
-buffer_register = ''
-program_counter = 0
-instruction_resgister = 0
-address_register = 0
-accumulator = 0
+print('\n--------------------------------\n')
 
-running = True
+lmc = Lmc(memory)
 
-while running == True:
-	buffer_register = memory[program_counter]
-	program_counter += 1
-
-	instruction_resgister = int(buffer_register[:1])
-	address_register = int(buffer_register[1:])
-	print(instruction_resgister)
-	running = False
-
-print(memory)
+while True:
+	lmc.run_cycle()
+	input()
