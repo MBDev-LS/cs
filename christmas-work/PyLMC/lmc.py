@@ -154,6 +154,15 @@ def get_component_list(instruction: str) -> list:
 	
 	return instruction_components
 
+def remove_comments(intruction: str) -> str:
+	comment_splitted_instruction = intruction.split('//')
+	if len(comment_splitted_instruction) == 1:
+		return intruction
+	else:
+		if comment_splitted_instruction[0].strip() == '':
+			return ''
+		return ''.join(comment_splitted_instruction[:1])
+
 def proccess_dat(instruction: str, line_num: int, data_info: dict) -> dict:
 	if not "DAT" in instruction.upper():
 		return data_info
@@ -231,6 +240,11 @@ def print_instruction(line_num, instruction):
 		else:
 			print(f'[{line_num:02d}] {instruction.strip().split()[0].upper()}')
 
+for i, instruction in enumerate(instruction_list):
+	instruction_list[i] = remove_comments(instruction)
+
+while '' in instruction_list:
+	instruction_list.remove('')
 new_instruction_list = []
 
 for line_num, instruction in enumerate(instruction_list):
