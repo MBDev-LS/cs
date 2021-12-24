@@ -1,5 +1,7 @@
 from pprint import pprint
 from pathlib import Path
+import time
+import json
 
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -111,6 +113,10 @@ class Lmc:
 		self.log('ADDRESS REGISTER', f"Setting address register to '{self.address_register}'")
 
 		print(f'[INSTRUCTION] Now running {self.instruction_set_text[self.instruction_register]} {self.address_register}')
+
+		if self.instruction_register == 4:
+			self.log('exception', 'unknown instruction', True)
+
 		self.instruction_set[self.instruction_register]()
 		print(f'PC: {self.program_counter}, Acc: {self.accumulator}, IR: {self.instruction_register}, MAR: {self.address_register}')
 		print(self.memory)
@@ -141,6 +147,8 @@ data_info = {
 with open(BASE_DIR / 'program.txt', 'rt') as f:
 	instruction_list = f.read().split('\n')
 
+with open(BASE_DIR / 'config.json', 'rt') as f:
+	settings = json.loads(f.read())
 
 def raise_exception(exception_type, line_num, instruction):
 	print(f'exception: {exception_type} on line {line_num}\n> {instruction}')
@@ -282,6 +290,15 @@ print('\n--------------------------------\n')
 
 lmc = Lmc(memory)
 
+1 * 1
+
 while True:
 	lmc.run_cycle()
-	# input()
+	
+	time.sleep(1 / settings["hertz"])
+	
+	if settings["step"] is True:
+		input('Step: ')
+	else:
+		print()
+
