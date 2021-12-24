@@ -25,6 +25,20 @@ class Lmc:
 			8: self.BRP,
 			9: self.INP_and_OUT_and_OTC,
 		}
+
+		self.instruction_set_text = {
+			0: 'HLT',
+			1: 'ADD',
+			2: 'SUB',
+			3: 'STA',
+			5: 'LDA',
+			6: 'BRA',
+			7: 'BRZ',
+			8: 'BRP',
+			9: 'INP_and_OUT_and_OTC',
+		}
+
+		self.out_log = []
 	
 	def log(self, log_type, log_message, exit_program=False) -> None:
 		print(f'[{log_type}] {log_message}')
@@ -33,6 +47,7 @@ class Lmc:
 
 	def HLT(self) -> None:
 		print('[HLT] Halting LMC.')
+		print('[OUT LOG] ' + ' '.join(str(out_object) for out_object in self.out_log))
 		exit()
 	
 	def ADD(self) -> None:
@@ -42,21 +57,21 @@ class Lmc:
 		self.accumulator = self.accumulator - int(self.memory[self.address_register])
 	
 	def STA(self) -> None:
-		self.memory[self.address_register] = f'{self.accumulator:02d}'
+		self.memory[self.address_register] = f'{self.accumulator:03d}'
 	
 	def LDA(self) -> None:
 		self.accumulator = int(self.memory[self.address_register])
 
 	def BRA(self) -> None:
-		self.program_counter = self.instruction_register
+		self.program_counter = self.address_register
 	
 	def BRZ(self) -> None:
 		if self.accumulator == 0:
-			self.program_counter = self.instruction_register
+			self.program_counter = self.address_register
 	
 	def BRP(self) -> None:
 		if self.accumulator >= 0:
-			self.program_counter = self.instruction_register
+			self.program_counter = self.address_register
 	
 	def INP_and_OUT_and_OTC(self):
 		if self.address_register == 1:
@@ -75,9 +90,11 @@ class Lmc:
 		self.accumulator = int(user_input)
 	
 	def OUT(self) -> None:
+		self.out_log.append(self.accumulator)
 		print(f'[OUT] {self.accumulator}')
 	
 	def OTC(self) -> None:
+		self.out_log.append(chr(self.accumulator))
 		print(f'[OTC] {chr(self.accumulator)}')
 	
 	def run_cycle(self) -> None:
@@ -87,14 +104,15 @@ class Lmc:
 		self.program_counter += 1
 		self.log('PROGRAM COUNTER', f"Incrementing program counter by one, now: '{self.program_counter}'")
 
-		self.instruction_resgister = int(self.buffer_register[:1])
-		self.log('INSTRUCTION REGISTER', f"Setting instruction resgister to '{self.instruction_resgister}'")
+		self.instruction_register = int(self.buffer_register[:1])
+		self.log('INSTRUCTION REGISTER', f"Setting instruction register to '{self.instruction_register}'")
 
 		self.address_register = int(self.buffer_register[1:])
 		self.log('ADDRESS REGISTER', f"Setting address register to '{self.address_register}'")
 
-		self.instruction_set[self.instruction_resgister]()
-		print(self.program_counter, self.accumulator, self.instruction_resgister, self.address_register)
+		print(f'[INSTRUCTION] Now running {self.instruction_set_text[self.instruction_register]} {self.address_register}')
+		self.instruction_set[self.instruction_register]()
+		print(f'PC: {self.program_counter}, Acc: {self.accumulator}, IR: {self.instruction_register}, MAR: {self.address_register}')
 		print(self.memory)
 
 INSTRUCTION_SET = {
@@ -252,4 +270,4 @@ lmc = Lmc(memory)
 
 while True:
 	lmc.run_cycle()
-	input()
+	# input()
