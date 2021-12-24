@@ -214,16 +214,15 @@ def validate(instruction: str, line_num: int, data_info: dict):
 			raise_exception('unknown address label', line_num, instruction)
 	return True
 
-
 def translate(instruction: str):
 	translated_instruction = ''
 	instruction_components = get_component_list(instruction)
-
+	
 	if not INSTRUCTION_SET[instruction_components[0].upper()]['hardcoded']:
 		translated_instruction += str(
 			INSTRUCTION_SET[instruction_components[0].upper()]['code'])
 		translated_instruction += instruction_components[1] if instruction_components[1].isdigit() else f"{data_info['address_variables'][instruction_components[1]]:02d}"
-
+	
 		return translated_instruction
 	
 	if 'DAT' in instruction.upper():
@@ -263,12 +262,9 @@ for line_num, instruction in enumerate(instruction_list):
 
 	new_instruction_list.append(new_instruction)
 
-
-
 instruction_list = new_instruction_list
 
 translated_program_list = []
-
 
 for line_num, instruction in enumerate(instruction_list):
 	if 'DAT' not in instruction.upper():
@@ -278,7 +274,6 @@ for line_num, instruction in enumerate(instruction_list):
 		translated_program_list.append(translate(instruction))
 	
 	print_instruction(line_num, instruction)
-
 
 memory = ['000' for i in range(0, 100)]
 
@@ -290,15 +285,12 @@ print('\n--------------------------------\n')
 
 lmc = Lmc(memory)
 
-1 * 1
-
 while True:
 	lmc.run_cycle()
 	
 	time.sleep(1 / settings["hertz"])
-	
+
 	if settings["step"] is True:
 		input('Step: ')
 	else:
 		print()
-
