@@ -154,6 +154,7 @@ def raise_exception(exception_type, line_num, instruction):
 	print(f'exception: {exception_type} on line {line_num}\n> {instruction}')
 	exit()
 
+
 def get_component_list(instruction: str) -> list:
 	instruction_components = instruction.split(' ')
 
@@ -161,6 +162,7 @@ def get_component_list(instruction: str) -> list:
 		instruction_components.remove('')
 	
 	return instruction_components
+
 
 def remove_comments(intruction: str) -> str:
 	comment_splitted_instruction = intruction.split('//')
@@ -214,6 +216,7 @@ def validate(instruction: str, line_num: int, data_info: dict):
 			raise_exception('unknown address label', line_num, instruction)
 	return True
 
+
 def translate(instruction: str):
 	translated_instruction = ''
 	instruction_components = get_component_list(instruction)
@@ -243,6 +246,7 @@ def translate(instruction: str):
 	
 	return INSTRUCTION_SET[instruction.split(' ')[0].upper().replace(' ', '').replace('	', '')]['code']
 
+
 def print_instruction(line_num, instruction):
 	if len(instruction.strip().split()) == 2:
 		if not instruction.strip().split()[1].isdigit():
@@ -254,6 +258,7 @@ def print_instruction(line_num, instruction):
 			print(f'[{line_num:02d}] {instruction.strip().split()[0].upper()} 00')
 		else:
 			print(f'[{line_num:02d}] {instruction.strip().split()[0].upper()}')
+
 
 for i, instruction in enumerate(instruction_list):
 	instruction_list[i] = remove_comments(instruction)
