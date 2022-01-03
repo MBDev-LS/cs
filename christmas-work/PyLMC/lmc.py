@@ -219,8 +219,14 @@ def translate(instruction: str):
 	instruction_components = get_component_list(instruction)
 	
 	if not INSTRUCTION_SET[instruction_components[0].upper()]['hardcoded']:
+		
 		translated_instruction += str(
 			INSTRUCTION_SET[instruction_components[0].upper()]['code'])
+		if instruction_components[1].isdigit():
+			instruction_components[1]
+		else:
+			print(f"{data_info['address_variables'][instruction_components[1]]:02d}")
+
 		translated_instruction += instruction_components[1] if instruction_components[1].isdigit() else f"{data_info['address_variables'][instruction_components[1]]:02d}"
 	
 		return translated_instruction
@@ -232,8 +238,10 @@ def translate(instruction: str):
 			return f'0{int(instruction_components[-1]):02d}'
 		else:
 			return '000'
+	print(INSTRUCTION_SET, instruction)
+
 	
-	return INSTRUCTION_SET[instruction.upper().replace(' ', '').replace('	', '')]['code']
+	return INSTRUCTION_SET[instruction.split(' ')[0].upper().replace(' ', '').replace('	', '')]['code']
 
 def print_instruction(line_num, instruction):
 	if len(instruction.strip().split()) == 2:
