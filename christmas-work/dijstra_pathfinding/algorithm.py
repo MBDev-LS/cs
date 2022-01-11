@@ -118,6 +118,8 @@ final_path.reverse()
 
 t1 = time.perf_counter()
 
+print('Result'.center(40, '='))
+
 print('Shortest Path:', ' -> '.join([node.name for node in final_path]))
 print('Path Length:', final_path[-1].cost)
 print(f'Time Taken (seconds): {t1-t0}')
