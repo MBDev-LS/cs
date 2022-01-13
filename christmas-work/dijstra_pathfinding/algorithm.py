@@ -5,9 +5,8 @@ import time
 
 
 class Node:
-	active = True
-
 	def __init__(self, name: str, links: list = None, start: bool = False, end: bool = False):
+		self.active = True
 		if start is True:
 			self.cost = 0
 		else:
