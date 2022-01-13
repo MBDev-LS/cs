@@ -137,6 +137,33 @@ INSTRUCTION_SET = {
 	'DAT': {'code': None, 'hardcoded': True},
 }
 
+INSTRUCTION_SET = {
+	'LDR': {'code': 1, 'regex_group': 'mGroup'},
+	'STR': {'code': 1, 'regex_group': 'mGroup'},
+	'ADD': {'code': 1, 'regex_group': 'gGroup'},
+	'SUB': {'code': 1, 'regex_group': 'gGroup'},
+	'MOV': {'code': 1, 'regex_group': 'x'},
+	'CMP': {'code': 1, 'regex_group': 'x'},
+	'B': {'code:': 1, 'regex_group': 'x'},
+	'B+': {'cod:e': 1, 'regex_group': 'gGroup'},
+	'AND': {'co:de': 1, 'regex_group': 'gGroup'},
+	'ORR': {'co:de': 1, 'regex_group': 'gGroup'},
+	'EOR': {'co:de': 1, 'regex_group': 'gGroup'},
+	'MVN': {'co:de': 1, 'regex_group': 'x'},
+	'LSL': {'code': 1, 'regex_group': 'gGroup'},
+	'LSR': {'code': 1, 'regex_group': 'gGroup'},
+	'HALT': {'code': 1, 'regex_group': 'x'},
+}
+
+regexTypes = {
+	"mGroup":  r"\sR[0-9]{1,2},\s?[0-9]{1,3}",
+	"gGroup":  r"\sR[0-9]{1,2},\sR[0-9]{1,2},\s?(R[0-9]{1,2}|#\d+)",
+	"b":       r"B\s[a-zA-Z]+",
+	"B+" :     r"B(ET|GT|NE|LT)\s[a-zA-Z]+",
+	"HALT":    r"HALT",
+	"labeles": r"\s*[a-zA-Z]+:",
+}
+
 line_names = {}
 
 data_info = {
