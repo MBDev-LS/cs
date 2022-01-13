@@ -19,7 +19,8 @@ regexDictionary = {
 regexTypes = {
 	"mGroup":  r"\sR[0-9]{1,2},\s?[0-9]{1,3}",
 	"gGroup":  r"\sR[0-9]{1,2},\sR[0-9]{1,2},\s?(R[0-9]{1,2}|#\d+)",
-	"b":       r"B\s[a-zA-Z]+",
+    "lGroup": r"\sR[0-9]{1,2},\s?(R[0-9]{1,2}|#\d+)",
+	"B":       r"B\s[a-zA-Z]+",
 	"B+" :     r"B(ET|GT|NE|LT)\s[a-zA-Z]+",
 	"HALT":    r"HALT",
 	"labeles": r"\s*[a-zA-Z]+:",
