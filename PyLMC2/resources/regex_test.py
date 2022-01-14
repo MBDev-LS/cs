@@ -2,11 +2,11 @@ import regex
 
 import re
 
-print(re.match(r"[A-Z]{3}\sR[0-9]{1,2},\s?([0-9]{1,3})", 'LDR R0, 99'))
-print(re.search(r"'([0-9]{1,3})'", 'LDR R0, 99'))
-print(re.findall(r"[A-Z]{3}\sR[0-9]{1,2},\s?[0-9]{1,3}", 'LDR R0, 99'))
+# print(re.match(r"[A-Z]{3}\sR[0-9]{1,2},\s?([0-9]{1,3})", 'LDR R0, 99'))
+# print(re.search(r"'([0-9]{1,3})'", 'LDR R0, 99'))
+# print(re.findall(r"[A-Z]{3}\sR[0-9]{1,2},\s?[0-9]{1,3}", 'LDR R0, 99'))
 
-print(re.findall(r"\s?[A-Z]{3}", 'LDR R0, 99'))
+# print(re.findall(r"\s?[A-Z]{3}", 'LDR R0, 99'))
 
 INSTRUCTION_SET = {
 	'LDR': {'code': 1, 'regex_group': 'mGroup'},
@@ -46,12 +46,16 @@ def validate(instruction: str, line_num: int): # , data_info: dict
 
 	if INSTRUCTION_SET[instruction_type]['regex_group'] in ['mGroup', 'gGroup']:
 		if re.match(instruction_type + regexTypes[INSTRUCTION_SET[instruction_type]['regex_group']], instruction) is None:
-			return "syntax error"
+			return "syntax error (1)"
+        
+    
+    
 
-	# if re.search(r"'([0-9]{1,3})'", 'LDR R0, 99')
+	# if re.search(9r"'([0-9]{1,3})'", 'LDR R0, 99')
 	
 	return True
 
 # LDR R0, 99
 
-print(validate('LDR R0, 99', 0))
+print(re.search(r"LDR\sR[0-9]{1,2},\s?([0-9]{1,3})", 'LDR R0, 99').group(1))
+print(validate('LDR R0, 9999', 0))
