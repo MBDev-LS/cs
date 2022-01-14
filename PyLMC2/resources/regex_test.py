@@ -27,8 +27,8 @@ INSTRUCTION_SET = {
 }
 
 regexTypes = {
-	"mGroup":  r"\sR[0-9]{1,2},\s?[0-9]{1,3}",
-	"gGroup":  r"\sR[0-9]{1,2},\sR[0-9]{1,2},\s?(R[0-9]{1,2}|#\d+)",
+	"mGroup":  r"\sR(1[0-2]|[0-9]),\s?[0-9]{1,3}",
+	"gGroup":  r"\sR(1[0-2]|[0-9]),\sR(1[0-2]|[0-9]),\s?(R(1[0-2]|[0-9])|#\d+)",
 	"b":       r"B\s[a-zA-Z]+",
 	"B+" :     r"B(ET|GT|NE|LT)\s[a-zA-Z]+",
 	"HALT":    r"HALT",
@@ -47,6 +47,7 @@ def validate(instruction: str, line_num: int): # , data_info: dict
 	if INSTRUCTION_SET[instruction_type]['regex_group'] in ['mGroup', 'gGroup']:
 		if re.match(instruction_type + regexTypes[INSTRUCTION_SET[instruction_type]['regex_group']], instruction) is None:
 			return "syntax error (1)"
+		print(re.match(instruction_type + regexTypes[INSTRUCTION_SET[instruction_type]['regex_group']], instruction).groups())
         
     
     
