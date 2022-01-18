@@ -38,7 +38,6 @@ regexTypes = {
 def validate(instruction: str, line_num: int): # , data_info: dict
 	instruction_type = re.findall(r"\s?[A-Z]{3}\s", instruction)
 
-	
 	if len(instruction_type) == 0 or instruction_type[0][:-1] not in INSTRUCTION_SET:
 		return "bad instruction"
 
@@ -48,10 +47,7 @@ def validate(instruction: str, line_num: int): # , data_info: dict
 		if re.match(instruction_type + regexTypes[INSTRUCTION_SET[instruction_type]['regex_group']], instruction) is None:
 			return "syntax error (1)"
 		print(re.match(instruction_type + regexTypes[INSTRUCTION_SET[instruction_type]['regex_group']], instruction).groups())
-        
     
-    
-
 	# if re.search(9r"'([0-9]{1,3})'", 'LDR R0, 99')
 	
 	return True
