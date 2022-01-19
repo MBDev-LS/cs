@@ -60,6 +60,7 @@ class Table():
 		self.deck = Deck()
 		self.players = []
 		self.totalBet = 0
+		self.table_cards = []
 
 		for name in args:
 			if isinstance(name, str):
@@ -94,11 +95,13 @@ class Table():
 				self.take_bet(player, self.small_blind)
 
 	def flop(self):
-		pass
+		for i in range(3):
+			self.table_cards = self.deck.cards.pop()
 	
 	def __str__(self) -> str:
-		return f'<Table: (deck: {self.deck}) (players: {", ".join([str(player) for player in self.players])})>'
+		return f'<Table: (table cards: {self.table_cards}) (deck: {self.deck}) (players: {", ".join([str(player) for player in self.players])})>'
 
 table = Table(100, 'Jeff', 'Dave', 'Sally', 'Matt')
 table.pre_flop()
+table.flop()
 print(table)
