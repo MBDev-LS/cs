@@ -51,6 +51,9 @@ class Player():
 	
 	def get_cards(self) -> list:
 		return self.cards
+
+	def play_turn(self, currentBet) -> str:
+		pass
 	
 	def __str__(self) -> str:
 		return f'<Player: {self.name}, {", ".join([str(card) for card in self.cards])}>'
@@ -62,12 +65,16 @@ class Table():
 		self.totalBet = 0
 		self.table_cards = []
 
+		
+
 		for name in args:
 			if isinstance(name, str):
 				self.players.append(Player(name, startingBalance))
 
 		self.big_blind = 10
 		self.small_blind = 5
+
+		self.bet = self.small_blind
 	
 	def take_bet(self, player, amount):
 		if player not in self.players:
