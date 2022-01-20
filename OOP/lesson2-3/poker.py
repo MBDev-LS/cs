@@ -1,5 +1,14 @@
 import random
 
+def menu(options):
+	prompt = '\n'.join([str(i+1) + ' - ' + options[i] for i in range(0, len(options))])
+	print(prompt)
+
+	user_input = input("Enter a valid choice: ")
+	while user_input not in [str(i+1) for i in range(0, len(options))]:
+		user_input = input("Enter a valid choice: ")
+	
+	return options[int(user_input)-1]
 
 class Card():
 
@@ -17,7 +26,6 @@ class Card():
 	
 	def __str__(self) -> str:
 		return Card.RANKNAME[self._rank] + self._suit[0]
-
 
 class Deck():
 	def __init__(self) -> None:
@@ -45,15 +53,18 @@ class Player():
 
 	def set_name(self, name) -> None:
 		name = name
-	
+
 	def get_name(self) -> str:
 		self.name
-	
+
 	def get_cards(self) -> list:
 		return self.cards
 
-	def play_turn(self, currentBet) -> str:
-		pass
+	def play_turn(self, currentBet) -> dict:
+		if currentBet > self.balance:
+			print('The bet has been raised to a value higher than your current balance, please choose your next move:')
+			menu(['All in', 'Fold'])
+		
 	
 	def __str__(self) -> str:
 		return f'<Player: {self.name}, {", ".join([str(card) for card in self.cards])}>'
@@ -64,8 +75,6 @@ class Table():
 		self.players = []
 		self.totalBet = 0
 		self.table_cards = []
-
-		
 
 		for name in args:
 			if isinstance(name, str):
@@ -103,8 +112,11 @@ class Table():
 
 	def flop(self):
 		for i in range(3):
-			
 			self.table_cards.append(self.deck.cards.pop())
+		
+		for player in self.players:
+			player.play_turn(self.bet)
+	
 	
 	def __str__(self) -> str:
 		return f'<Table: (table cards: {", ".join([str(card) for card in self.table_cards])}) (deck: {self.deck}) (players: {", ".join([str(player) for player in self.players])})>'

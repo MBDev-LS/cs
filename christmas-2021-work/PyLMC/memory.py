@@ -5,5 +5,5 @@ print(website == pyLmc)
 print(len(website), len(pyLmc))
 
 for i, v in enumerate(website):
-    if v != pyLmc[i]:
-        print(i, pyLmc[i], v)
+	if v != pyLmc[i]:
+		print(i, pyLmc[i], v)

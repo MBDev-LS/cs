@@ -24,4 +24,4 @@ class Withdrawal(Transaction):
 		amount = amount
 
 	def __str__(self) -> str:
-		return f'<Withdrawal: {self.super().datestamp}, {self.amount}'
+		return f'<Withdrawal: {self.super().datestamp}, {self.amount}'#
