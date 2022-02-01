@@ -7,6 +7,7 @@
 # if a plant is withing one square of another it's seeds are less likely to drop.
 
 from random import *
+import copy
 
 SOIL = '.'
 SEED = 'S'
@@ -109,7 +110,9 @@ def SimulateSummer(Field):
 		CountPlants(Field)
 	return Field
 
-def SeedLands(Field, Row, Column): 
+def SeedLands(Field, Row, Column, probability):
+	if not randint(1, 100) <= 100 * probability:
+		return Field
 	if Row >= 0 and Row < FIELDLENGTH and Column >= 0 and Column < FIELDWIDTH: 
 		if Field[Row][Column] == SOIL:
 			Field[Row][Column] = SEED
@@ -127,36 +130,43 @@ def checkDisplay(Field, sx, sy, cx, cy):
 
 def checkSurroundingArea(field, columStartingPoint, rowStartingPoint, areaSize, checkCharacter) -> bool:
 	for RowAdd in range(-areaSize, areaSize+1):
+		
 		for ColumnAdd in range(-areaSize, areaSize+1):
 			if ColumnAdd == 0 and RowAdd == 0:
 				continue
-			elif rowStartingPoint + RowAdd >= FIELDWIDTH or columStartingPoint + ColumnAdd >= FIELDLENGTH:
+			elif rowStartingPoint + RowAdd >= FIELDLENGTH or columStartingPoint + ColumnAdd >= FIELDWIDTH:
 				continue
 			elif rowStartingPoint + RowAdd < 0 or columStartingPoint + ColumnAdd < 0 :
 				continue
+				
+			# print(rowStartingPoint + RowAdd, columStartingPoint + ColumnAdd)
+
 			if field[rowStartingPoint + RowAdd][columStartingPoint + ColumnAdd] == checkCharacter:
+				
 				return True
 
-			checkDisplay(field, columStartingPoint, rowStartingPoint, columStartingPoint + ColumnAdd, rowStartingPoint + RowAdd)
+			# checkDisplay(copy.deepcopy(field), columStartingPoint, rowStartingPoint, columStartingPoint + ColumnAdd, rowStartingPoint + RowAdd)
 	
 	return False
 
 def SimulateAutumn(Field):
-	for Row in range(FIELDLENGTH):
+	for Row in range(FIELDLENGTH): 
 		for Column in range(FIELDWIDTH):
-			print(checkSurroundingArea(Field, Column, Row, 1, ''))
-			print(checkSurroundingArea(Field, Column, Row, 1, '.'))
+			# print(checkSurroundingArea(Field, Column, Row, 1, 'P'))
+			# print(checkSurroundingArea(Field, Column, Row, 1, '.'))
 			
 			if Field[Row][Column] == PLANT:
-				
-				Field = SeedLands(Field, Row - 1, Column - 1)
-				Field = SeedLands(Field, Row - 1, Column)
-				Field = SeedLands(Field, Row - 1, Column + 1)
-				Field = SeedLands(Field, Row, Column - 1)
-				Field = SeedLands(Field, Row, Column + 1)
-				Field = SeedLands(Field, Row + 1, Column - 1)
-				Field = SeedLands(Field, Row + 1, Column)
-				Field = SeedLands(Field, Row + 1, Column + 1)
+				seedChance = 0.7
+				if checkSurroundingArea(Field, Column, Row, 1, 'S') is True:
+					seedChance = 0.4
+				Field = SeedLands(Field, Row - 1, Column - 1, seedChance)
+				Field = SeedLands(Field, Row - 1, Column, seedChance)
+				Field = SeedLands(Field, Row - 1, Column + 1, seedChance)
+				Field = SeedLands(Field, Row, Column - 1, seedChance)
+				Field = SeedLands(Field, Row, Column + 1, seedChance)
+				Field = SeedLands(Field, Row + 1, Column - 1, seedChance)
+				Field = SeedLands(Field, Row + 1, Column, seedChance)
+				Field = SeedLands(Field, Row + 1, Column + 1, seedChance)
 	return Field
 
 def SimulateWinter(Field):

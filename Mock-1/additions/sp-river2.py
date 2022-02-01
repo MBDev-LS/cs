@@ -5,8 +5,6 @@
 
 from random import *
 
-from scipy import rand
-
 SOIL = '.'
 SEED = 'S'
 PLANT = 'P'

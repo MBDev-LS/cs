@@ -4,11 +4,13 @@
 # developed in a Python 3 environment
 
 from random import *
+import math
 
 SOIL = '.'
 SEED = 'S'
 PLANT = 'P'
 ROCKS = 'X'
+RIVER = 'R'
 
 FIELDLENGTH = 20 
 FIELDWIDTH = 35 
@@ -27,6 +29,16 @@ def CreateNewField():
 	Row = FIELDLENGTH // 2
 	Column = FIELDWIDTH // 2
 	Field[Row][Column] = SEED
+	
+	waveAmp = randint(5, 10)
+	y = randint(5, FIELDLENGTH-5)
+	for x in range(0, FIELDWIDTH):
+		sy = math.sin(math.radians(x*18)) * 3 + y
+		print(x, sy)
+		if sy >= FIELDLENGTH or sy <= 0:
+			continue
+		Field[int(sy)][x] = RIVER
+
 	return Field
 
 def ReadFile():   
@@ -106,50 +118,24 @@ def SimulateSummer(Field):
 		CountPlants(Field)
 	return Field
 
-def SeedLands(Field, Row, Column, Wind):
-	if Wind['wind'] is True:
-		if Wind['windAxis'] == 'V':
-			Row += Wind['windStrength']
-		elif Wind['windAxis'] == 'H':
-			Column += Wind['windStrength']
-	
+def SeedLands(Field, Row, Column): 
 	if Row >= 0 and Row < FIELDLENGTH and Column >= 0 and Column < FIELDWIDTH: 
 		if Field[Row][Column] == SOIL:
 			Field[Row][Column] = SEED
 	return Field
 
-def SimulateAutumn(Field):
-	Wind = {'wind': False}
-
-	if randint(1, 1) == 1:
-		Wind = {'wind': True, 'windAxis': f"{choice(['V', 'H'])}", 'windStrength': choice([randint(-4, -1), randint(1, 4)])}
-
-		if Wind['windAxis'] == 'V':
-			if Wind['windStrength'] < 0:
-				direction = 'North'
-			else:
-				direction = 'South'
-		else:
-			if Wind['windStrength'] < 0:
-				direction = 'West'
-			else:
-				direction = 'East'
-
-		print('"An ill wind is blowing."\n- Richmond')
-		print()
-		print(f'A wind of strength {abs(Wind["windStrength"])} is blowing {direction}.')
-
+def SimulateAutumn(Field): 
 	for Row in range(FIELDLENGTH):
 		for Column in range(FIELDWIDTH):
 			if Field[Row][Column] == PLANT:
-				Field = SeedLands(Field, Row - 1, Column - 1, Wind)
-				Field = SeedLands(Field, Row - 1, Column, Wind)
-				Field = SeedLands(Field, Row - 1, Column + 1, Wind)
-				Field = SeedLands(Field, Row, Column - 1, Wind)
-				Field = SeedLands(Field, Row, Column + 1, Wind)
-				Field = SeedLands(Field, Row + 1, Column - 1, Wind)
-				Field = SeedLands(Field, Row + 1, Column, Wind)
-				Field = SeedLands(Field, Row + 1, Column + 1, Wind)
+				Field = SeedLands(Field, Row - 1, Column - 1)
+				Field = SeedLands(Field, Row - 1, Column)
+				Field = SeedLands(Field, Row - 1, Column + 1)
+				Field = SeedLands(Field, Row, Column - 1)
+				Field = SeedLands(Field, Row, Column + 1)
+				Field = SeedLands(Field, Row + 1, Column - 1)
+				Field = SeedLands(Field, Row + 1, Column)
+				Field = SeedLands(Field, Row + 1, Column + 1)
 	return Field
 
 def SimulateWinter(Field):
