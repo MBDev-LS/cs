@@ -13,7 +13,7 @@ ROCKS = 'X'
 RIVER = 'R'
 
 FIELDLENGTH = 20 
-FIELDWIDTH = 100 
+FIELDWIDTH = 35 
 
 def GetHowLongToRun():
 	print('Welcome to the Plant Growing Simulation')
@@ -30,16 +30,11 @@ def CreateNewField():
 	Column = FIELDWIDTH // 2
 	Field[Row][Column] = SEED
 	
-	waveAmp = randint(2, 3)
-	waveLength = choice([15, 18, 20, 24])
+	waveAmp = randint(5, 10)
 	y = randint(5, FIELDLENGTH-5)
 	for x in range(0, FIELDWIDTH):
-		if x*waveLength % 360 == 0:
-			# waveAmp = randint(2, 3)
-			waveLength = choice([15, 18, 20, 24])
-		print('Check:', x*18)
-		sy = math.sin(math.radians(x*waveLength)) * waveAmp + y
-		# print(x, sy)
+		sy = math.sin(math.radians(x*18)) * 3 + y
+		print(x, sy)
 		if sy >= FIELDLENGTH or sy <= 0:
 			continue
 		Field[int(sy)][x] = RIVER
