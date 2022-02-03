@@ -156,36 +156,55 @@ class Snake():
 		'D': (1, 0),
 	}
 	
-	def __init__(self, field) -> None:
+	def __init__(self, field, startingPos) -> None:
 		self.field = field
-		self.body = []
-		self.backCache = ()
+		self.body = [(startingPos[0]-3, startingPos[1]), (startingPos[0]-2, startingPos[1]), (startingPos[0]-1, startingPos[1]), startingPos]
+		self.backCache = (startingPos[0]-4, startingPos[1])
+		self.alive = True
+
+		self.field[self.body[0][1]][self.body[0][0]] = SNAKEBODY
+		self.field[self.body[1][1]][self.body[1][0]] = SNAKEBODY
+		self.field[self.body[2][1]][self.body[2][0]] = SNAKEBODY
+		self.field[self.body[3][1]][self.body[3][0]] = SNAKEHEAD
 
 	
 	def moveSnake(self, move):
-		if move not in Snake.MOVEMENTMODS:
+		if move.upper() not in Snake.MOVEMENTMODS:
 			return
 
-		newHeadPos = (self.body[0][0] + Snake.MOVEMENTMODS[move][0], self.body[0][1] + Snake.MOVEMENTMODS[move][1])
+		newHeadPos = (self.body[-1][0] + Snake.MOVEMENTMODS[move.upper()][0], self.body[-1][1] + Snake.MOVEMENTMODS[move.upper()][1])
 		# Check to see that new coords are in bounds
 		newHeadSquare = self.field[newHeadPos[1]][newHeadPos[1]]
 		if newHeadSquare == SOIL:
 			self.field[self.body[0][1]][self.body[0][0]] = SOIL
+			self.field[self.body[-1][1]][self.body[-1][0]] = SNAKEBODY
+			# print(self.field[self.body[-1][1]][self.body[-1][0]])
 
 			self.backCache = self.body[0]
 			self.body.pop(0)
 
-			self.field[newHeadPos[1]][newHeadPos[1]] = SNAKEHEAD
-		elif newHeadSquare == SEED:
-			self.body.insert(0, self.backCache)
-			self.field[self.backCache[1]][self.backCache[1]]
+			self.body.append(newHeadPos)
 
+			self.field[newHeadPos[1]][newHeadPos[0]] = SNAKEHEAD
+		elif newHeadSquare == SEED:
+			# self.body.insert(0, self.backCache)
+			# self.field[self.backCache[1]][self.backCache[0]] = SNAKEBODY
+
+			self.field[self.body[-1][1]][self.body[-1][0]] = SNAKEBODY
+
+			self.body.append(newHeadPos)
+
+			self.field[newHeadPos[1]][newHeadPos[0]] = SNAKEHEAD
+		else:
+			self.field[newHeadPos[1]][newHeadPos[0]] = DEADSNAKEHEAD
+			self.alive = False
 
 
 def Simulation():
 	YearsToRun = GetHowLongToRun()
 	if YearsToRun != 0:
 		Field = InitialiseField()
+		snake = Snake(Field, (4, FIELDLENGTH-1))
 		if YearsToRun >= 1:
 			for Year in range(1, YearsToRun + 1):
 				SimulateOneYear(Field, Year)
@@ -195,12 +214,15 @@ def Simulation():
 			while Continuing:
 				Year += 1
 				SimulateOneYear(Field, Year)
-				snakeMove = input('Move snake (WASD): ')
-				while snakeMove.upper() not in ['W', 'A', 'S', 'D']:
+
+				if snake.alive is True:
 					snakeMove = input('Move snake (WASD): ')
+					while snakeMove.upper() not in ['W', 'A', 'S', 'D']:
+						snakeMove = input('Move snake (WASD): ')
+					
+					snake.moveSnake(snakeMove)
 				
-				
-				Response = input('Press Enter to run simulation for another Year, Input X to stop: ')
+				Response = '' # input('Press Enter to run simulation for another Year, Input X to stop: ')
 				if Response == 'x' or Response == 'X':
 					Continuing = False
 		print('End of Simulation')
