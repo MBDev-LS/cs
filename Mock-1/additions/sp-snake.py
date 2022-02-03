@@ -199,7 +199,6 @@ class Snake():
 			self.field[newHeadPos[1]][newHeadPos[0]] = DEADSNAKEHEAD
 			self.alive = False
 
-
 def Simulation():
 	YearsToRun = GetHowLongToRun()
 	if YearsToRun != 0:
