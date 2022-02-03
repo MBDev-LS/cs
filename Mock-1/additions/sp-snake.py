@@ -3,17 +3,20 @@
 # written by the AQA AS1 Programmer Team
 # developed in a Python 3 environment
 
+from mimetypes import init
 from random import *
-import math
 
 SOIL = '.'
 SEED = 'S'
 PLANT = 'P'
 ROCKS = 'X'
-RIVER = 'R'
+
+SNAKEBODY = '='
+SNAKEHEAD = '>'
+DEADSNAKEHEAD = '✖'
 
 FIELDLENGTH = 20 
-FIELDWIDTH = 100 
+FIELDWIDTH = 35 
 
 def GetHowLongToRun():
 	print('Welcome to the Plant Growing Simulation')
@@ -29,16 +32,6 @@ def CreateNewField():
 	Row = FIELDLENGTH // 2
 	Column = FIELDWIDTH // 2
 	Field[Row][Column] = SEED
-	
-	waveAmp = randint(5, 10)
-	y = randint(5, FIELDLENGTH-5)
-	for x in range(0, FIELDWIDTH):
-		sy = math.sin(math.radians(x*18)) * 3 + y
-		print(x, sy)
-		if sy >= FIELDLENGTH or sy <= 0:
-			continue
-		Field[int(sy)][x] = RIVER
-
 	return Field
 
 def ReadFile():   
@@ -155,6 +148,40 @@ def SimulateOneYear(Field, Year):
 	Field = SimulateWinter(Field)
 	Display(Field, 'winter', Year)
 
+class Snake():
+	MOVEMENTMODS = {
+		'W': (0, -1),
+		'A': (-1, 0),
+		'S': (0, 1),
+		'D': (1, 0),
+	}
+	
+	def __init__(self, field) -> None:
+		self.field = field
+		self.body = []
+		self.backCache = ()
+
+	
+	def moveSnake(self, move):
+		if move not in Snake.MOVEMENTMODS:
+			return
+
+		newHeadPos = (self.body[0][0] + Snake.MOVEMENTMODS[move][0], self.body[0][1] + Snake.MOVEMENTMODS[move][1])
+		# Check to see that new coords are in bounds
+		newHeadSquare = self.field[newHeadPos[1]][newHeadPos[1]]
+		if newHeadSquare == SOIL:
+			self.field[self.body[0][1]][self.body[0][0]] = SOIL
+
+			self.backCache = self.body[0]
+			self.body.pop(0)
+
+			self.field[newHeadPos[1]][newHeadPos[1]] = SNAKEHEAD
+		elif newHeadSquare == SEED:
+			self.body.insert(0, self.backCache)
+			self.field[self.backCache[1]][self.backCache[1]]
+
+
+
 def Simulation():
 	YearsToRun = GetHowLongToRun()
 	if YearsToRun != 0:
@@ -168,6 +195,11 @@ def Simulation():
 			while Continuing:
 				Year += 1
 				SimulateOneYear(Field, Year)
+				snakeMove = input('Move snake (WASD): ')
+				while snakeMove.upper() not in ['W', 'A', 'S', 'D']:
+					snakeMove = input('Move snake (WASD): ')
+				
+				
 				Response = input('Press Enter to run simulation for another Year, Input X to stop: ')
 				if Response == 'x' or Response == 'X':
 					Continuing = False
