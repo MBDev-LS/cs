@@ -170,7 +170,7 @@ class Snake():
 	def die(self, reason):
 		print(f'Snake died because it {reason}')
 
-		self.field[self.body[-1][1]][self.body[-1][0]] = DEADSNAKEBODY
+		self.field[self.body[-1][1]][self.body[-1][0]] = DEADSNAKEHEAD
 		for bodyBlockPos in self.body[:-1]:
 			self.field[bodyBlockPos[1]][bodyBlockPos[0]] = DEADSNAKEBODY
 
@@ -214,7 +214,7 @@ class Snake():
 		else:
 			print(f"MOVING TO ELSE ({newHeadSquare})")
 			self.die('hit/ate something', newHeadSquare)
-			exit()
+			
 
 def Simulation():
 	YearsToRun = GetHowLongToRun()
@@ -237,10 +237,10 @@ def Simulation():
 						snakeMove = input('Move snake (WASD): ')
 					
 					snake.moveSnake(snakeMove)
-					exit()
+					
 				
 				if snake.alive is False:
-					Response = '' # input('Press Enter to run simulation for another Year, Input X to stop: ')
+					Response = input('Press Enter to run simulation for another Year, Input X to stop: ')
 					if Response == 'x' or Response == 'X':
 						Continuing = False
 		print('End of Simulation')
