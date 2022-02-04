@@ -3,7 +3,6 @@
 # written by the AQA AS1 Programmer Team
 # developed in a Python 3 environment
 
-from curses.ascii import isdigit
 from random import *
 
 SOIL = '.'
