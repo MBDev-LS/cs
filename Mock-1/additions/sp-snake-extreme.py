@@ -19,6 +19,74 @@ DEADSNAKEBODY = ':'
 FIELDLENGTH = 20 
 FIELDWIDTH = 35 
 
+class Snake():
+	MOVEMENTMODS = {
+		'W': (0, -1),
+		'A': (-1, 0),
+		'S': (0, 1),
+		'D': (1, 0),
+	}
+	
+	def __init__(self, field, startingPos) -> None:
+		self.field = field
+		self.body = [(startingPos[0]-3, startingPos[1]), (startingPos[0]-2, startingPos[1]), (startingPos[0]-1, startingPos[1]), startingPos]
+		self.backCache = (startingPos[0]-4, startingPos[1])
+		self.alive = True
+
+		self.field[self.body[0][1]][self.body[0][0]] = SNAKEBODY
+		self.field[self.body[1][1]][self.body[1][0]] = SNAKEBODY
+		self.field[self.body[2][1]][self.body[2][0]] = SNAKEBODY
+		self.field[self.body[3][1]][self.body[3][0]] = SNAKEHEAD
+
+	def die(self, reason):
+		print(f'Snake died because it {reason}')
+
+		self.field[self.body[-1][1]][self.body[-1][0]] = DEADSNAKEBODY
+		for bodyBlockPos in self.body[:-1]:
+			self.field[bodyBlockPos[1]][bodyBlockPos[0]] = DEADSNAKEBODY
+
+		self.alive = False
+
+	def moveSnake(self, move):
+		if move.upper() not in Snake.MOVEMENTMODS:
+			return
+		
+		newHeadPos = (self.body[-1][0] + Snake.MOVEMENTMODS[move.upper()][0], self.body[-1][1] + Snake.MOVEMENTMODS[move.upper()][1])
+		print(f'Moving to position: {newHeadPos}')
+		# Check to see that new coords are in bounds
+		if newHeadPos[0] >= FIELDWIDTH:
+			self.die('was out of bounds (x-axis)', newHeadPos)
+			return
+		elif newHeadPos[1] >= FIELDLENGTH:
+			self.die('was out of bounds (y-axis)')
+			return
+		
+		newHeadSquare = self.field[newHeadPos[1]][newHeadPos[0]]
+		if newHeadSquare == SOIL:
+			print("MOVING TO SOIL")
+			self.field[self.body[0][1]][self.body[0][0]] = SOIL
+			self.field[self.body[-1][1]][self.body[-1][0]] = SNAKEBODY
+			# print(self.field[self.body[-1][1]][self.body[-1][0]])
+
+			self.backCache = self.body[0]
+			self.body.pop(0)
+
+			self.body.append(newHeadPos)
+
+			self.field[newHeadPos[1]][newHeadPos[0]] = SNAKEHEAD
+		elif newHeadSquare == SEED:
+			print("MOVING TO SEED")
+
+			self.field[self.body[-1][1]][self.body[-1][0]] = SNAKEBODY
+
+			self.body.append(newHeadPos)
+
+			self.field[newHeadPos[1]][newHeadPos[0]] = SNAKEHEAD
+		else:
+			print(f"MOVING TO ELSE ({newHeadSquare})")
+			self.die(f'hit/ate {newHeadSquare}')
+			exit()
+
 def GetHowLongToRun():
 	print('Welcome to the Plant Growing Simulation')
 	print()
@@ -139,83 +207,26 @@ def SimulateWinter(Field):
 				Field[Row][Column] = SOIL
 	return Field
 
-def SimulateOneYear(Field, Year):
-	Field = SimulateSpring(Field)
-	# Display(Field, 'spring', Year)
-	Field = SimulateSummer(Field)
-	# Display(Field, 'summer', Year)
-	Field = SimulateAutumn(Field)
-	# Display(Field, 'autumn', Year)
-	Field = SimulateWinter(Field)
-	Display(Field, 'winter', Year)
-
-class Snake():
-	MOVEMENTMODS = {
-		'W': (0, -1),
-		'A': (-1, 0),
-		'S': (0, 1),
-		'D': (1, 0),
+def SimulateOneYear(Field, Year, snake):
+	seasons = {
+		'spring': SimulateSpring,
+		'summer': SimulateSummer,
+		'autumn': SimulateAutumn,
+		'winter': SimulateWinter,
 	}
-	
-	def __init__(self, field, startingPos) -> None:
-		self.field = field
-		self.body = [(startingPos[0]-3, startingPos[1]), (startingPos[0]-2, startingPos[1]), (startingPos[0]-1, startingPos[1]), startingPos]
-		self.backCache = (startingPos[0]-4, startingPos[1])
-		self.alive = True
-
-		self.field[self.body[0][1]][self.body[0][0]] = SNAKEBODY
-		self.field[self.body[1][1]][self.body[1][0]] = SNAKEBODY
-		self.field[self.body[2][1]][self.body[2][0]] = SNAKEBODY
-		self.field[self.body[3][1]][self.body[3][0]] = SNAKEHEAD
-
-	def die(self, reason):
-		print(f'Snake died because it {reason}')
-
-		self.field[self.body[-1][1]][self.body[-1][0]] = DEADSNAKEBODY
-		for bodyBlockPos in self.body[:-1]:
-			self.field[bodyBlockPos[1]][bodyBlockPos[0]] = DEADSNAKEBODY
-
-		self.alive = False
-
-	def moveSnake(self, move):
-		if move.upper() not in Snake.MOVEMENTMODS:
-			return
+	for season in seasons:
 		
-		newHeadPos = (self.body[-1][0] + Snake.MOVEMENTMODS[move.upper()][0], self.body[-1][1] + Snake.MOVEMENTMODS[move.upper()][1])
-		print(f'Moving to position: {newHeadPos}')
-		# Check to see that new coords are in bounds
-		if newHeadPos[0] >= FIELDWIDTH:
-			self.die('was out of bounds (x-axis)', newHeadPos)
-			return
-		elif newHeadPos[1] >= FIELDLENGTH:
-			self.die('was out of bounds (y-axis)')
-			return
-		
-		newHeadSquare = self.field[newHeadPos[1]][newHeadPos[0]]
-		if newHeadSquare == SOIL:
-			print("MOVING TO SOIL")
-			self.field[self.body[0][1]][self.body[0][0]] = SOIL
-			self.field[self.body[-1][1]][self.body[-1][0]] = SNAKEBODY
-			# print(self.field[self.body[-1][1]][self.body[-1][0]])
+		Field = seasons[season](Field)
+		Display(Field, season, Year)
 
-			self.backCache = self.body[0]
-			self.body.pop(0)
+		if snake.alive is True:
+			snakeMove = input('Move snake (WASD): ')
+			while snakeMove.upper() not in ['W', 'A', 'S', 'D']:
+				snakeMove = input('Move snake (WASD): ')
+			
+			snake.moveSnake(snakeMove)
 
-			self.body.append(newHeadPos)
 
-			self.field[newHeadPos[1]][newHeadPos[0]] = SNAKEHEAD
-		elif newHeadSquare == SEED:
-			print("MOVING TO SEED")
-
-			self.field[self.body[-1][1]][self.body[-1][0]] = SNAKEBODY
-
-			self.body.append(newHeadPos)
-
-			self.field[newHeadPos[1]][newHeadPos[0]] = SNAKEHEAD
-		else:
-			print(f"MOVING TO ELSE ({newHeadSquare})")
-			self.die('hit/ate something', newHeadSquare)
-			exit()
 
 def Simulation():
 	YearsToRun = GetHowLongToRun()
@@ -230,20 +241,13 @@ def Simulation():
 			Year = 0
 			while Continuing:
 				Year += 1
-				SimulateOneYear(Field, Year)
+				SimulateOneYear(Field, Year, snake)
 
-				if snake.alive is True:
-					snakeMove = input('Move snake (WASD): ')
-					while snakeMove.upper() not in ['W', 'A', 'S', 'D']:
-						snakeMove = input('Move snake (WASD): ')
-					
-					snake.moveSnake(snakeMove)
-					exit()
 				
-				if snake.alive is False:
-					Response = '' # input('Press Enter to run simulation for another Year, Input X to stop: ')
-					if Response == 'x' or Response == 'X':
-						Continuing = False
+				
+				Response = '' # input('Press Enter to run simulation for another Year, Input X to stop: ')
+				if Response == 'x' or Response == 'X':
+					Continuing = False
 		print('End of Simulation')
 	input()
 
