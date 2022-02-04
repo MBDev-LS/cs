@@ -30,7 +30,7 @@ def CreateNewField():
 	Column = FIELDWIDTH // 2
 	Field[Row][Column] = SEED
 	
-	waveAmp = randint(5, 10)
+	waveAmp = randint(2, 5)
 	y = randint(5, FIELDLENGTH-5)
 	for x in range(0, FIELDWIDTH):
 		sy = math.sin(math.radians(x*18)) * 3 + y
