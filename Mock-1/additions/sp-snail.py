@@ -44,7 +44,6 @@ def spawnSnails(field):
 	return field
 
 
-
 def CreateNewField(): 
 	Field = [[SOIL for Column in range(FIELDWIDTH)] for Row in range(FIELDLENGTH)]
 	Row = FIELDLENGTH // 2
