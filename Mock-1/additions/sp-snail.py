@@ -24,6 +24,18 @@ def GetHowLongToRun():
 	Years = int(input('Enter a number between 0 and 5, or -1 for stepping mode: '))
 	return Years
 
+class Snail():
+	def __init__(self, position: tuple, sex: str, field) -> None:
+		self.position = position
+		self.sex = sex
+		self.field = field
+	
+	def move(self, numberOfMoves: int=1) -> None:
+		pass
+	
+	def attemptToMate(self):
+		pass
+
 def spawnSnails(field):
 	snail1 = (randint(1, FIELDWIDTH-1), randint(1, FIELDLENGTH-1))
 
