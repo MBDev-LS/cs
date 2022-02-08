@@ -30,8 +30,10 @@ class Snail():
 		self.sex = sex
 		self.field = field
 	
-	def move(self, moves):
-		pass
+	def move(self, newPosition: tuple):
+		self.field[self.position[1]][self.position[0]] = SOIL
+		self.field[newPosition[1]][newPosition[0]] = SOIL
+		self.position = newPosition
 
 	def layEggs(self):
 		pass
@@ -44,16 +46,18 @@ class Snail():
 def spawnSnails(field):
 	snail1 = Snail((randint(1, FIELDWIDTH-1), randint(1, FIELDLENGTH-1)), 'f', field)
 
-	maxSnailBoundryXLeft = snail1.position[0]
-	maxSnailBoundryXRight = FIELDWIDTH - snail1.position[0]
+	maxSnailBoundryXRight = min([snail1.position[0] + 5, FIELDWIDTH - 1])
+	maxSnailBoundryXLeft = max([snail1.position[0] - 5, 0])
+	print(maxSnailBoundryXLeft, maxSnailBoundryXRight)
 
-	maxSnailBoundryYLeft = snail1.position[1]
-	maxSnailBoundryYRight = FIELDLENGTH - snail1.position[1]
+	maxSnailBoundryYBottom = min([snail1.position[1] + 5, FIELDLENGTH - 1])
+	maxSnailBoundryYTop = max([snail1.position[1] - 5, 0])
+	print(maxSnailBoundryYBottom, maxSnailBoundryYTop)
 
-	snail2X = choice([i for i in range(-maxSnailBoundryXLeft, maxSnailBoundryXRight) if i not in [0]]) # Needs to be modified so snail cannot spawn in the centre (on the first plant)
-	snail2Y = choice([i for i in range(-maxSnailBoundryYLeft, maxSnailBoundryYRight) if i not in [0]]) # Needs to be modified so snail cannot spawn in the centre (on the first plant)
-
-	snail2 = Snail((snail1.position[0]+snail2X, snail1.position[1]+snail2Y), 'm', field)
+	snail2X = choice([i for i in range(maxSnailBoundryXLeft, maxSnailBoundryXRight) if i not in [0]]) # Needs to be modified so snail cannot spawn in the centre (on the first plant)
+	snail2Y = choice([i for i in range(maxSnailBoundryYTop, maxSnailBoundryYBottom) if i not in [0]]) # Needs to be modified so snail cannot spawn in the centre (on the first plant)
+	print(snail2X, snail2Y)
+	snail2 = Snail((snail2X, snail2Y), 'm', field)
 	
 	field[snail1.position[1]][snail1.position[0]] = SNAIL
 	field[snail2.position[1]][snail2.position[0]] = SNAIL
