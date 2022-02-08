@@ -138,7 +138,7 @@ def checkSurroundingArea(field, columStartingPoint, rowStartingPoint, areaSize, 
 				continue
 			elif rowStartingPoint + RowAdd < 0 or columStartingPoint + ColumnAdd < 0 :
 				continue
-				
+
 			# print(rowStartingPoint + RowAdd, columStartingPoint + ColumnAdd)
 
 			if field[rowStartingPoint + RowAdd][columStartingPoint + ColumnAdd] == checkCharacter:

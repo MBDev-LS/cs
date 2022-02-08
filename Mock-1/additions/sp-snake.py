@@ -213,7 +213,7 @@ class Snake():
 			self.field[newHeadPos[1]][newHeadPos[0]] = SNAKEHEAD
 		else:
 			print(f"MOVING TO ELSE ({newHeadSquare})")
-			self.die('hit/ate something', newHeadSquare)
+			self.die('hit/ate something')
 			
 
 def Simulation():
