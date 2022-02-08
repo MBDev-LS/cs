@@ -25,33 +25,42 @@ def GetHowLongToRun():
 	return Years
 
 class Snail():
-	def __init__(self, position: tuple, sex: str, field) -> None:
+	def __init__(self, position: tuple, sex: str, field: str) -> None:
 		self.position = position
 		self.sex = sex
 		self.field = field
 	
-	def move(self, numberOfMoves: int=1) -> None:
+	def move(self, newPosition: tuple):
+		self.field[self.position[1]][self.position[0]] = SOIL
+		self.field[newPosition[1]][newPosition[0]] = SOIL
+		self.position = newPosition
+
+	def layEggs(self):
 		pass
-	
-	def attemptToMate(self):
-		pass
+
+	def attemptsToMate(self):
+		if self.sex == 'f':
+			self.layEggs()
+
 
 def spawnSnails(field):
-	snail1 = (randint(1, FIELDWIDTH-1), randint(1, FIELDLENGTH-1))
+	snail1 = Snail((randint(1, FIELDWIDTH-1), randint(1, FIELDLENGTH-1)), 'f', field)
 
-	maxSnailBoundryXLeft = snail1[0]
-	maxSnailBoundryXRight = FIELDWIDTH - snail1[0]
+	maxSnailBoundryXRight = min([snail1.position[0] + 5, FIELDWIDTH - 1])
+	maxSnailBoundryXLeft = max([snail1.position[0] - 5, 0])
+	print(maxSnailBoundryXLeft, maxSnailBoundryXRight)
 
-	maxSnailBoundryYLeft = snail1[1]
-	maxSnailBoundryYRight = FIELDLENGTH - snail1[1]
+	maxSnailBoundryYBottom = min([snail1.position[1] + 5, FIELDLENGTH - 1])
+	maxSnailBoundryYTop = max([snail1.position[1] - 5, 0])
+	print(maxSnailBoundryYBottom, maxSnailBoundryYTop)
 
-	snail2X = choice([i for i in range(-maxSnailBoundryXLeft, maxSnailBoundryXRight) if i not in [0]]) # Needs to be modified so snail cannot spawn in the centre (on the first plant)
-	snail2Y = choice([i for i in range(-maxSnailBoundryYLeft, maxSnailBoundryYRight) if i not in [0]]) # Needs to be modified so snail cannot spawn in the centre (on the first plant)
-
-	snail2 = (snail1[0]+snail2X, snail1[1]+snail2Y)
+	snail2X = choice([i for i in range(maxSnailBoundryXLeft, maxSnailBoundryXRight) if i not in [0]]) # Needs to be modified so snail cannot spawn in the centre (on the first plant)
+	snail2Y = choice([i for i in range(maxSnailBoundryYTop, maxSnailBoundryYBottom) if i not in [0]]) # Needs to be modified so snail cannot spawn in the centre (on the first plant)
+	print(snail2X, snail2Y)
+	snail2 = Snail((snail2X, snail2Y), 'm', field)
 	
-	field[snail1[1]][snail1[0]] = SNAIL
-	field[snail2[1]][snail2[0]] = SNAIL
+	field[snail1.position[1]][snail1.position[0]] = SNAIL
+	field[snail2.position[1]][snail2.position[0]] = SNAIL
 
 	return field
 
