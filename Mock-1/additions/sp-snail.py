@@ -32,8 +32,31 @@ class Snail():
 	
 	def move(self, newPosition: tuple):
 		self.field[self.position[1]][self.position[0]] = SOIL
-		self.field[newPosition[1]][newPosition[0]] = SOIL
+		self.field[newPosition[1]][newPosition[0]] = SNAIL
 		self.position = newPosition
+	
+	def randMove(self):
+		print('randMove Running')
+		maxSnailBoundryXRight = min([self.position[0] + 5, FIELDWIDTH - 1])
+		maxSnailBoundryXLeft = max([self.position[0] - 5, 0])
+		print(maxSnailBoundryXLeft, maxSnailBoundryXRight)
+
+		maxSnailBoundryYBottom = min([self.position[1] + 5, FIELDLENGTH - 1])
+		maxSnailBoundryYTop = max([self.position[1] - 5, 0])
+		print(maxSnailBoundryYTop, maxSnailBoundryYBottom)
+
+		movementOptions = []
+		for x in range(maxSnailBoundryXLeft, maxSnailBoundryXRight):
+			for y in range(maxSnailBoundryYTop, maxSnailBoundryYBottom):
+				if self.field[y][x] == SOIL:
+					movementOptions.append((x, y))
+
+		print(movementOptions)
+		
+		if len(movementOptions) == 0:
+			return
+		
+		self.move(choice(movementOptions))
 
 	# def layEggs(self):
 	# 	pass
@@ -62,7 +85,7 @@ def spawnSnails(field):
 	field[snail1.position[1]][snail1.position[0]] = SNAIL
 	field[snail2.position[1]][snail2.position[0]] = SNAIL
 
-	return field
+	return field, snail1, snail2
 
 
 def CreateNewField(): 
@@ -71,8 +94,8 @@ def CreateNewField():
 	Column = FIELDWIDTH // 2
 	Field[Row][Column] = SEED
 	
-	Field = spawnSnails(Field)
-	return Field
+	field, snail1, snail2 = spawnSnails(Field)
+	return field, snail1, snail2
 
 def ReadFile():   
 	FileName = input('Enter file name: ')
@@ -88,7 +111,7 @@ def ReadFile():
 		Field = CreateNewField()
 	return Field
 
-def InitialiseField(): 
+def InitialiseField():
 	Response = input('Do you want to load a file with seed positions? (Y/N): ')
 	if Response == 'Y':
 		Field = ReadFile()
@@ -118,7 +141,7 @@ def CountPlants(Field):
 def SimulateSpring(Field):
 	for Row in range(FIELDLENGTH):
 		for Column in range(FIELDWIDTH):
-			if Field[Row][Column] == SEED:  
+			if Field[Row][Column] == SEED:
 				Field[Row][Column] = PLANT
 	CountPlants(Field)
 	if randint(0, 1) == 1:
@@ -187,11 +210,12 @@ def SimulateOneYear(Field, Year):
 	Display(Field, 'autumn', Year)
 	Field = SimulateWinter(Field)
 	Display(Field, 'winter', Year)
+	
 
 def Simulation():
 	YearsToRun = GetHowLongToRun()
 	if YearsToRun != 0:
-		Field = InitialiseField()
+		Field, snail1, snail2 = InitialiseField()
 		if YearsToRun >= 1:
 			for Year in range(1, YearsToRun + 1):
 				SimulateOneYear(Field, Year)
@@ -201,6 +225,8 @@ def Simulation():
 			while Continuing:
 				Year += 1
 				SimulateOneYear(Field, Year)
+				snail1.randMove()
+				snail2.randMove()
 				Response = input('Press Enter to run simulation for another Year, Input X to stop: ')
 				if Response == 'x' or Response == 'X':
 					Continuing = False
@@ -208,4 +234,4 @@ def Simulation():
 	input()
 
 if __name__ == "__main__":
-	Simulation()      
+	Simulation()
