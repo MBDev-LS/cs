@@ -58,13 +58,7 @@ class Snail():
 		
 		self.move(choice(movementOptions))
 
-	# def layEggs(self):
-	# 	pass
-
-	# def attemptsToMate(self):
-	# 	if self.sex == 'f':
-	# 		self.layEggs()
-
+		self.attemptToMates()
 
 def spawnSnails(field):
 	snail1 = Snail((randint(1, FIELDWIDTH-1), randint(1, FIELDLENGTH-1)), 'f', field)
