@@ -35,12 +35,12 @@ class Snail():
 		self.field[newPosition[1]][newPosition[0]] = SOIL
 		self.position = newPosition
 
-	def layEggs(self):
-		pass
+	# def layEggs(self):
+	# 	pass
 
-	def attemptsToMate(self):
-		if self.sex == 'f':
-			self.layEggs()
+	# def attemptsToMate(self):
+	# 	if self.sex == 'f':
+	# 		self.layEggs()
 
 
 def spawnSnails(field):
