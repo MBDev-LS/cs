@@ -14,5 +14,3 @@ class Topic():
                 'ratingGiven': int(),
             }
         ]
-
-
