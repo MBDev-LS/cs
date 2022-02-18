@@ -3,11 +3,9 @@
 # written by the AQA AS1 Programmer Team
 # developed in a Python 3 environment
 
+from platform import node
 from random import *
 from math import inf
-from uuid import getnode
-from xml.dom.minicompat import NodeList
-
 SOIL = '.'
 SEED = 'S'
 PLANT = 'P'
@@ -35,7 +33,7 @@ class FieldNode():
 		self.links.append(link)
 	
 	def __str__(self) -> str:
-		return f'<Node {self.coords} [{", ".join([str(link.node1.coords) + ": " + str(link.weight) for link in self.links])}] ({self.cost})>'
+		return f'<Node {self.coords} [{", ".join([str(link.node1.coords) + ": " + str(link.weight) for link in self.links])}] ({self.cost}) ({self.previous_node.coords if self.previous_node != None else self.previous_node})>'
 	
 	def __repr__(self) -> str:
 		return f'Node(coord={self.coords}, links={self.links}, start={self.start}, end={self.end})'
@@ -106,9 +104,8 @@ def GetHowLongToRun():
 	return Years
 
 class Animal():
-	def __init__(self, position: tuple, sex: str, field: str) -> None:
+	def __init__(self, position: tuple, field: str) -> None:
 		self.position = position
-		self.sex = sex
 		self.field = field
 	
 	def move(self, newPosition: tuple):
@@ -139,9 +136,56 @@ class Animal():
 		
 		self.move(choice(movementOptions))
 
+def getStart(nodeList: list):
+	for node in nodeList:
+		if node.start is True:
+			return node
+	
+	return None
+
+def getEnd(nodeList: list):
+	for node in nodeList:
+		if node.end is True:
+			return node
+	
+	return None
+
+def calculateShortestPath(field, nodeList):
+	frontier = nodeList
+	reached = []
+
+	frontier = []
+	frontier.append(getStart(nodeList))
+	reached = set()
+	reached.add(getStart(nodeList))
+
+	while not len(frontier) == 0:
+		current = frontier.pop()
+		for link in current.links:
+			nextNode = link.node1
+			if nextNode not in reached:
+				nextNode.previous_node = current
+				frontier.append(nextNode)
+				reached.add(nextNode)
+
+	currentNode = getEnd(nodeList)
+	while current != getStart(nodeList):
+		if currentNode.start is True:
+			print(currentNode.coords)
+			break
+		
+		print(currentNode.coords)
+		currentNode = currentNode.previous_node
+	
+	with open('BFS.txt', 'w') as f:
+		f.write(str(nodeList))
+
+
+
+
 
 def spawnAnimals(field):
-	animal1 = Animal((randint(1, FIELDWIDTH-1), randint(1, FIELDLENGTH-1)), 'f', field)
+	animal1 = Animal((randint(1, FIELDWIDTH-1), randint(1, FIELDLENGTH-1)), field)
 	field[animal1.position[1]][animal1.position[0]] = ANIMAL
 
 	return field, animal1
@@ -275,7 +319,8 @@ def Simulation():
 	YearsToRun = GetHowLongToRun()
 	if YearsToRun != 0:
 		Field, animal1 = InitialiseField()
-		FieldToGraph(Field, startCoords=(0, 0), endCoords=(1, 0))
+		graph = FieldToGraph(Field, startCoords=(0, 0), endCoords=(4, 0))
+		calculateShortestPath(Field, graph)
 		with open('djikstra2.txt', 'w') as f:
 			f.write(str(FieldToGraph(Field, startCoords=(0, 0), endCoords=(1, 0))))
 		if YearsToRun >= 1:
