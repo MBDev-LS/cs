@@ -51,7 +51,6 @@ def FieldToGraph(field: list, startCoords: tuple, endCoords: tuple) -> list:
 
 				graph[nodeCoords].append(searchResult)
 
-
 	return graph
 
 
