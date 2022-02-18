@@ -39,5 +39,5 @@ for coords in path:
 
 for graph in graphs:
     Display(graph)
-    time.sleep(0.05)
+    time.sleep(0.025)
 
