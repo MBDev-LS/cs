@@ -1,0 +1,21 @@
+......S.S.S.S.S.S.S.S.S.SSS........|  0
+......SSSSSSSSSSSSSSSSS.S.SS.......|  1
+......S.SS.S.S.S.S.S.SSSSS.S.......|  2
+......SSS.SSSSS.SSSSS.S.SS.SS......|  3
+......S.SSS.SS.S.S.SSS.SSSS.S......|  4
+......SSS.SS.SSSSS.SSS.S.SS.S......|  5
+........S.SSS.SS.SS.SSS.SSS.S......|  6
+......SSS.SS.SSS.SS.SS.SS.SSS......|  7
+......S.SSS.SSS.SS.SSS.SSSS.S......|  8
+......SSS.S.SSS.S.SSS.S.S.SSS......|  9
+......S.SSS.SS.SS.SS.SSS.SS.S......| 10
+......SSS.SSS.SSS.SS.SS.SSS.S......| 11
+......SSS.SS.SS.SS.SSS.SS.SSS......| 12
+......S.SSS.SSS.S.SSSS.SS.SSS......| 13
+......S.SS.SSS.S.SSS.S.SSSS.S......| 14
+......SSS.S.SSSSS.SSS.SS.SS.S......| 15
+......SSS.SS.SS.SS.S.SS.SSSSS......| 16
+......S.SS.SSSS.SSSSS.SSS.S.S......| 17
+......SSSS.S.S.S.S.S.SSS.SSSS......| 18
+......S.SSSSSSSSSSSSSSS.SS.........| 19
+
