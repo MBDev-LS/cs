@@ -1,5 +1,5 @@
 
-from lists import lst2 as lst
+from lists import lst1 as lst
 
 swapped = True
 index = 1
