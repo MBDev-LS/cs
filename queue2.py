@@ -1,8 +1,10 @@
+
 class Node():
-	def __init__(self, value, index) -> None:
+	def __init__(self, value, index, previousNode) -> None:
 		self.value = value
 		self.index = index
 		self.nextNode = None
+		self.previousNode = None
 
 class Queue:
 	def __init__(self):
@@ -11,6 +13,7 @@ class Queue:
 	def addValue(self, value):
 		if self.__startNode == None:
 			newNode = Node(value, 0)
+			self.__startNode = newNode
 		else:
 			currentNode = self.__startNode
 			while not currentNode.nextNode == None:
@@ -25,7 +28,7 @@ class Queue:
 			print("Value: " + str(currentNode.value))
 			print("Index: " + str(currentNode.index))
 			print()
-			current = current.nextNode
+			currentNode = currentNode.nextNode
 
 queue = Queue()
 queue.addValue(1)
