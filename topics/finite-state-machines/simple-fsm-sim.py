@@ -1,5 +1,5 @@
 
-def getAcceptState(machine: dict) -> str:
+def getInitialState(machine: dict) -> str:
 	for stateKey in machine:
 		if machine[stateKey]['initial_state']:
 			return stateKey
@@ -20,7 +20,7 @@ machine = {
 
 inputStr = '0101'
 
-currentStateKey = getAcceptState(machine)
+currentStateKey = getInitialState(machine)
 print(f'Started at state {currentStateKey}')
 
 for char in inputStr:
