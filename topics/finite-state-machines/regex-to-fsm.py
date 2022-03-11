@@ -10,6 +10,8 @@ def getInitialState(machine: dict) -> str:
 		if machine[stateKey]['meta_data']['initial_state']:
 			return stateKey
 
+def getStateCount(machine):
+	return len(machine) + 1
 
 def zeroOrMore(char, machine, stateCount):
 	machine[f'S{stateCount-1}']['transitions'][char] = f'S{stateCount-1}'
@@ -70,24 +72,33 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 	orList = withinBrackets.split('|')
 	for option in orList:
 		option = regexToFsm(option, scDict, stateCount-1) # Minus one is to deal with the fact we take the first one out later.
-		print(option[getInitialState(option)])
+		# print(option[getInitialState(option)])
 
 		for transition in option[getInitialState(option)]['transitions']:
-			print('ONE:\n'+transition)
+			# print('ONE:\n'+transition)
 			machine[currentState]['transitions'][transition] = option[getInitialState(option)]['transitions'][transition]
 		
-		print(machine)
+		# print(machine)
 
 		for resState in option:
 			if resState == getInitialState(option):
 				continue
 
 			option[resState]['meta_data']['initial_state'] == False
-			machine[resState] = option[resState]
+			if option[resState]['meta_data']['accept_state'] is True:
+				if resState in machine:
+					continue
+			
+			if resState not in machine:
+				machine[resState] = option[resState]
+			else:
+				for transition in option[resState]['transitions']:
+					machine[resState]['transitions'][transition] = option[resState]['transitions'][transition]
 
-		print(f'LOOK HERE: {machine}')
+		# print(f'LOOK HERE: {machine}')
 
 	# print(machine)
+	return machine, BracketClosePosition-charIndex
 
 
 def rangeHandler(charIndex, currentState, stateCount, regexString, machine, scDict):
@@ -107,22 +118,28 @@ def regexToFsm(regexString, scDict, stateCount):
 
 	stateCount += 1
 	currentState = getInitialState(machine)
+	skipFor = 0
 
 	for i, char in enumerate(regexString):
+		if skipFor > 0:
+			skipFor -= 1
+			continue
+
 		stateCreated = False
 		if char in scDict['aftOperators']:
 			continue
 
-		if char in scDict['brackets']:
-			scDict['brackets'][char]['func'](i, currentState, stateCount, regexString, machine, scDict)
+		elif char in scDict['brackets']:
+			print('BRACKETS')
+			machine, skipFor = scDict['brackets'][char]['func'](i, currentState, stateCount, regexString, machine, scDict)
 
-		if i == len(regexString)-1:
+		elif i == len(regexString)-1:
 			machine = addRegularState(char, currentState, stateCount, machine)
 			stateCreated = True
 
 			continue
 
-		if regexString[i+1] in scDict['aftOperators']:
+		elif regexString[i+1] in scDict['aftOperators']:
 			machine = scDict['aftOperators'][regexString[i+1]]['func'](char, machine, stateCount)
 			stateCreated = scDict['aftOperators'][regexString[i+1]]['stateCreated']
 		else:
@@ -131,6 +148,7 @@ def regexToFsm(regexString, scDict, stateCount):
 
 		currentState = f'S{stateCount}'
 		stateCount += 1 if stateCreated is True else 0
+		print(stateCount, getStateCount(machine))
 
 	machine[f'S{stateCount}']['meta_data']['accept_state'] = True
 
@@ -170,3 +188,44 @@ finalMachine = regexToFsm(regexString, scDict, stateCount)
 
 print('Final Machine'.center(50))
 pprint(finalMachine)
+
+
+# Output
+{
+    "S1": {
+        "meta_data": {"accept_state": False, "initial_state": True},
+        "transitions": {"a": "S2"},
+    },
+    "S2": {
+        "meta_data": {"accept_state": False, "initial_state": False},
+        "transitions": {"b": "S3"},
+    },
+    "S3": {
+        "meta_data": {"accept_state": False, "initial_state": False},
+        "transitions": {"b": "S3", "n": "S4", "s": "S4"},
+    },
+    "S4": {
+        "meta_data": {"accept_state": True, "initial_state": False},
+        "transitions": {"a": "S5", "o": "S5"},
+    },
+    "S5": {
+        "meta_data": {"accept_state": False, "initial_state": False},
+        "transitions": {"s": "S6"},
+    },
+    "S6": {
+        "meta_data": {"accept_state": False, "initial_state": False},
+        "transitions": {"b": "S7"},
+    },
+    "S7": {
+        "meta_data": {"accept_state": False, "initial_state": False},
+        "transitions": {"o": "S8"},
+    },
+    "S8": {
+        "meta_data": {"accept_state": False, "initial_state": False},
+        "transitions": {"y": "S9"},
+    },
+    "S9": {
+        "meta_data": {"accept_state": True, "initial_state": False},
+        "transitions": {},
+    },
+}
