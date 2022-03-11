@@ -1,6 +1,9 @@
 
 from pprint import pprint
 
+def raiseUserError(errorMessage: str):
+	print(f'ERROR: {errorMessage}')
+	exit()
 
 def getInitialState(machine: dict) -> str:
 	for stateKey in machine:
@@ -43,8 +46,32 @@ def addRegularState(char, currentState, stateCount, machine):
 
 	return machine
 
+def getBracketClosePosition(charIndex, regexString, scDict) -> int:
+	closingBracket = scDict['brackets'][regexString[charIndex]]['close_bracket']
+	closePosition = None
+	
+	for n in range(charIndex+1, len(regexString)):
+		if regexString[n] == closingBracket:
+			closePosition = n
+			break
 
-def regexToFsm(regexString, operators):
+	if closePosition is None:
+		raiseUserError(f'Bracket \'{regexString[charIndex]}\' at position {charIndex+1} not closed.')
+	
+	return closePosition
+
+
+def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict):
+	print('Handling or.')
+	# print(charIndex, currentState, stateCount, machine, scDict)
+	BracketClosePosition = getBracketClosePosition(charIndex, regexString, scDict)
+	print(BracketClosePosition)
+
+def rangeHandler(charIndex, currentState, stateCount, regexString, machine, scDict):
+	pass
+
+
+def regexToFsm(regexString, scDict):
 	machine = {
 		'S1': {
 			'meta_data': {
@@ -60,8 +87,11 @@ def regexToFsm(regexString, operators):
 
 	for i, char in enumerate(regexString):
 		stateCreated = False
-		if char in operators:
+		if char in scDict['aftOperators']:
 			continue
+
+		if char in scDict['brackets']:
+			scDict['brackets'][char]['func'](i, currentState, stateCount, regexString, machine, scDict)
 
 		if i == len(regexString)-1:
 			machine = addRegularState(char, currentState, stateCount, machine)
@@ -69,10 +99,9 @@ def regexToFsm(regexString, operators):
 
 			continue
 
-		if regexString[i+1] in operators:
-			machine = operators[regexString[i+1]
-								]['func'](char, machine, stateCount)
-			stateCreated = operators[regexString[i+1]]['stateCreated']
+		if regexString[i+1] in scDict['aftOperators']:
+			machine = scDict['aftOperators'][regexString[i+1]]['func'](char, machine, stateCount)
+			stateCreated = scDict['aftOperators'][regexString[i+1]]['stateCreated']
 		else:
 			machine = addRegularState(char, currentState, stateCount, machine)
 			stateCreated = True
@@ -85,20 +114,33 @@ def regexToFsm(regexString, operators):
 	return machine
 
 
-operators = {
-	'*': {
-		'func': zeroOrMore,
-		'stateCreated': False
+scDict = {
+	'aftOperators': {
+		'*': {
+			'func': zeroOrMore,
+			'stateCreated': False
+		},
+		'+': {
+			'func': OneOrMore,
+			'stateCreated': True
+		},
 	},
-	'+': {
-		'func': OneOrMore,
-		'stateCreated': True
-	},
-
+	'brackets': {
+		'(': {
+			'func': orHandler,
+			'stateCreated': True,
+			'close_bracket': ')'
+		},
+		'[': {
+			'func': rangeHandler,
+			'stateCreated': True,
+			'close_bracket': ']'
+		},
+	}
 }
 
-regexString = r'ab+'
+regexString = r'ab+('
 
-finalMachine = regexToFsm(regexString, operators)
+finalMachine = regexToFsm(regexString, scDict)
 
 pprint(finalMachine)
