@@ -19,6 +19,12 @@ def getInitialState(machine: dict) -> str:
 			return stateKey
 
 
+def getAcceptState(machine: dict) -> str:
+	for stateKey in machine:
+		if machine[stateKey]['meta_data']['accept_state']:
+			return stateKey
+
+
 def getStateCount(machine):
 	return len(machine) + 1
 
@@ -69,8 +75,12 @@ def OneOrMore(char, machine, stateCount):
 
 #	Special Quantifier Functions
 
-def oneOrMoreOfOr():
-	print('ran oneOrMoreOfOr')
+def oneOrMoreOfOr(subMachine: dict):
+	secondStateKey = list(subMachine[getInitialState(subMachine)]['transitions'].keys())[0]
+	secondStateInOr = subMachine[getInitialState(subMachine)]['transitions'][secondStateKey]
+	subMachine[getAcceptState(subMachine)]['transitions'][secondStateKey] = secondStateInOr
+	
+	return subMachine
 
 
 #	OR Function (and utility function(s))
@@ -93,14 +103,22 @@ def getBracketClosePosition(charIndex, regexString, scDict) -> int:
 def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict):
 	print('Handling or.')
 	# print(charIndex, currentState, stateCount, machine, scDict)
-	BracketClosePosition = getBracketClosePosition(
-		charIndex, regexString, scDict)
+	BracketClosePosition = getBracketClosePosition(charIndex, regexString, scDict)
+
 
 	withinBrackets = regexString[charIndex+1:BracketClosePosition]
 	orList = withinBrackets.split('|')
 	for option in orList:
 		# Minus one is to deal with the fact we take the first one out later.
 		option = regexToFsm(option, scDict, stateCount-1)
+		print('OPTION PRINT')
+		print(option)
+
+		skipModifier = 0
+		if regexString[BracketClosePosition+1] in scDict['aftOperators']: # This could be hardcoded for optimisation
+			option = scDict['brackets'][regexString[charIndex]]['quantifier_funcs'][regexString[BracketClosePosition+1]](option) # Need to standardise parameters
+			skipModifier = 1
+
 		# print(option[getInitialState(option)])
 
 		for transition in option[getInitialState(option)]['transitions']:
@@ -126,10 +144,7 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 
 		# print(f'LOOK HERE: {machine}')
 
-	skipModifier = 0
-	if regexString[BracketClosePosition+1] in scDict['aftOperators']: # This could be hardcoded for optimisation
-		scDict['brackets'][regexString[charIndex]]['quantifier_funcs'][regexString[BracketClosePosition+1]]() # WORKING HERE
-		skipModifier = 1
+	
 
 	return machine, BracketClosePosition-charIndex-1+skipModifier, len(machine)-1
 
