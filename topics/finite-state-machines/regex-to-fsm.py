@@ -71,10 +71,13 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 	for option in orList:
 		option = regexToFsm(option, scDict, stateCount-1) # Minus one is to deal with the fact we take the first one out later.
 		print(option[getInitialState(option)])
+
 		for transition in option[getInitialState(option)]['transitions']:
 			print('ONE:\n'+transition)
 			machine[currentState]['transitions'][transition] = option[getInitialState(option)]['transitions'][transition]
 		
+		print(machine)
+
 		for resState in option:
 			if resState == getInitialState(option):
 				continue
@@ -165,4 +168,5 @@ stateCount = 1
 
 finalMachine = regexToFsm(regexString, scDict, stateCount)
 
+print('Final Machine'.center(50))
 pprint(finalMachine)
