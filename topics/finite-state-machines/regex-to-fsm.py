@@ -97,8 +97,8 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 
 		# print(f'LOOK HERE: {machine}')
 
-	# print(machine)
-	return machine, BracketClosePosition-charIndex
+
+	return machine, BracketClosePosition-charIndex, len(machine)
 
 
 def rangeHandler(charIndex, currentState, stateCount, regexString, machine, scDict):
@@ -131,7 +131,8 @@ def regexToFsm(regexString, scDict, stateCount):
 
 		elif char in scDict['brackets']:
 			print('BRACKETS')
-			machine, skipFor = scDict['brackets'][char]['func'](i, currentState, stateCount, regexString, machine, scDict)
+			machine, skipFor, stateCount = scDict['brackets'][char]['func'](i, currentState, stateCount, regexString, machine, scDict)
+			print('f', stateCount)
 
 		elif i == len(regexString)-1:
 			machine = addRegularState(char, currentState, stateCount, machine)
@@ -180,7 +181,7 @@ scDict = {
 	}
 }
 
-regexString = r'ab+(sasboy|no)'
+regexString = r'ab+(sasboy|no)c'
 
 stateCount = 1
 
@@ -188,44 +189,3 @@ finalMachine = regexToFsm(regexString, scDict, stateCount)
 
 print('Final Machine'.center(50))
 pprint(finalMachine)
-
-
-# Output
-{
-    "S1": {
-        "meta_data": {"accept_state": False, "initial_state": True},
-        "transitions": {"a": "S2"},
-    },
-    "S2": {
-        "meta_data": {"accept_state": False, "initial_state": False},
-        "transitions": {"b": "S3"},
-    },
-    "S3": {
-        "meta_data": {"accept_state": False, "initial_state": False},
-        "transitions": {"b": "S3", "n": "S4", "s": "S4"},
-    },
-    "S4": {
-        "meta_data": {"accept_state": True, "initial_state": False},
-        "transitions": {"a": "S5", "o": "S5"},
-    },
-    "S5": {
-        "meta_data": {"accept_state": False, "initial_state": False},
-        "transitions": {"s": "S6"},
-    },
-    "S6": {
-        "meta_data": {"accept_state": False, "initial_state": False},
-        "transitions": {"b": "S7"},
-    },
-    "S7": {
-        "meta_data": {"accept_state": False, "initial_state": False},
-        "transitions": {"o": "S8"},
-    },
-    "S8": {
-        "meta_data": {"accept_state": False, "initial_state": False},
-        "transitions": {"y": "S9"},
-    },
-    "S9": {
-        "meta_data": {"accept_state": True, "initial_state": False},
-        "transitions": {},
-    },
-}
