@@ -142,10 +142,6 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 				for transition in option[resState]['transitions']:
 					machine[resState]['transitions'][transition] = option[resState]['transitions'][transition]
 
-		# print(f'LOOK HERE: {machine}')
-
-	
-
 	return machine, BracketClosePosition-charIndex-1+skipModifier, len(machine)-1
 
 
@@ -245,7 +241,7 @@ scDict = {
 	}
 }
 
-regexString = r'ab+(sasboy|no)+'
+regexString = r'ab+(sasboy|no)+' # adding (l|p)+ causes an issue with merging with other or statements, also does not work with the +
 
 stateCount = 1
 
