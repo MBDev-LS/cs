@@ -20,7 +20,7 @@ def getStateCount(machine):
 	return len(machine) + 1
 
 def reverseCloseBracketSearch(closingBracket: str, scDict) -> str:
-	for bracket in scDict:
+	for bracket in scDict['brackets']:
 		if scDict['brackets'][bracket]['close_bracket'] == closingBracket:
 			return bracket
 	
@@ -63,6 +63,11 @@ def OneOrMore(char, machine, stateCount):
 	machine[f'S{stateCount}']['transitions'][char] = f'S{stateCount}'
 
 	return machine
+
+#	Special Quantifier Functions
+
+def oneOrMoreOfOr():
+	print('ran oneOrMoreOfOr')
 
 
 #	OR Function (and utility function(s))
@@ -118,7 +123,7 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 
 		# print(f'LOOK HERE: {machine}')
 
-	return machine, BracketClosePosition-charIndex-1, len(machine)
+	return machine, BracketClosePosition-charIndex-1, len(machine)-1
 
 
 #	Range Function
@@ -145,13 +150,20 @@ def regexToFsm(regexString, scDict, stateCount):
 	skipFor = 0
 
 	for i, char in enumerate(regexString):
+		stateCreated = False
 		if skipFor > 0:
 			skipFor -= 1
 			continue
+		if char == '+':
+			print('CHECK')
 
-		stateCreated = False
+		
 		if char in scDict['aftOperators']:
-			continue
+			if regexString[i-1] in [scDict['brackets'][bracket]['close_bracket'] for bracket in scDict['brackets']]: # This could be hardcoded for optimisation
+				openingBracket = reverseCloseBracketSearch(regexString[i-1], scDict)
+				scDict['brackets'][openingBracket]['quantifier_funcs'][char]() # WORKING HERE
+			else:
+				continue
 
 		elif char in scDict['brackets']:
 			print('BRACKETS')
@@ -165,8 +177,6 @@ def regexToFsm(regexString, scDict, stateCount):
 			continue
 
 		elif regexString[i+1] in scDict['aftOperators']:
-			if regexString[i-1] in [bracket['close_bracket'] for bracket in scDict['brackets']]: # This could be hardcoded for optimisation
-				reverseCloseBracketSearch()
 
 			machine = scDict['aftOperators'][regexString[i+1]]['func'](char, machine, stateCount)
 			stateCreated = scDict['aftOperators'][regexString[i+1]]['stateCreated']
@@ -200,7 +210,7 @@ scDict = {
 			'stateCreated': True,
 			'close_bracket': ')',
 			'quantifier_funcs': {
-				'+': None,
+				'+': oneOrMoreOfOr,
 				'*': None,
 			}
 		},
@@ -216,7 +226,7 @@ scDict = {
 	}
 }
 
-regexString = r'ab+(sasboy|no)c'
+regexString = r'ab+(sasboy|no)+'
 
 stateCount = 1
 
