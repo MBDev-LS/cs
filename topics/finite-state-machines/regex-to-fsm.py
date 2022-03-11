@@ -1,17 +1,18 @@
 
 from pprint import pprint
 
+
 def getInitialState(machine: dict) -> str:
 	for stateKey in machine:
 		if machine[stateKey]['meta_data']['initial_state']:
 			return stateKey
 
 
-
 def zeroOrMore(char, machine, stateCount):
 	machine[f'S{stateCount-1}']['transitions'][char] = f'S{stateCount-1}'
 
 	return machine
+
 
 def OneOrMore(char, machine, stateCount):
 	machine[f'S{stateCount-1}']['transitions'][char] = f'S{stateCount}'
@@ -28,9 +29,10 @@ def OneOrMore(char, machine, stateCount):
 
 	return machine
 
+
 def addRegularState(char, currentState, stateCount, machine):
 	machine[currentState]['transitions'][char] = f'S{stateCount}'
-		
+
 	machine[f'S{stateCount}'] = {
 		'meta_data': {
 			'accept_state': False,
@@ -41,16 +43,17 @@ def addRegularState(char, currentState, stateCount, machine):
 
 	return machine
 
+
 def regexToFsm(regexString, operators):
 	machine = {
-	'S1': {
-		'meta_data': {
-			'accept_state': False,
-			'initial_state': True,
-		},
-		'transitions': {}
+		'S1': {
+			'meta_data': {
+				'accept_state': False,
+				'initial_state': True,
+			},
+			'transitions': {}
+		}
 	}
-}
 
 	currentState = getInitialState(machine)
 	stateCount = 2
@@ -67,7 +70,8 @@ def regexToFsm(regexString, operators):
 			continue
 
 		if regexString[i+1] in operators:
-			machine = operators[regexString[i+1]]['func'](char, machine, stateCount)
+			machine = operators[regexString[i+1]
+								]['func'](char, machine, stateCount)
 			stateCreated = operators[regexString[i+1]]['stateCreated']
 		else:
 			machine = addRegularState(char, currentState, stateCount, machine)
@@ -80,15 +84,16 @@ def regexToFsm(regexString, operators):
 
 	return machine
 
+
 operators = {
 	'*': {
-			'func': zeroOrMore,
-			'stateCreated': False
-		},
+		'func': zeroOrMore,
+		'stateCreated': False
+	},
 	'+': {
-			'func': OneOrMore,
-			'stateCreated': True
-		},
+		'func': OneOrMore,
+		'stateCreated': True
+	},
 
 }
 
