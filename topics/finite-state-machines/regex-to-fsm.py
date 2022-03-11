@@ -1,7 +1,10 @@
 
 # Import(s)
 
+from ast import operator
 from pprint import pprint
+
+from pytest import skip
 
 #	General Utility Functions
 
@@ -123,7 +126,12 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 
 		# print(f'LOOK HERE: {machine}')
 
-	return machine, BracketClosePosition-charIndex-1, len(machine)-1
+	skipModifier = 0
+	if regexString[BracketClosePosition+1] in scDict['aftOperators']: # This could be hardcoded for optimisation
+		scDict['brackets'][regexString[charIndex]]['quantifier_funcs'][regexString[BracketClosePosition+1]]() # WORKING HERE
+		skipModifier = 1
+
+	return machine, BracketClosePosition-charIndex-1+skipModifier, len(machine)-1
 
 
 #	Range Function
@@ -159,11 +167,7 @@ def regexToFsm(regexString, scDict, stateCount):
 
 		
 		if char in scDict['aftOperators']:
-			if regexString[i-1] in [scDict['brackets'][bracket]['close_bracket'] for bracket in scDict['brackets']]: # This could be hardcoded for optimisation
-				openingBracket = reverseCloseBracketSearch(regexString[i-1], scDict)
-				scDict['brackets'][openingBracket]['quantifier_funcs'][char]() # WORKING HERE
-			else:
-				continue
+			continue
 
 		elif char in scDict['brackets']:
 			print('BRACKETS')
