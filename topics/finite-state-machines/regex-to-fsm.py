@@ -65,15 +65,35 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 	print('Handling or.')
 	# print(charIndex, currentState, stateCount, machine, scDict)
 	BracketClosePosition = getBracketClosePosition(charIndex, regexString, scDict)
-	print(BracketClosePosition)
+	# Need to split on '|'
+	withinBrackets = regexString[charIndex+1:BracketClosePosition]
+	orList = withinBrackets.split('|')
+	for option in orList:
+		option = regexToFsm(option, scDict, stateCount-1) # Minus one is to deal with the fact we take the first one out later.
+		print(option[getInitialState(option)])
+		for transition in option[getInitialState(option)]['transitions']:
+			print('ONE:\n'+transition)
+			machine[currentState]['transitions'][transition] = option[getInitialState(option)]['transitions'][transition]
+		
+		for resState in option:
+			if resState == getInitialState(option):
+				continue
+
+			option[resState]['meta_data']['initial_state'] == False
+			machine[resState] = option[resState]
+
+		print(f'LOOK HERE: {machine}')
+
+	# print(machine)
+
 
 def rangeHandler(charIndex, currentState, stateCount, regexString, machine, scDict):
 	pass
 
 
-def regexToFsm(regexString, scDict):
+def regexToFsm(regexString, scDict, stateCount):
 	machine = {
-		'S1': {
+		f'S{stateCount}': {
 			'meta_data': {
 				'accept_state': False,
 				'initial_state': True,
@@ -82,8 +102,8 @@ def regexToFsm(regexString, scDict):
 		}
 	}
 
+	stateCount += 1
 	currentState = getInitialState(machine)
-	stateCount = 2
 
 	for i, char in enumerate(regexString):
 		stateCreated = False
@@ -109,7 +129,7 @@ def regexToFsm(regexString, scDict):
 		currentState = f'S{stateCount}'
 		stateCount += 1 if stateCreated is True else 0
 
-	machine[f'S{stateCount-1}']['meta_data']['accept_state'] = True
+	machine[f'S{stateCount}']['meta_data']['accept_state'] = True
 
 	return machine
 
@@ -139,8 +159,10 @@ scDict = {
 	}
 }
 
-regexString = r'ab+('
+regexString = r'ab+(sasboy|no)'
 
-finalMachine = regexToFsm(regexString, scDict)
+stateCount = 1
+
+finalMachine = regexToFsm(regexString, scDict, stateCount)
 
 pprint(finalMachine)
