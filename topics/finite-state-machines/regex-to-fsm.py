@@ -110,14 +110,16 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 	orList = withinBrackets.split('|')
 	for option in orList:
 		# Minus one is to deal with the fact we take the first one out later.
-		option = regexToFsm(option, scDict, stateCount-1)
+		option, stateCount = regexToFsm(option, scDict, stateCount-1)
+		stateCount += 1
 		print('OPTION PRINT')
 		print(option)
 
 		skipModifier = 0
-		if regexString[BracketClosePosition+1] in scDict['aftOperators']: # This could be hardcoded for optimisation
-			option = scDict['brackets'][regexString[charIndex]]['quantifier_funcs'][regexString[BracketClosePosition+1]](option) # Need to standardise parameters
-			skipModifier = 1
+		if BracketClosePosition+1 < len(regexString):
+			if regexString[BracketClosePosition+1] in scDict['aftOperators']: # This could be hardcoded for optimisation
+				option = scDict['brackets'][regexString[charIndex]]['quantifier_funcs'][regexString[BracketClosePosition+1]](option) # Need to standardise parameters
+				skipModifier = 1
 
 		# print(option[getInitialState(option)])
 
@@ -131,25 +133,9 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 			if resState == getInitialState(option):
 				continue
 
-			# transitionKey = list(option[resState]['transitions'].keys())[0]
-			# if option[resState]['transitions'][transitionKey] == getAcceptState(option):
-
-
-			option[resState]['meta_data']['initial_state'] == False # May be able to remove this
-			if option[resState]['meta_data']['accept_state'] is True:
-				if resState in machine:
-					continue
-
-			if resState not in machine:
-				machine[resState] = option[resState]
-			else:
-				transitionKey = list(option[resState]['transitions'].keys())[0]
-				if option[resState]['transitions'][transitionKey] == getAcceptState(option):
-					machine[resState]['transitions'][transitionKey] = getAcceptState(machine)
-				else:
-
-					for transition in option[resState]['transitions']:
-						machine[resState]['transitions'][transition] = option[resState]['transitions'][transition]
+			machine[resState] = option[resState]
+		
+		print('IMP0.5:', machine)
 
 	print('IMP: ',machine)
 
@@ -216,7 +202,7 @@ def regexToFsm(regexString, scDict, stateCount):
 
 	machine[f'S{stateCount}']['meta_data']['accept_state'] = True
 
-	return machine
+	return machine, stateCount
 
 
 scDict = {
@@ -252,11 +238,11 @@ scDict = {
 	}
 }
 
-regexString = r'ab+(sasboy|no)+' # adding (l|p)+ causes an issue with merging with other or statements, also does not work with the +
+regexString = r'ab+(sasboy|no)+' # Removed '+' from the end # adding '(l|p)+' causes an issue with merging with other or statements, also does not work with the +
 
 stateCount = 1
 
-finalMachine = regexToFsm(regexString, scDict, stateCount)
+finalMachine, stateCount = regexToFsm(regexString, scDict, stateCount)
 
 print('Final Machine'.center(50))
 pprint(finalMachine)
