@@ -15,7 +15,7 @@ def raiseUserError(errorMessage: str):
 
 def getInitialState(machine: dict) -> str:
 	for stateKey in machine:
-		if machine[stateKey]['meta_data']['initial_state']:
+		if machine[stateKey]['meta_data']['initial_state'] is True:
 			return stateKey
 
 
@@ -23,10 +23,10 @@ def getAcceptState(machine: dict, include_all=False) -> str:
 	stateList = []
 
 	for stateKey in machine:
-		if machine[stateKey]['meta_data']['accept_state']:
+		if machine[stateKey]['meta_data']['accept_state'] is True:
 			if include_all is False:
 				return stateKey
-			stateList.append(stateList)
+			stateList.append(stateKey)
 	
 	if len(stateList) == 0:
 		return None
@@ -94,14 +94,19 @@ def oneOrMoreOfOr(subMachine: dict):
 
 #	OR Function (and utility function(s))
 
-def getBracketClosePosition(charIndex, regexString, scDict) -> int:
+def getBracketClosePosition(charIndex, regexString, scDict) -> int: # Fails on second bracket level, due to malformed regexString which is too short (including only the first and second characters)
 	closingBracket = scDict['brackets'][regexString[charIndex]]['close_bracket']
 	closePosition = None
+	bracketCount = 0
 
-	for n in range(charIndex+1, len(regexString)):
+	for n in range(charIndex, len(regexString)):
+		if regexString[n] == regexString[charIndex]:
+			bracketCount += 1
 		if regexString[n] == closingBracket:
-			closePosition = n
-			break
+			bracketCount -= 1
+			if bracketCount == 0:
+				closePosition = n
+				break
 
 	if closePosition is None:
 		raiseUserError(f'Bracket \'{regexString[charIndex]}\' at position {charIndex+1} not closed.')
@@ -115,15 +120,16 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 	BracketClosePosition = getBracketClosePosition(charIndex, regexString, scDict)
 
 	bracketsInRegexString = False
+	bracketCount = 1 # Introduce a mult-bracket system for finding the outer most bracket
 	if BracketClosePosition+1 < len(regexString):
 		if regexString[BracketClosePosition+1] in scDict['aftOperators']:
 			bracketsInRegexString = True
 
 	withinBrackets = regexString[charIndex+1:BracketClosePosition]
 	orList = withinBrackets.split('|')
-	for option in orList:
+	for i, option in enumerate(orList):
 		# Minus one is to deal with the fact we take the first one out later.
-		option, stateCount = regexToFsm(option, scDict, stateCount-1)
+		option, stateCount = regexToFsm(option, scDict, stateCount-1) # Issue with brackets can be traced back to the argument passed here
 		stateCount += 1
 		print('OPTION PRINT')
 		print(option)
@@ -149,15 +155,15 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 		
 		print('IMP0.5:', machine)
 
-		
 
 	print('IMP: ',machine)
 
 	reverseListOfEndTransitions = [endState for endState in getAcceptState(machine, include_all=True)] # Neet to get the ones that go to it
-	reverseCloseBracketSearch.reverse()
+	reverseListOfEndTransitions.reverse()
 	if bracketsInRegexString is True:
 		for endState in getAcceptState(machine, include_all=True):
-			machine[endState]['transitions'][]
+			pprint(getAcceptState(machine, include_all=True))
+			machine[endState]['transitions'][orList[i][0]] = '<start of or>'
 
 	return machine, BracketClosePosition-charIndex-1+skipModifier, len(machine)-1
 
@@ -259,6 +265,7 @@ scDict = {
 }
 
 regexString = r'ab+(sasboy|no)+' # Removed '+' from the end # adding '(l|p)+' causes an issue with merging with other or statements, also does not work with the +
+regexString = r'ab+(a|(z|x))'
 
 stateCount = 1
 
