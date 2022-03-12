@@ -19,10 +19,19 @@ def getInitialState(machine: dict) -> str:
 			return stateKey
 
 
-def getAcceptState(machine: dict) -> str:
+def getAcceptState(machine: dict, include_all=False) -> str:
+	stateList = []
+
 	for stateKey in machine:
 		if machine[stateKey]['meta_data']['accept_state']:
-			return stateKey
+			if include_all is False:
+				return stateKey
+			stateList.append(stateList)
+	
+	if len(stateList) == 0:
+		return None
+	
+	return stateList
 
 
 def getStateCount(machine):
@@ -105,6 +114,10 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 	# print(charIndex, currentState, stateCount, machine, scDict)
 	BracketClosePosition = getBracketClosePosition(charIndex, regexString, scDict)
 
+	bracketsInRegexString = False
+	if BracketClosePosition+1 < len(regexString):
+		if regexString[BracketClosePosition+1] in scDict['aftOperators']:
+			bracketsInRegexString = True
 
 	withinBrackets = regexString[charIndex+1:BracketClosePosition]
 	orList = withinBrackets.split('|')
@@ -116,10 +129,9 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 		print(option)
 
 		skipModifier = 0
-		if BracketClosePosition+1 < len(regexString):
-			if regexString[BracketClosePosition+1] in scDict['aftOperators']: # This could be hardcoded for optimisation
-				option = scDict['brackets'][regexString[charIndex]]['quantifier_funcs'][regexString[BracketClosePosition+1]](option) # Need to standardise parameters
-				skipModifier = 1
+		if bracketsInRegexString is True:
+			option = scDict['brackets'][regexString[charIndex]]['quantifier_funcs'][regexString[BracketClosePosition+1]](option) # Need to standardise parameters
+			skipModifier = 1
 
 		# print(option[getInitialState(option)])
 
@@ -137,7 +149,15 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 		
 		print('IMP0.5:', machine)
 
+		
+
 	print('IMP: ',machine)
+
+	reverseListOfEndTransitions = [endState for endState in getAcceptState(machine, include_all=True)] # Neet to get the ones that go to it
+	reverseCloseBracketSearch.reverse()
+	if bracketsInRegexString is True:
+		for endState in getAcceptState(machine, include_all=True):
+			machine[endState]['transitions'][]
 
 	return machine, BracketClosePosition-charIndex-1+skipModifier, len(machine)-1
 
