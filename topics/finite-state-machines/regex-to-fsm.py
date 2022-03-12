@@ -125,13 +125,17 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 			# print('ONE:\n'+transition)
 			machine[currentState]['transitions'][transition] = option[getInitialState(option)]['transitions'][transition]
 
-		# print(machine)
+		print('IMP0:', machine)
 
 		for resState in option:
 			if resState == getInitialState(option):
 				continue
 
-			option[resState]['meta_data']['initial_state'] == False
+			# transitionKey = list(option[resState]['transitions'].keys())[0]
+			# if option[resState]['transitions'][transitionKey] == getAcceptState(option):
+
+
+			option[resState]['meta_data']['initial_state'] == False # May be able to remove this
 			if option[resState]['meta_data']['accept_state'] is True:
 				if resState in machine:
 					continue
@@ -139,8 +143,15 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 			if resState not in machine:
 				machine[resState] = option[resState]
 			else:
-				for transition in option[resState]['transitions']:
-					machine[resState]['transitions'][transition] = option[resState]['transitions'][transition]
+				transitionKey = list(option[resState]['transitions'].keys())[0]
+				if option[resState]['transitions'][transitionKey] == getAcceptState(option):
+					machine[resState]['transitions'][transitionKey] = getAcceptState(machine)
+				else:
+
+					for transition in option[resState]['transitions']:
+						machine[resState]['transitions'][transition] = option[resState]['transitions'][transition]
+
+	print('IMP: ',machine)
 
 	return machine, BracketClosePosition-charIndex-1+skipModifier, len(machine)-1
 
