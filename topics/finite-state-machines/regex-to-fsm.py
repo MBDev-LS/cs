@@ -1,7 +1,6 @@
 
 # Import(s)
 
-from ast import operator
 from pprint import pprint
 
 from pytest import skip
@@ -113,7 +112,7 @@ def getBracketClosePosition(charIndex, regexString, scDict) -> int: # Fails on s
 
 	return closePosition
 
-def splitRegexIntoOptions(regexWithinOrBrackets):
+def splitRegexIntoOptions(regexWithinOrBrackets, charIndex):
 	"a|(z|(x|y|m)))"
 
 	bracketStart = None
@@ -134,7 +133,11 @@ def splitRegexIntoOptions(regexWithinOrBrackets):
 			if bracketStart is None:
 				resultList.append(char)
 
-	resultList.remove('|')
+	if bracketCount != 0:
+		raiseUserError(f'Bracket \'{regexString[charIndex]}\' at position {charIndex+1} not closed.')
+
+	while '|' in resultList:
+		resultList.remove('|')
 
 	return resultList
 
@@ -150,8 +153,8 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 			bracketsInRegexString = True
 
 	withinBrackets = regexString[charIndex+1:BracketClosePosition]
-	orList = splitRegexIntoOptions(withinBrackets)
-	orList = withinBrackets.split('|')
+	orList = splitRegexIntoOptions(withinBrackets, charIndex)
+	# orList = withinBrackets.split('|')
 	for i, option in enumerate(orList):
 		# Minus one is to deal with the fact we take the first one out later.
 		option, stateCount = regexToFsm(option, scDict, stateCount-1) # Issue with brackets can be traced back to the argument passed here
@@ -292,8 +295,12 @@ scDict = {
 regexString = r'ab+(sasboy|no)+' # Removed '+' from the end # adding '(l|p)+' causes an issue with merging with other or statements, also does not work with the +
 # regexString = r'ab+(a|(z|(x|(y|m))))'
 # regexString = r'ab+(a|(z|(x|(y))))'
-regexString = r'ab+(z|x)'
+# regexString = r'ab+(z|x)'
+
 # regexString = r'ab+(sasboy|no)'
+
+regexString = r'(z(a|b|c))' # Works
+regexString = r'(z(a|b|c))'
 
 stateCount = 1
 
