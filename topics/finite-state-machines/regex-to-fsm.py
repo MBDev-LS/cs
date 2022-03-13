@@ -183,19 +183,16 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 		
 		print('IMP0.5:', machine)
 
-
 	print('IMP: ',machine)
 
 	reverseListOfEndTransitions = [endState for endState in getAcceptState(machine, include_all=True)] # Neet to get the ones that go to it
 	reverseListOfEndTransitions.reverse()
-	if bracketsInRegexString is True:
+	if bracketsInRegexString is True: # Just take the first letter of the original text orList option strings
 		for endState in getAcceptState(machine, include_all=True):
 			pprint(getAcceptState(machine, include_all=True))
 			machine[endState]['transitions'][orList[i][0]] = '<start of or>'
 
 	return machine, len(withinBrackets)+1+skipModifier, len(machine)-1
-	return machine, BracketClosePosition-charIndex+skipModifier, len(machine)-1
-	return machine, BracketClosePosition-charIndex-1+skipModifier, len(machine)-1
 
 
 #	Range Function
