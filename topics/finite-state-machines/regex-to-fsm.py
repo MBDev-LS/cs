@@ -168,7 +168,7 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 			skipModifier = 1
 
 		# print(option[getInitialState(option)])
-
+		
 		for transition in option[getInitialState(option)]['transitions']:
 			# print('ONE:\n'+transition)
 			machine[currentState]['transitions'][transition] = option[getInitialState(option)]['transitions'][transition]
@@ -300,7 +300,7 @@ regexString = r'ab+(sasboy|no)+' # Removed '+' from the end # adding '(l|p)+' ca
 # regexString = r'ab+(sasboy|no)'
 
 regexString = r'(z(a|b|c))' # Works
-regexString = r'(z(a|b|c))'
+regexString = r'(z(y|(a|b|c)))'
 
 stateCount = 1
 
