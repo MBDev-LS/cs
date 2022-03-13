@@ -115,53 +115,28 @@ def getBracketClosePosition(charIndex, regexString, scDict) -> int: # Fails on s
 
 def splitRegexIntoOptions(regexWithinOrBrackets):
 	"a|(z|(x|y|m)))"
-	optionListList = regexWithinOrBrackets.split('|')
+
+	bracketStart = None
 	bracketCount = 0
 	resultList = []
-	actualResultList = []
 
-	for option in optionListList:
-		if '(' in option:
-			bracketCount += 1
-			resultList.append(option)
-		if ')' in option:
-			bracketCount -= 1 # Maybe to a .count() on ')' for this minus value
-			newLeft = ''
-			
-			for i in range(len(resultList)):
-				openBrackOption = resultList.pop()
-				if '(' in openBrackOption:
-					newLeft += openBrackOption
-					break
-
-			newLeft += '|' + option # Issue with more than one
-			actualResultList = [item for item in resultList]
-			resultList = []
-			actualResultList.append(newLeft)
-		if '(' not in option and ')' not in option:
-			resultList.append(option)
-
-	actualResultList.extend(resultList)
-
-	finalList = []
-	bracketStart = None
-	for i, draftOption in enumerate(actualResultList):
-		if ')' in draftOption:
-			if bracketStart is not None:
-				# for j in range(bracketStart, i+1):
-				# 	print(draftOption[j])
-				finalList.append('|'.join([actualResultList[j] for j in range(bracketStart, i+1)]))
-				bracketStart = None
-		elif '(' in draftOption:
+	for i, char in enumerate(regexWithinOrBrackets):
+		if char == '(':
 			bracketStart = i if bracketStart is None else bracketStart
+			bracketCount += 1
+		elif char == ')':
+			bracketCount -= 1
+			if bracketStart is not None and bracketCount == 0:
+				draftOption = ''.join([regexWithinOrBrackets[j] for j in range(bracketStart, i+1)])
+				resultList.append(draftOption)
+				bracketStart = None
 		else:
 			if bracketStart is None:
-				finalList.append(draftOption)
+				resultList.append(char)
 
-	return actualResultList
+	resultList.remove('|')
 
-
-
+	return resultList
 
 def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict):
 	print('Handling or.')
@@ -315,8 +290,9 @@ scDict = {
 }
 
 regexString = r'ab+(sasboy|no)+' # Removed '+' from the end # adding '(l|p)+' causes an issue with merging with other or statements, also does not work with the +
-regexString = r'ab+(a|(z|(x|(y|m))))'
-regexString = r'ab+(a|(z|(x|(y))))'
+# regexString = r'ab+(a|(z|(x|(y|m))))'
+# regexString = r'ab+(a|(z|(x|(y))))'
+regexString = r'ab+(z|x)'
 # regexString = r'ab+(sasboy|no)'
 
 stateCount = 1
