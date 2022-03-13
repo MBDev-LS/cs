@@ -168,7 +168,7 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 			skipModifier = 1
 
 		# print(option[getInitialState(option)])
-		
+
 		for transition in option[getInitialState(option)]['transitions']:
 			# print('ONE:\n'+transition)
 			machine[currentState]['transitions'][transition] = option[getInitialState(option)]['transitions'][transition]
@@ -193,6 +193,8 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 			pprint(getAcceptState(machine, include_all=True))
 			machine[endState]['transitions'][orList[i][0]] = '<start of or>'
 
+	return machine, len(withinBrackets)+1+skipModifier, len(machine)-1
+	return machine, BracketClosePosition-charIndex+skipModifier, len(machine)-1
 	return machine, BracketClosePosition-charIndex-1+skipModifier, len(machine)-1
 
 
