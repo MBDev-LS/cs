@@ -113,6 +113,54 @@ def getBracketClosePosition(charIndex, regexString, scDict) -> int: # Fails on s
 
 	return closePosition
 
+def splitRegexIntoOptions(regexWithinOrBrackets):
+	optionListList = regexWithinOrBrackets.split('|')
+	bracketCount = 0
+	resultList = []
+	actualResultList = []
+
+	for option in optionListList:
+		if '(' in option:
+			bracketCount += 1
+			resultList.append(option)
+		if ')' in option:
+			bracketCount -= 1
+			newLeft = ''
+			
+			for i in range(len(resultList)):
+				openBrackOption = resultList.pop()
+				if '(' in openBrackOption:
+					newLeft += openBrackOption
+					break
+
+			newLeft += '|' + option
+			actualResultList = [item for item in resultList]
+			resultList = []
+			actualResultList.append(newLeft)
+		if '(' not in option and ')' not in option:
+			resultList.append(option)
+
+	actualResultList.extend(resultList)
+
+	finalList = []
+	bracketStart = None
+	for i, draftOption in enumerate(actualResultList):
+		if ')' in draftOption:
+			if bracketStart is not None:
+				for j in range(bracketStart, i+1):
+					print(draftOption[j])
+				finalList.append('|'.join([actualResultList[j] for j in range(bracketStart, i+1)]))
+				bracketStart = None
+		elif '(' in draftOption:
+			bracketStart = i if bracketStart is None else bracketStart
+		else:
+			if bracketStart is None:
+				finalList.append(draftOption)
+
+	return actualResultList
+
+
+
 
 def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict):
 	print('Handling or.')
@@ -126,6 +174,7 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 			bracketsInRegexString = True
 
 	withinBrackets = regexString[charIndex+1:BracketClosePosition]
+	orList = splitRegexIntoOptions(withinBrackets)
 	orList = withinBrackets.split('|')
 	for i, option in enumerate(orList):
 		# Minus one is to deal with the fact we take the first one out later.
@@ -265,7 +314,7 @@ scDict = {
 }
 
 regexString = r'ab+(sasboy|no)+' # Removed '+' from the end # adding '(l|p)+' causes an issue with merging with other or statements, also does not work with the +
-regexString = r'ab+(a|(z|x))'
+regexString = r'ab+(a|(z|(x|(y|m))))'
 
 stateCount = 1
 
