@@ -114,6 +114,7 @@ def getBracketClosePosition(charIndex, regexString, scDict) -> int: # Fails on s
 	return closePosition
 
 def splitRegexIntoOptions(regexWithinOrBrackets):
+	"a|(z|(x|y|m)))"
 	optionListList = regexWithinOrBrackets.split('|')
 	bracketCount = 0
 	resultList = []
@@ -124,7 +125,7 @@ def splitRegexIntoOptions(regexWithinOrBrackets):
 			bracketCount += 1
 			resultList.append(option)
 		if ')' in option:
-			bracketCount -= 1
+			bracketCount -= 1 # Maybe to a .count() on ')' for this minus value
 			newLeft = ''
 			
 			for i in range(len(resultList)):
@@ -133,7 +134,7 @@ def splitRegexIntoOptions(regexWithinOrBrackets):
 					newLeft += openBrackOption
 					break
 
-			newLeft += '|' + option
+			newLeft += '|' + option # Issue with more than one
 			actualResultList = [item for item in resultList]
 			resultList = []
 			actualResultList.append(newLeft)
@@ -147,8 +148,8 @@ def splitRegexIntoOptions(regexWithinOrBrackets):
 	for i, draftOption in enumerate(actualResultList):
 		if ')' in draftOption:
 			if bracketStart is not None:
-				for j in range(bracketStart, i+1):
-					print(draftOption[j])
+				# for j in range(bracketStart, i+1):
+				# 	print(draftOption[j])
 				finalList.append('|'.join([actualResultList[j] for j in range(bracketStart, i+1)]))
 				bracketStart = None
 		elif '(' in draftOption:
@@ -315,6 +316,8 @@ scDict = {
 
 regexString = r'ab+(sasboy|no)+' # Removed '+' from the end # adding '(l|p)+' causes an issue with merging with other or statements, also does not work with the +
 regexString = r'ab+(a|(z|(x|(y|m))))'
+regexString = r'ab+(a|(z|(x|(y))))'
+# regexString = r'ab+(sasboy|no)'
 
 stateCount = 1
 
