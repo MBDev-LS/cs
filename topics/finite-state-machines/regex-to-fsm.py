@@ -110,7 +110,7 @@ def getBracketClosePosition(charIndex, regexString, scDict) -> int: # Fails on s
 
 	return closePosition
 
-def splitRegexIntoOptions(regexWithinOrBrackets, charIndex):
+def splitRegexIntoOptions(regexWithinOrBrackets, regexString, charIndex):
 	"a|(z|(x|y|m)))"
 
 	bracketStart = None
@@ -144,14 +144,13 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 	# print(charIndex, currentState, stateCount, machine, scDict)
 	BracketClosePosition = getBracketClosePosition(charIndex, regexString, scDict)
 
-	bracketsInRegexString = False
-	bracketCount = 1 # Introduce a mult-bracket system for finding the outer most bracket
+	quantifierInRegexString = False
 	if BracketClosePosition+1 < len(regexString):
 		if regexString[BracketClosePosition+1] in scDict['aftOperators']:
-			bracketsInRegexString = True
+			quantifierInRegexString = True
 
 	withinBrackets = regexString[charIndex+1:BracketClosePosition]
-	orList = splitRegexIntoOptions(withinBrackets, charIndex)
+	orList = splitRegexIntoOptions(withinBrackets, regexString, charIndex)
 	# orList = withinBrackets.split('|')
 	for i, option in enumerate(orList):
 		# Minus one is to deal with the fact we take the first one out later.
@@ -161,9 +160,9 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 		print(option)
 
 		skipModifier = 0
-		if bracketsInRegexString is True:
-			option = scDict['brackets'][regexString[charIndex]]['quantifier_funcs'][regexString[BracketClosePosition+1]](option) # Need to standardise parameters
-			skipModifier = 1
+		# if quantifierInRegexString is True:
+		# 	option = scDict['brackets'][regexString[charIndex]]['quantifier_funcs'][regexString[BracketClosePosition+1]](option) # Need to standardise parameters
+		# 	skipModifier = 1
 
 		# print(option[getInitialState(option)])
 
@@ -183,12 +182,13 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 
 	print('IMP: ',machine)
 
-	reverseListOfEndTransitions = [endState for endState in getAcceptState(machine, include_all=True)] # Neet to get the ones that go to it
-	reverseListOfEndTransitions.reverse()
-	if bracketsInRegexString is True: # Just take the first letter of the original text orList option strings
-		for endState in getAcceptState(machine, include_all=True):
-			pprint(getAcceptState(machine, include_all=True))
-			machine[endState]['transitions'][orList[i][0]] = '<start of or>'
+	if quantifierInRegexString is True:
+		acceptStates = getAcceptState(machine, include_all=True)
+		baseState = getInitialState(machine)
+		for acceptState in acceptStates:
+			for transition in machine[baseState]['transitions']:
+				machine[acceptState]['transitions'][transition] = machine[baseState]['transitions'][transition]
+
 
 	return machine, len(withinBrackets)+1+skipModifier, len(machine)-1
 
@@ -296,8 +296,9 @@ regexString = r'ab+(sasboy|no)+' # Removed '+' from the end # adding '(l|p)+' ca
 
 # regexString = r'ab+(sasboy|no)'
 
-regexString = r'(z(a|b|c))' # Works
-regexString = r'(z(y|(a|b|c)))'
+# regexString = r'(z(a|b|c))' # Works
+# regexString = r'(z(y|(a|b|c)))'
+regexString = r'(a|b)+' # Works
 
 stateCount = 1
 
