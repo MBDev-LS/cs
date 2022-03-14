@@ -110,7 +110,7 @@ def getBracketClosePosition(charIndex, regexString, scDict) -> int: # Fails on s
 
 	return closePosition
 
-def splitRegexIntoOptions(regexWithinOrBrackets, regexString, charIndex):
+def splitRegexIntoOptions(regexWithinOrBrackets, regexString, charIndex, scDict):
 	"a|(z|(x|y|m)))"
 
 	bracketStart = None
@@ -125,10 +125,11 @@ def splitRegexIntoOptions(regexWithinOrBrackets, regexString, charIndex):
 			bracketCount -= 1
 			if bracketStart is not None and bracketCount == 0:
 				draftOption = ''.join([regexWithinOrBrackets[j] for j in range(bracketStart, i+1)])
+				draftOption += regexWithinOrBrackets[i+1] if regexWithinOrBrackets[i+1] in scDict['aftOperators'] else ''
 				resultList.append(draftOption)
 				bracketStart = None
 		else:
-			if bracketStart is None:
+			if bracketStart is None and char not in scDict['aftOperators']:
 				resultList.append(char)
 
 	if bracketCount != 0:
@@ -150,7 +151,7 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 			quantifierInRegexString = True
 
 	withinBrackets = regexString[charIndex+1:BracketClosePosition]
-	orList = splitRegexIntoOptions(withinBrackets, regexString, charIndex)
+	orList = splitRegexIntoOptions(withinBrackets, regexString, charIndex, scDict)
 	# orList = withinBrackets.split('|')
 	for i, option in enumerate(orList):
 		# Minus one is to deal with the fact we take the first one out later.
@@ -183,6 +184,7 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 	print('IMP: ',machine)
 
 	if quantifierInRegexString is True:
+		skipModifier += 1
 		acceptStates = getAcceptState(machine, include_all=True)
 		baseState = getInitialState(machine)
 		for acceptState in acceptStates:
@@ -298,7 +300,9 @@ regexString = r'ab+(sasboy|no)+' # Removed '+' from the end # adding '(l|p)+' ca
 
 # regexString = r'(z(a|b|c))' # Works
 # regexString = r'(z(y|(a|b|c)))'
-regexString = r'(a|b)+' # Works
+
+# regexString = r'(a|b)+' # Works
+regexString = r'(z(a|b|c)+)'
 
 stateCount = 1
 
