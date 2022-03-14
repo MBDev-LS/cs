@@ -140,6 +140,16 @@ def splitRegexIntoOptions(regexWithinOrBrackets, regexString, charIndex, scDict)
 
 	return resultList
 
+def orOneOrMoreHandler(machine: dict) -> dict:
+
+	acceptStates = getAcceptState(machine, include_all=True)
+	baseState = getInitialState(machine)
+	for acceptState in acceptStates:
+		for transition in machine[baseState]['transitions']:
+			machine[acceptState]['transitions'][transition] = machine[baseState]['transitions'][transition]
+
+	return machine
+
 def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict):
 	print('Handling or.')
 	# print(charIndex, currentState, stateCount, machine, scDict)
@@ -184,12 +194,8 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 	print('IMP: ',machine)
 
 	if quantifierInRegexString is True:
+		machine = orOneOrMoreHandler(machine)
 		skipModifier += 1
-		acceptStates = getAcceptState(machine, include_all=True)
-		baseState = getInitialState(machine)
-		for acceptState in acceptStates:
-			for transition in machine[baseState]['transitions']:
-				machine[acceptState]['transitions'][transition] = machine[baseState]['transitions'][transition]
 
 
 	return machine, len(withinBrackets)+1+skipModifier, len(machine)-1
@@ -197,7 +203,7 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 
 #	Range Function
 
-def rangeHandler(charIndex, currentState, stateCount, regexString, machine, scDict):
+def setHandler(charIndex, currentState, stateCount, regexString, machine, scDict):
 	pass
 
 
@@ -280,7 +286,7 @@ scDict = {
 			}
 		},
 		'[': {
-			'func': rangeHandler,
+			'func': setHandler,
 			'stateCreated': True,
 			'close_bracket': ']',
 			'quantifier_funcs': {
@@ -302,7 +308,7 @@ regexString = r'ab+(sasboy|no)+' # Removed '+' from the end # adding '(l|p)+' ca
 # regexString = r'(z(y|(a|b|c)))'
 
 # regexString = r'(a|b)+' # Works
-regexString = r'(z(a|b|c)+)'
+regexString = r'(z|(a|b|c)+)+'
 
 stateCount = 1
 
