@@ -45,13 +45,13 @@ def reverseCloseBracketSearch(closingBracket: str, scDict) -> str:
 #							Extending Functions
 #	Quantifier Functions
 
-def addRegularState(char, currentState, stateCount, machine):
+def addRegularState(char, currentState, stateCount, machine, acceptState=False, initialState=False):
 	machine[currentState]['transitions'][char] = f'S{stateCount}'
 
 	machine[f'S{stateCount}'] = {
 		'meta_data': {
-			'accept_state': False,
-			'initial_state': False,
+			'accept_state': acceptState,
+			'initial_state': initialState,
 		},
 		'transitions': {}
 	}
@@ -175,29 +175,43 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 	# orList = withinBrackets.split('|')
 	for i, option in enumerate(orList):
 		# Minus one is to deal with the fact we take the first one out later.
-		option, stateCount = regexToFsm(option, scDict, stateCount-1) # Issue with brackets can be traced back to the argument passed here
+		option, stateCount = regexToFsm(option, scDict, stateCount-1)
 		stateCount += 1
 		print('OPTION PRINT')
 		print(option)
 
 		skipModifier = 0
-		# if quantifierInRegexString is True:
-		# 	option = scDict['brackets'][regexString[charIndex]]['quantifier_funcs'][regexString[BracketClosePosition+1]](option) # Need to standardise parameters
-		# 	skipModifier = 1
-
-		# print(option[getInitialState(option)])
 
 		for transition in option[getInitialState(option)]['transitions']:
-			# print('ONE:\n'+transition)
-			machine[currentState]['transitions'][transition] = option[getInitialState(option)]['transitions'][transition]
+			
+			if option[getInitialState(option)]['transitions'][transition] in getAcceptState(option, include_all=True):
+				newAcceptStateCount = len(option)-len(getAcceptState(option, include_all=True))+(stateCount-1)
+				if getAcceptState(machine) is None:
+					machine[f'S{newAcceptStateCount}'] = {
+						'meta_data': {
+							'accept_state': True,
+							'initial_state': False,
+						},
+						'transitions': {}
+					}
+					machine[currentState]['transitions'][transition] = getAcceptState(machine)
+				else:
+					machine[getAcceptState(machine)]['transitions'][transition] = getAcceptState(machine)
+			else:
+				machine[currentState]['transitions'][transition] = option[getInitialState(option)]['transitions'][transition]
+
 
 		print('IMP0:', machine)
 
 		for resState in option:
-			if resState == getInitialState(option):
+			if resState == getInitialState(option) or resState in getAcceptState(option, include_all=True):
 				continue
 
 			machine[resState] = option[resState]
+			
+			for transition in option[resState]['transitions']:
+				if option[resState]['transitions'][transition] in getAcceptState(option, include_all=True):
+					machine[resState]['transitions'][transition] = getAcceptState(machine, include_all=True)
 		
 		print('IMP0.5:', machine)
 
@@ -207,8 +221,13 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 		machine = orOneOrMoreHandler(machine)
 		skipModifier += 1
 
+	getAcceptState(machine, include_all=True)
+	newStateCount = len(machine)-len(getAcceptState(machine, include_all=True))+1
 
-	return machine, len(withinBrackets)+1+skipModifier, len(machine)-1
+	return machine, len(withinBrackets)+1+skipModifier, len(machine) # Not working. Machine wrong.
+
+# Was trying to fix the issue of multiple or statements one after another by combining the accept states produced by an or statement. This is not working.
+
 
 
 #	Range Function
@@ -249,7 +268,7 @@ def regexToFsm(regexString, scDict, stateCount):
 		elif char in scDict['brackets']:
 			print('BRACKETS')
 			machine, skipFor, stateCount = scDict['brackets'][char]['func'](i, currentState, stateCount, regexString, machine, scDict)
-			print('f', stateCount)
+			print('stateCount:', stateCount)
 
 		elif i == len(regexString)-1:
 			machine = addRegularState(char, currentState, stateCount, machine)
@@ -319,7 +338,8 @@ regexString = r'ab+(sasboy|no)+' # Removed '+' from the end # adding '(l|p)+' ca
 
 # regexString = r'(a|b)+' # Works
 # regexString = r'(z|(a|b|c)+)+'
-regexString = r'(z|(a|b|c)+)+'
+regexString = r'(a|b)(c|d)'
+regexString = r'(a|b)'
 
 stateCount = 1
 
