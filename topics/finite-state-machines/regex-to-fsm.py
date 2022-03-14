@@ -150,6 +150,16 @@ def orOneOrMoreHandler(machine: dict) -> dict:
 
 	return machine
 
+def zeroOneOrMoreHandler(machine: dict) -> dict:
+
+	acceptStates = getAcceptState(machine, include_all=True)
+	baseState = getInitialState(machine)
+	for acceptState in acceptStates:
+		for transition in machine[baseState]['transitions']:
+			machine[acceptState]['transitions'][transition] = acceptState
+
+	return machine
+
 def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict):
 	print('Handling or.')
 	# print(charIndex, currentState, stateCount, machine, scDict)
@@ -308,6 +318,7 @@ regexString = r'ab+(sasboy|no)+' # Removed '+' from the end # adding '(l|p)+' ca
 # regexString = r'(z(y|(a|b|c)))'
 
 # regexString = r'(a|b)+' # Works
+# regexString = r'(z|(a|b|c)+)+'
 regexString = r'(z|(a|b|c)+)+'
 
 stateCount = 1
