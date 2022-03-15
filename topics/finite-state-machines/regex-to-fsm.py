@@ -275,6 +275,7 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 		machine = orOneOrMoreHandler(machine)
 		skipModifier += 1
 
+	print(machine)
 	machine = removeAcceptStates(machine)
 
 	return machine, len(withinBrackets)+1+skipModifier, len(machine) # Not working. Machine wrong.
