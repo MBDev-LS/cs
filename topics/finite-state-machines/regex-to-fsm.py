@@ -41,6 +41,12 @@ def reverseCloseBracketSearch(closingBracket: str, scDict) -> str:
 	
 	return None
 
+def getHighestState(machine: dict) -> str:
+	sortedStateList = [int(stateName[1:]) for stateName in list(machine)]
+	sortedStateList.sort()
+
+	return f'S{sortedStateList[-1]}'
+
 
 #							Extending Functions
 #	Quantifier Functions
@@ -353,6 +359,7 @@ def regexToFsm(regexString, scDict, stateCount):
 			print('BRACKETS')
 			machine, skipFor, stateCount = scDict['brackets'][char]['func'](i, currentState, stateCount, regexString, machine, scDict)
 			print('stateCount:', stateCount)
+			stateCreated = True
 
 		elif i == len(regexString)-1:
 			machine = addRegularState(char, currentState, stateCount, machine)
@@ -372,7 +379,8 @@ def regexToFsm(regexString, scDict, stateCount):
 		stateCount += 1 if stateCreated is True else 0
 		print(stateCount, getStateCount(machine))
 
-	machine[f'S{stateCount}']['meta_data']['accept_state'] = True
+	# machine[f'S{stateCount}']['meta_data']['accept_state'] = True
+	machine[getHighestState(machine)]['meta_data']['accept_state'] = True
 
 	return machine, stateCount
 
@@ -426,7 +434,8 @@ regexString = r'ab+(sasboy|no)+' # Removed '+' from the end # adding '(l|p)+' ca
 #regexString = r'(a|b)'
 #regexString = r'(a|b)(c|d)'
 
-regexString = r'(ab|cd)'
+regexString = r'(ab|cd)e'
+regexString = r'(ab|cd)+(ef|gh)+'
 
 stateCount = 1
 
