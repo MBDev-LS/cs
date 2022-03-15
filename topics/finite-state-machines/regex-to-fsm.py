@@ -174,11 +174,22 @@ def zeroOneOrMoreHandler(machine: dict) -> dict:
 
 	return machine
 
+def getOrderedNodeList(state: str, machine: dict):
+	if machine[state]['meta_data']['accept_state'] is True:
+		return [state]
+
+	stateList = [state]
+	for transition in machine[state]['transitions']:
+		stateList.extend(getOrderedNodeList(machine[state]['transitions'][transition], machine))
+	return stateList
+
 def fixStates(machine: dict) -> dict:
 	sortedStateList = [int(stateName[1:]) for stateName in list(machine)]
 	sortedStateList.sort()
 	sortedStateNameList = [f'S{num}' for num in sortedStateList]
 	startingOffset = sortedStateList[0]
+
+	nodeList = getOrderedNodeList(f'S{sortedStateList[0]}', machine)
 
 	keysDict = {}
 	for i, stateName in enumerate(sortedStateNameList):
@@ -212,10 +223,13 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 
 	withinBrackets = regexString[charIndex+1:BracketClosePosition]
 	orList = splitRegexIntoOptions(withinBrackets, regexString, charIndex, scDict)
-	# orList = withinBrackets.split('|')
-	for i, option in enumerate(orList):
+	optionList = []
+	for optionStr in orList:
+		resmachine, _ = regexToFsm(optionStr, scDict, stateCount-1)
+		optionList.append(resmachine)
+
+	for i, option in enumerate(optionList):
 		# Minus one is to deal with the fact we take the first one out later.
-		option, stateCount = regexToFsm(option, scDict, stateCount-1)
 		stateCount += 1
 		print('OPTION PRINT')
 		print(option)
@@ -226,7 +240,8 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 
 			if option[getInitialState(option)]['transitions'][transition] in getAcceptState(option, include_all=True):
 				if getAcceptState(machine) is None:
-					newAcceptStateCount = len(option)-len(getAcceptState(option, include_all=True))+(stateCount-1)
+					# newAcceptStateCount = len(option)-len(getAcceptState(option, include_all=True))+(stateCount-1)
+					newAcceptStateCount = len(max(optionList), key=len)
 					print(newAcceptStateCount)
 
 					machine[f'S{newAcceptStateCount}'] = {
@@ -254,7 +269,7 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 			for transition in option[resState]['transitions']:
 				if option[resState]['transitions'][transition] in getAcceptState(option, include_all=True):
 					if getAcceptState(machine, include_all=True) is None: # removing include_all=True here may save time
-						newAcceptStateCount = len(option)-len(getAcceptState(option, include_all=True))+(stateCount-1)
+						newAcceptStateCount = len(max(optionList, key=len)) + 1
 						machine[f'S{newAcceptStateCount}'] = {
 						'meta_data': {
 							'accept_state': True,
@@ -267,7 +282,8 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 						machine[resState]['transitions'][transition] = getAcceptState(machine)
 		
 		print('IMP0.5:', machine)
-		machine = fixStates(machine)
+	
+	machine = fixStates(machine)
 
 	print('IMP: ',machine)
 
