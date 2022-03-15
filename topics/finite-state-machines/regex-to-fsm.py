@@ -253,7 +253,18 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 			
 			for transition in option[resState]['transitions']:
 				if option[resState]['transitions'][transition] in getAcceptState(option, include_all=True):
-					machine[resState]['transitions'][transition] = getAcceptState(machine, include_all=True)
+					if getAcceptState(machine, include_all=True) is None: # removing include_all=True here may save time
+						newAcceptStateCount = len(option)-len(getAcceptState(option, include_all=True))+(stateCount-1)
+						machine[f'S{newAcceptStateCount}'] = {
+						'meta_data': {
+							'accept_state': True,
+							'initial_state': False,
+						},
+						'transitions': {}
+						}
+						machine[resState]['transitions'][transition] = getAcceptState(machine)
+					else:
+						machine[resState]['transitions'][transition] = getAcceptState(machine)
 		
 		print('IMP0.5:', machine)
 		machine = fixStates(machine)
