@@ -1,15 +1,15 @@
 
-def floodFSM(state, machine, visitedList=None, depth=None):
-	visitedList = visitedList or []
+def floodFSM(state, machine, visitedTransitionsList=None, depth=None):
+	visitedTransitionsList = visitedTransitionsList or []
 	depth = depth or 1
-	if state in visitedList:
-		return []
 	
-	visitedList.append(state)
 	resList = [{'depth': depth, 'state': state}]
 	for transition in machine[state]['transitions']:
-		resList.extend(floodFSM(machine[state]['transitions'][transition], machine, visitedList, depth+1))
-	
+		if (state, machine[state]['transitions'][transition]) in visitedTransitionsList:
+			continue
+		visitedTransitionsList.append((state, machine[state]['transitions'][transition]))
+		resList.extend(floodFSM(machine[state]['transitions'][transition], machine, visitedTransitionsList, depth+1))
+
 	return resList
 
 testMachine = {
