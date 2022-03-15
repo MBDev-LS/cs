@@ -21,7 +21,7 @@ def floodFsm(state: str, machine: dict, visitedTransitionsList: list=None, depth
 	return resList
 
 def fsmDepthSort(machine: dict) -> list:
-	resList = floodFsm(getInitialState(machine), testMachine)
+	resList = floodFsm(getInitialState(machine), machine)
 
 	newResList = []
 

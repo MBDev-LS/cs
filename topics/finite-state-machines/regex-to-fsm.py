@@ -174,10 +174,41 @@ def zeroOneOrMoreHandler(machine: dict) -> dict:
 
 	return machine
 
+#	Depth Sorting
+
+def floodFsm(state: str, machine: dict, visitedTransitionsList: list=None, depth: int=None) -> list:
+	visitedTransitionsList = visitedTransitionsList or []
+	depth = depth or 1
+	
+	resList = [{'depth': depth, 'state': state}]
+	for transition in machine[state]['transitions']:
+		if (state, machine[state]['transitions'][transition]) in visitedTransitionsList:
+			continue
+		visitedTransitionsList.append((state, machine[state]['transitions'][transition]))
+		resList.extend(floodFsm(machine[state]['transitions'][transition], machine, visitedTransitionsList, depth+1))
+
+	resList = sorted(resList, key=lambda d: d['depth'])
+
+	return resList
+
+def fsmDepthSort(machine: dict) -> list:
+	resList = floodFsm(getInitialState(machine), machine)
+
+	newResList = []
+
+	for stateDict in resList:
+		if stateDict['state'] in newResList:
+			continue
+
+		newResList.append(stateDict['state'])
+	
+	return newResList
+
+
 def fixStates(machine: dict) -> dict:
 	sortedStateList = [int(stateName[1:]) for stateName in list(machine)]
-	sortedStateList.sort()
-	sortedStateNameList = [f'S{num}' for num in sortedStateList]
+
+	sortedStateNameList = fsmDepthSort(machine)
 	startingOffset = sortedStateList[0]
 
 	keysDict = {}
@@ -395,7 +426,7 @@ regexString = r'ab+(sasboy|no)+' # Removed '+' from the end # adding '(l|p)+' ca
 #regexString = r'(a|b)'
 #regexString = r'(a|b)(c|d)'
 
-regexString = r'(ab|cd)+'
+regexString = r'(ab|cd)'
 
 stateCount = 1
 
