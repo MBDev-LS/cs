@@ -45,13 +45,13 @@ def reverseCloseBracketSearch(closingBracket: str, scDict) -> str:
 #							Extending Functions
 #	Quantifier Functions
 
-def addRegularState(char, currentState, stateCount, machine, acceptState=False, initialState=False):
+def addRegularState(char, currentState, stateCount, machine):
 	machine[currentState]['transitions'][char] = f'S{stateCount}'
 
 	machine[f'S{stateCount}'] = {
 		'meta_data': {
-			'accept_state': acceptState,
-			'initial_state': initialState,
+			'accept_state': False,
+			'initial_state': False,
 		},
 		'transitions': {}
 	}
@@ -110,20 +110,7 @@ def getBracketClosePosition(charIndex, regexString, scDict) -> int: # Fails on s
 
 	return closePosition
 
-def listSplitter(l, chopper):
-	bits = [[]]
-	for item in l:
-		if item is chopper:
-			bits.append([])
-		else:
-			bits[-1].append(item)
-	results = []
-	for item in bits:
-		if len(item):
-			results.append(item)
-	return results
-
-def splitRegexIntoOptions(regexWithinOrBrackets, regexString, charIndex, scDict):
+def splitRegexIntoOptions(regexWithinOrBrackets, charIndex):
 	"a|(z|(x|y|m)))"
 
 	bracketStart = None
@@ -138,142 +125,77 @@ def splitRegexIntoOptions(regexWithinOrBrackets, regexString, charIndex, scDict)
 			bracketCount -= 1
 			if bracketStart is not None and bracketCount == 0:
 				draftOption = ''.join([regexWithinOrBrackets[j] for j in range(bracketStart, i+1)])
-				draftOption += regexWithinOrBrackets[i+1] if regexWithinOrBrackets[i+1] in scDict['aftOperators'] else ''
 				resultList.append(draftOption)
 				bracketStart = None
 		else:
-			if bracketStart is None and char not in scDict['aftOperators']:
+			if bracketStart is None:
 				resultList.append(char)
 
 	if bracketCount != 0:
 		raiseUserError(f'Bracket \'{regexString[charIndex]}\' at position {charIndex+1} not closed.')
 
-	
-	splitList = listSplitter(resultList, '|')
-	resultList = [''.join(lst) for lst in splitList]
+	while '|' in resultList:
+		resultList.remove('|')
 
 	return resultList
-
-def orOneOrMoreHandler(machine: dict) -> dict:
-
-	acceptStates = getAcceptState(machine, include_all=True)
-	baseState = getInitialState(machine)
-	for acceptState in acceptStates:
-		for transition in machine[baseState]['transitions']:
-			machine[acceptState]['transitions'][transition] = machine[baseState]['transitions'][transition]
-
-	return machine
-
-def zeroOneOrMoreHandler(machine: dict) -> dict:
-
-	acceptStates = getAcceptState(machine, include_all=True)
-	baseState = getInitialState(machine)
-	for acceptState in acceptStates:
-		for transition in machine[baseState]['transitions']:
-			machine[acceptState]['transitions'][transition] = acceptState
-
-	return machine
-
-def fixStates(machine: dict) -> dict:
-	sortedStateList = [int(stateName[1:]) for stateName in list(machine)]
-	sortedStateList.sort()
-	sortedStateNameList = [f'S{num}' for num in sortedStateList]
-	startingOffset = sortedStateList[0]
-
-	keysDict = {}
-	for i, stateName in enumerate(sortedStateNameList):
-		keysDict[stateName] = f'S{i+startingOffset}'
-	
-	newMachine = {}
-	for stateName in machine:
-		newMachine[keysDict[stateName]] = machine[stateName]
-		for transition in machine[stateName]['transitions']:
-			machine[stateName]['transitions'][transition] = keysDict[machine[stateName]['transitions'][transition]]
-	
-	print(newMachine)
-	return newMachine
-
-def removeAcceptStates(machine: dict) -> dict:
-	for state in machine:
-		machine[state]['meta_data']['accept_state'] = False
-	
-	return machine
-
 
 def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict):
 	print('Handling or.')
 	# print(charIndex, currentState, stateCount, machine, scDict)
 	BracketClosePosition = getBracketClosePosition(charIndex, regexString, scDict)
 
-	quantifierInRegexString = False
+	bracketsInRegexString = False
+	bracketCount = 1 # Introduce a mult-bracket system for finding the outer most bracket
 	if BracketClosePosition+1 < len(regexString):
 		if regexString[BracketClosePosition+1] in scDict['aftOperators']:
-			quantifierInRegexString = True
+			bracketsInRegexString = True
 
 	withinBrackets = regexString[charIndex+1:BracketClosePosition]
-	orList = splitRegexIntoOptions(withinBrackets, regexString, charIndex, scDict)
+	orList = splitRegexIntoOptions(withinBrackets, charIndex)
 	# orList = withinBrackets.split('|')
 	for i, option in enumerate(orList):
 		# Minus one is to deal with the fact we take the first one out later.
-		option, stateCount = regexToFsm(option, scDict, stateCount-1)
+		option, stateCount = regexToFsm(option, scDict, stateCount-1) # Issue with brackets can be traced back to the argument passed here
 		stateCount += 1
 		print('OPTION PRINT')
 		print(option)
 
 		skipModifier = 0
+		if bracketsInRegexString is True:
+			option = scDict['brackets'][regexString[charIndex]]['quantifier_funcs'][regexString[BracketClosePosition+1]](option) # Need to standardise parameters
+			skipModifier = 1
+
+		# print(option[getInitialState(option)])
 
 		for transition in option[getInitialState(option)]['transitions']:
-
-			if option[getInitialState(option)]['transitions'][transition] in getAcceptState(option, include_all=True):
-				if getAcceptState(machine) is None:
-					newAcceptStateCount = len(option)-len(getAcceptState(option, include_all=True))+(stateCount-1)
-					print(newAcceptStateCount)
-
-					machine[f'S{newAcceptStateCount}'] = {
-						'meta_data': {
-							'accept_state': True,
-							'initial_state': False,
-						},
-						'transitions': {}
-					}
-					machine[currentState]['transitions'][transition] = getAcceptState(machine)
-				else:
-					machine[currentState]['transitions'][transition] = getAcceptState(machine)
-			else:
-				machine[currentState]['transitions'][transition] = option[getInitialState(option)]['transitions'][transition]
-
+			# print('ONE:\n'+transition)
+			machine[currentState]['transitions'][transition] = option[getInitialState(option)]['transitions'][transition]
 
 		print('IMP0:', machine)
 
 		for resState in option:
-			if resState == getInitialState(option) or resState in getAcceptState(option, include_all=True):
+			if resState == getInitialState(option):
 				continue
 
 			machine[resState] = option[resState]
-			
-			for transition in option[resState]['transitions']:
-				if option[resState]['transitions'][transition] in getAcceptState(option, include_all=True):
-					machine[resState]['transitions'][transition] = getAcceptState(machine, include_all=True)
 		
 		print('IMP0.5:', machine)
-		machine = fixStates(machine)
 
 	print('IMP: ',machine)
 
-	if quantifierInRegexString is True:
-		machine = orOneOrMoreHandler(machine)
-		skipModifier += 1
+	reverseListOfEndTransitions = [endState for endState in getAcceptState(machine, include_all=True)] # Neet to get the ones that go to it
+	reverseListOfEndTransitions.reverse()
+	if bracketsInRegexString is True: # Just take the first letter of the original text orList option strings
+		for endState in getAcceptState(machine, include_all=True):
+			pprint(getAcceptState(machine, include_all=True))
+			machine[endState]['transitions'][orList[i][0]] = '<start of or>'
 
-	machine = removeAcceptStates(machine)
-
-	return machine, len(withinBrackets)+1+skipModifier, len(machine) # Not working. Machine wrong.
-
-# Was trying to fix the issue of multiple or statements one after another by combining the accept states produced by an or statement. This is not working.
+	return machine, len(withinBrackets)+1+skipModifier, len(machine)-1
 
 
 #	Range Function
 
-def setHandler(charIndex, currentState, stateCount, regexString, machine, scDict):
+def rangeHandler(charIndex, currentState, stateCount, regexString, machine, scDict):
 	pass
 
 
@@ -309,7 +231,7 @@ def regexToFsm(regexString, scDict, stateCount):
 		elif char in scDict['brackets']:
 			print('BRACKETS')
 			machine, skipFor, stateCount = scDict['brackets'][char]['func'](i, currentState, stateCount, regexString, machine, scDict)
-			print('stateCount:', stateCount)
+			print('f', stateCount)
 
 		elif i == len(regexString)-1:
 			machine = addRegularState(char, currentState, stateCount, machine)
@@ -356,7 +278,7 @@ scDict = {
 			}
 		},
 		'[': {
-			'func': setHandler,
+			'func': rangeHandler,
 			'stateCreated': True,
 			'close_bracket': ']',
 			'quantifier_funcs': {
@@ -374,16 +296,9 @@ regexString = r'ab+(sasboy|no)+' # Removed '+' from the end # adding '(l|p)+' ca
 
 # regexString = r'ab+(sasboy|no)'
 
-# regexString = r'(z(a|b|c))' # Works
-# regexString = r'(z(y|(a|b|c)))'
-
-# regexString = r'(a|b)+' # Works
-# regexString = r'(z|(a|b|c)+)+'
-#regexString = r'(a|b)(c|d)'
-#regexString = r'(a|b)'
-#regexString = r'(a|b)(c|d)'
-
-regexString = r'(ab|cd)+'
+regexString = r'(z(a|b|c))' # Works
+regexString = r'(z(y|(a|b|c)))'
+regexString = r'(ab|cd)'
 
 stateCount = 1
 
