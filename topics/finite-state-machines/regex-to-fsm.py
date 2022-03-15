@@ -160,6 +160,32 @@ def zeroOneOrMoreHandler(machine: dict) -> dict:
 
 	return machine
 
+def fixStates(machine: dict) -> dict:
+	sortedStateList = [int(stateName[1:]) for stateName in list(machine)]
+	sortedStateList.sort()
+	sortedStateNameList = [f'S{num}' for num in sortedStateList]
+	startingOffset = sortedStateList[0]
+
+	keysDict = {}
+	for i, stateName in enumerate(sortedStateNameList):
+		keysDict[stateName] = f'S{i+startingOffset}'
+	
+	newMachine = {}
+	for stateName in machine:
+		newMachine[keysDict[stateName]] = machine[stateName]
+		for transition in machine[stateName]['transitions']:
+			machine[stateName]['transitions'][transition] = keysDict[machine[stateName]['transitions'][transition]]
+	
+	print(newMachine)
+	return newMachine
+
+def removeAcceptStates(machine: dict) -> dict:
+	for state in machine:
+		machine[state]['meta_data']['accept_state'] = False
+	
+	return machine
+
+
 def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict):
 	print('Handling or.')
 	# print(charIndex, currentState, stateCount, machine, scDict)
@@ -183,10 +209,12 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 		skipModifier = 0
 
 		for transition in option[getInitialState(option)]['transitions']:
-			
+
 			if option[getInitialState(option)]['transitions'][transition] in getAcceptState(option, include_all=True):
-				newAcceptStateCount = len(option)-len(getAcceptState(option, include_all=True))+(stateCount-1)
 				if getAcceptState(machine) is None:
+					newAcceptStateCount = len(option)-len(getAcceptState(option, include_all=True))+(stateCount-1)
+					print(newAcceptStateCount)
+
 					machine[f'S{newAcceptStateCount}'] = {
 						'meta_data': {
 							'accept_state': True,
@@ -196,7 +224,7 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 					}
 					machine[currentState]['transitions'][transition] = getAcceptState(machine)
 				else:
-					machine[getAcceptState(machine)]['transitions'][transition] = getAcceptState(machine)
+					machine[currentState]['transitions'][transition] = getAcceptState(machine)
 			else:
 				machine[currentState]['transitions'][transition] = option[getInitialState(option)]['transitions'][transition]
 
@@ -214,6 +242,7 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 					machine[resState]['transitions'][transition] = getAcceptState(machine, include_all=True)
 		
 		print('IMP0.5:', machine)
+		machine = fixStates(machine)
 
 	print('IMP: ',machine)
 
@@ -221,13 +250,11 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 		machine = orOneOrMoreHandler(machine)
 		skipModifier += 1
 
-	getAcceptState(machine, include_all=True)
-	newStateCount = len(machine)-len(getAcceptState(machine, include_all=True))+1
+	machine = removeAcceptStates(machine)
 
 	return machine, len(withinBrackets)+1+skipModifier, len(machine) # Not working. Machine wrong.
 
 # Was trying to fix the issue of multiple or statements one after another by combining the accept states produced by an or statement. This is not working.
-
 
 
 #	Range Function
@@ -340,6 +367,7 @@ regexString = r'ab+(sasboy|no)+' # Removed '+' from the end # adding '(l|p)+' ca
 # regexString = r'(z|(a|b|c)+)+'
 regexString = r'(a|b)(c|d)'
 regexString = r'(a|b)'
+regexString = r'(a|b)(c|d)'
 
 stateCount = 1
 
