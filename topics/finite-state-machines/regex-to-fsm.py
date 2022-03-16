@@ -87,12 +87,27 @@ def OneOrMore(char, machine, stateCount):
 
 #	Special Quantifier Functions
 
-def oneOrMoreOfOr(subMachine: dict):
-	secondStateKey = list(subMachine[getInitialState(subMachine)]['transitions'].keys())[0]
-	secondStateInOr = subMachine[getInitialState(subMachine)]['transitions'][secondStateKey]
-	subMachine[getAcceptState(subMachine)]['transitions'][secondStateKey] = secondStateInOr
-	
-	return subMachine
+def orOneOrMoreHandler(machine: dict, cachedStateCount: int) -> dict:
+
+	acceptStates = getAcceptState(machine, include_all=True)
+	baseState = f'S{cachedStateCount-1}'
+	for acceptState in acceptStates:
+		for transition in machine[baseState]['transitions']:
+			if int(machine[baseState]['transitions'][transition][1:]) > int(baseState[1:]):
+				machine[acceptState]['transitions'][transition] = machine[baseState]['transitions'][transition]
+
+	return machine
+
+def zeroOneOrMoreHandler(machine: dict, cachedStateCount: int) -> dict:
+
+	acceptStates = getAcceptState(machine, include_all=True)
+	baseState = f'S{cachedStateCount-1}'
+	for acceptState in acceptStates:
+		for transition in machine[baseState]['transitions']:
+			if int(machine[baseState]['transitions'][transition][1:]) > int(baseState[1:]):
+				machine[acceptState]['transitions'][transition] = acceptState
+
+	return machine
 
 
 #	OR Function (and utility function(s))
@@ -160,25 +175,6 @@ def splitRegexIntoOptions(regexWithinOrBrackets, regexString, charIndex, scDict)
 
 	return resultList
 
-def orOneOrMoreHandler(machine: dict) -> dict:
-
-	acceptStates = getAcceptState(machine, include_all=True)
-	baseState = getInitialState(machine)
-	for acceptState in acceptStates:
-		for transition in machine[baseState]['transitions']:
-			machine[acceptState]['transitions'][transition] = machine[baseState]['transitions'][transition]
-
-	return machine
-
-def zeroOneOrMoreHandler(machine: dict) -> dict:
-
-	acceptStates = getAcceptState(machine, include_all=True)
-	baseState = getInitialState(machine)
-	for acceptState in acceptStates:
-		for transition in machine[baseState]['transitions']:
-			machine[acceptState]['transitions'][transition] = acceptState
-
-	return machine
 
 #	Depth Sorting
 
@@ -239,6 +235,7 @@ def removeAcceptStates(machine: dict) -> dict:
 
 def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict):
 	print('Handling or.')
+	cachedStateCount = stateCount
 	# print(charIndex, currentState, stateCount, machine, scDict)
 	BracketClosePosition = getBracketClosePosition(charIndex, regexString, scDict)
 
@@ -309,7 +306,7 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 	print('IMP: ',machine)
 
 	if quantifierInRegexString is True:
-		machine = orOneOrMoreHandler(machine)
+		scDict['brackets'][regexString[charIndex]]['quantifier_funcs'][regexString[BracketClosePosition+1]](machine, cachedStateCount)
 		skipModifier += 1
 
 	print(machine)
@@ -402,8 +399,8 @@ scDict = {
 			'stateCreated': True,
 			'close_bracket': ')',
 			'quantifier_funcs': {
-				'+': oneOrMoreOfOr,
-				'*': None,
+				'+': orOneOrMoreHandler,
+				'*': zeroOneOrMoreHandler,
 			}
 		},
 		'[': {
@@ -436,6 +433,7 @@ regexString = r'ab+(sasboy|no)+' # Removed '+' from the end # adding '(l|p)+' ca
 
 regexString = r'(ab|cd)e'
 regexString = r'(ab|cd)+(ef|gh)+'
+regexString = r'(ab|cd)*(ef|gh)*'
 
 stateCount = 1
 
