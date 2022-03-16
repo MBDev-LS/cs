@@ -105,7 +105,7 @@ def zeroOneOrMoreHandler(machine: dict, cachedStateCount: int) -> dict:
 	for acceptState in acceptStates:
 		for transition in machine[baseState]['transitions']:
 			if int(machine[baseState]['transitions'][transition][1:]) > int(baseState[1:]):
-				machine[acceptState]['transitions'][transition] = acceptState
+				machine[acceptState]['transitions'][transition] = machine[baseState]['transitions'][transition]
 
 	return machine
 
@@ -255,7 +255,7 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 		print('OPTION PRINT')
 		print(option)
 
-		skipModifier = 0
+		skipModifier = 0 # Should probably be moved to after this loop
 
 		for transition in option[getInitialState(option)]['transitions']:
 
@@ -349,7 +349,6 @@ def regexToFsm(regexString, scDict, stateCount):
 		if char == '+':
 			print('CHECK')
 
-		
 		if char in scDict['aftOperators']:
 			continue
 
