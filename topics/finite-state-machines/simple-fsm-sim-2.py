@@ -5,31 +5,21 @@ def getInitialState(machine: dict) -> str:
 			return stateKey
 
 
-machine = {
-    "S1": {
-        "meta_data": {"accept_state": False, "initial_state": True},
-        "transitions": {"a": "S3", "b": "S4", "c": "S5", "z": "S2"},
-    },
-    "S2": {
-        "meta_data": {"accept_state": True, "initial_state": False},
-        "transitions": {"a": "S3", "b": "S4", "c": "S5", "z": "S2"},
-    },
-    "S3": {
-        "meta_data": {"accept_state": True, "initial_state": False},
-        "transitions": {"a": "S3", "b": "S4", "c": "S5", "z": "S2"},
-    },
-    "S4": {
-        "meta_data": {"accept_state": True, "initial_state": False},
-        "transitions": {"a": "S3", "b": "S4", "c": "S5", "z": "S2"},
-    },
-    "S5": {
-        "meta_data": {"accept_state": True, "initial_state": False},
-        "transitions": {"a": "S3", "b": "S4", "c": "S5", "z": "S2"},
-    },
-}
+machine = {'S1': {'meta_data': {'accept_state': False, 'initial_state': True},
+        'transitions': {'a': 'S2', 'c': 'S3', 'e': 'S4', 'g': 'S5'}},
+ 'S2': {'meta_data': {'accept_state': False, 'initial_state': False},
+        'transitions': {'b': 'S6'}},
+ 'S3': {'meta_data': {'accept_state': False, 'initial_state': False},
+        'transitions': {'d': 'S6'}},
+ 'S4': {'meta_data': {'accept_state': False, 'initial_state': False},
+        'transitions': {'f': 'S6'}},
+ 'S5': {'meta_data': {'accept_state': False, 'initial_state': False},
+        'transitions': {'h': 'S6'}},
+ 'S6': {'meta_data': {'accept_state': True, 'initial_state': False},
+        'transitions': {'a': 'S2', 'c': 'S3', 'e': 'S4', 'g': 'S5'}}}
 
 
-inputStr = 'az'
+inputStr = 'ababab'
 
 currentStateKey = getInitialState(machine)
 print(f'Started at state {currentStateKey}')

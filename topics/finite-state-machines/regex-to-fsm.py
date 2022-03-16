@@ -159,7 +159,8 @@ def splitRegexIntoOptions(regexWithinOrBrackets, regexString, charIndex, scDict)
 			bracketCount -= 1
 			if bracketStart is not None and bracketCount == 0:
 				draftOption = ''.join([regexWithinOrBrackets[j] for j in range(bracketStart, i+1)])
-				draftOption += regexWithinOrBrackets[i+1] if regexWithinOrBrackets[i+1] in scDict['aftOperators'] else ''
+				if i+1 < len(regexWithinOrBrackets):
+					draftOption += regexWithinOrBrackets[i+1] if regexWithinOrBrackets[i+1] in scDict['aftOperators'] else ''
 				resultList.append(draftOption)
 				bracketStart = None
 		else:
@@ -431,9 +432,17 @@ regexString = r'ab+(sasboy|no)+' # Removed '+' from the end # adding '(l|p)+' ca
 #regexString = r'(a|b)'
 #regexString = r'(a|b)(c|d)'
 
+
+# Working
 regexString = r'(ab|cd)e'
 regexString = r'(ab|cd)+(ef|gh)+'
 regexString = r'(ab|cd)*(ef|gh)*'
+regexString = r'(ab|(ef))'
+regexString = r'(ab|cd|ef)'
+regexString = r'(ab|cd|ef)*'
+
+# Not working
+regexString = r'(ab|cd|(ef|gh)*)+'
 
 stateCount = 1
 
