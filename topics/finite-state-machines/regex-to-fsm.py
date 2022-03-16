@@ -307,7 +307,7 @@ def orHandler(charIndex, currentState, stateCount, regexString, machine, scDict)
 	print('IMP: ',machine)
 
 	if quantifierInRegexString is True:
-		scDict['brackets'][regexString[charIndex]]['quantifier_funcs'][regexString[BracketClosePosition+1]](machine, cachedStateCount)
+		machine = scDict['brackets'][regexString[charIndex]]['quantifier_funcs'][regexString[BracketClosePosition+1]](machine, cachedStateCount)
 		skipModifier += 1
 
 	print(machine)
