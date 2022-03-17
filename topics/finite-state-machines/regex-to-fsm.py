@@ -442,7 +442,6 @@ regexString = r'(ab|cd|ef)*'
 
 # Not working
 regexString = r'(ab|cd|(ef|gh)*)+'
-
 stateCount = 1
 
 finalMachine, stateCount = regexToFsm(regexString, scDict, stateCount)
