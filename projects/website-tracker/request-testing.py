@@ -45,10 +45,9 @@ def getStandardWebsiteHash(baseLink, linkMatcher, pageUrl):
 
 
 resultsList = []
-for i in range(25):
+for i in range(50):
 	resultsList.append(getStandardWebsiteHash(siteUrl, linkMatcher, siteUrl))
 
 worked = True if len(set(resultsList)) == 1 else False
 
 print(f'Success: {worked}')
-
