@@ -34,32 +34,8 @@ def deQueue(queue: list, front: int, rear: int, queueMaxLength: int) -> tuple:
     if isEmpty(front, rear) is True:
         print(f'Failed to dequeue from queue, as queue is empty.')
         return
+    
     deQueuedItem = queue.pop(front)
     front += 1
 
     return deQueuedItem, queue, front
-
-
-queue = [None for i in range(4)]
-front, rear, queueMaxLength = createQueue(queue)
-
-print(queue)
-print(isEmpty(front, rear))
-print(isFull(front, rear, queueMaxLength))
-
-queue, rear = enQueue(queue, front, rear, queueMaxLength, 'Moss')
-queue, rear = enQueue(queue, front, rear, queueMaxLength, 'Roy')
-queue, rear = enQueue(queue, front, rear, queueMaxLength, 'Jen')
-queue, rear = enQueue(queue, front, rear, queueMaxLength, 'Douglas')
-
-print(queue)
-print(isEmpty(front, rear))
-print(isFull(front, rear, queueMaxLength))
-
-deQueuedItem, queue, front = deQueue(queue, front, rear, queueMaxLength)
-
-print(deQueuedItem)
-
-print(queue)
-print(isEmpty(front, rear))
-print(isFull(front, rear, queueMaxLength))
