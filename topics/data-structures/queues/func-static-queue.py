@@ -37,7 +37,6 @@ def deQueue(queue: list, front: int, rear: int, queueMaxLength: int) -> tuple:
         return -1, queue, front
     
     deQueuedItem = queue[front]
-    queue[front] = None
     
     front += 1
 
