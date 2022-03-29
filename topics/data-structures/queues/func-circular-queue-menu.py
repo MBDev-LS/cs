@@ -45,14 +45,23 @@ def deQueue(queue: list, front: int, rear: int, size: int, queueMaxLength: int) 
 
 	return deQueuedItem, queue, front, size
 
+def renderQueue(queue, front, rear):
+	resString = '\n' + '\n'.join([f'{i}  {"f" if front == i else " "} {"r" if rear == i else " "} {item}' for i, item in enumerate(queue)]) + '\n'
+
+	return resString
+
+
 def logQueue(queue: list, front: int, rear: int, size: int, queueMaxLength: int):
 	print()
 	if isEmpty(size) is True:
-		print(f'Queue: {[]}')
+		print(f'Queue: ()')
 	elif rear - front >= 0:
-		print(f'Queue: {queue[front:rear+1]}')
+		print(f'Queue: ({", ".join(queue[front:rear+1])})')
 	else:
-		print(f'Queue: {queue[:rear+1] + queue[front:]}')
+		print(f'Queue: {", ".join(queue[:rear+1] + queue[front:])}')
+		
+
+	print(renderQueue(queue, front, rear))
 	
 	print(f'isEmpty: {isEmpty(size)}')
 	print(f'isFull: {isFull(size, queueMaxLength)}')
@@ -81,6 +90,9 @@ def menuGen(optionsList):
 
 
 queueUserSetSize = getIntInput('Enter queue size: ')
+while queueUserSetSize <= 0:
+	print('Enter an integer greater than 0.')
+	queueUserSetSize = getIntInput('Enter queue size: ')
 
 queue, front, rear, size, queueMaxLength = createQueue(queueUserSetSize)
 
@@ -98,7 +110,7 @@ while True:
 	elif nextAction == 2:
 		print(f'Queue full: {isFull(size, queueMaxLength)}')
 	elif nextAction == 3:
-		print(f'Queue full: {isEmpty(size)}')
+		print(f'Queue empty: {isEmpty(size)}')
 	elif nextAction == 4:
 		logQueue(queue, front, rear, size, queueMaxLength)
 	elif nextAction == 5:
@@ -106,35 +118,3 @@ while True:
 		print('\nPress enter to complete shutdown.')
 		input()
 		exit()
-
-
-
-
-
-"""
-
-queue, front, rear, size, queueMaxLength = createQueue(4)
-
-
-
-logQueue(queue, front, rear, size, queueMaxLength)
-
-queue, rear, size = enQueue(queue, front, rear, size, queueMaxLength, 'Chris')
-
-logQueue(queue, front, rear, size, queueMaxLength)
-
-queue, rear, size = enQueue(queue, front, rear, size, queueMaxLength, 'Alan')
-queue, rear, size = enQueue(queue, front, rear, size, queueMaxLength, 'Peter')
-queue, rear, size = enQueue(queue, front, rear, size, queueMaxLength, 'Sylvester')
-
-logQueue(queue, front, rear, size, queueMaxLength)
-
-deQueuedItem, queue, front, size = deQueue(queue, front, rear, size, queueMaxLength)
-
-logQueue(queue, front, rear, size, queueMaxLength)
-
-queue, rear, size = enQueue(queue, front, rear, size, queueMaxLength, 'Douglas')
-queue, rear, size = enQueue(queue, front, rear, size, queueMaxLength, 'Donald')
-
-logQueue(queue, front, rear, size, queueMaxLength)
-"""
