@@ -9,8 +9,10 @@ class Queue():
 	def enQueue(self, itemToEnQueue) -> None:
 		if self.isFull() is not True:
 			self.queue.append(itemToEnQueue)
+			return 0
 		else:
 			print(f'Failed to enqueue {itemToEnQueue} as queue ({", ".join(self.queue)}) is full.')
+			return -1
 	
 	def deQueue(self):
 		return self.queue.pop(0)
