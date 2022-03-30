@@ -8,7 +8,7 @@ operatorList = {
 }
 
 inputString = '1*2^4+24+(1-48)+100'
-inputString = '1+2*3+4'
+inputString = '1*2+3*4'
 
 intStack = []
 resultQueue = []

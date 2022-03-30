@@ -9,8 +9,11 @@ variables = ['A', 'B', 'C', 'D']
 
 inputString = '(A+B).(C+D)'
 
-inputString = 'A.B+C.D'
-inputString = 'A+B.C+D'
+# inputString = 'A.B+C.D'
+# inputString = 'A+B.C+D'
+inputString = '~(A+B).(C+D)'
+
+variables = [char for char in inputString if char not in list(operatorList.keys()) + ['(', ')']]
 
 intQueue = []
 resultQueue = []
