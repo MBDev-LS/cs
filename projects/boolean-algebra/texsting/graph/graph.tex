@@ -1,0 +1,17 @@
+
+\documentclass[border=3mm]{standalone}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes.gates.logic.US,shapes.gates.logic.IEC,calc}
+\begin{document}
+\thispagestyle{empty}
+\tikzstyle{branch}=[fill,shape=circle,minimum size=3pt,inner sep=0pt]
+\begin{tikzpicture}[scale=2]
+
+    \draw [->] (0,0) -- (0,2);
+    \draw [->] (0,0) -- (2,0);
+    \draw [thick, red] (0,0) -- (2,2);
+    \draw [thin] (0,1) -- (1,1) -- (1,0);
+
+\end{tikzpicture}
+\end{document} 

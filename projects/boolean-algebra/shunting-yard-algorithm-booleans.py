@@ -1,11 +1,9 @@
 
-operatorList = {
+operatorList = { # That's a dict you idiot, change this when you have time
 	'~': {'precedence': 4, 'associativity': 'right'},
 	'.': {'precedence': 3, 'associativity': 'left'},
 	'+': {'precedence': 2, 'associativity': 'left'},
 }
-
-variables = ['A', 'B', 'C', 'D']
 
 inputString = '(A+B).(C+D)'
 
@@ -68,7 +66,7 @@ while len(operatorStack) > 0:
 	
 	outputQueue.append(operatorStack.pop())
 
-print(''.join(outputQueue))
+print(' '.join(outputQueue))
 
 
 "A+B*C+D"
