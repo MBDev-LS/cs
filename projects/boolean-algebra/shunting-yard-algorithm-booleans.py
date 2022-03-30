@@ -40,7 +40,6 @@ for i, char in enumerate(inputString):
 	elif char in operatorList:
 		if len(operatorStack) != 0:
 			while operatorStack[-1] != '(' and (operatorList[operatorStack[-1]]['precedence'] > operatorList[char]['precedence'] or (operatorList[operatorStack[-1]]['precedence'] == operatorList[char]['precedence'] and operatorList[char]['associativity'] == 'left')):
-			# while operatorStack[-1] != '(': # and operatorList[operatorStack[-1]]['precedence'] > operatorList[char]['precedence']:
 				outputQueue.append(operatorStack.pop())
 
 				if len(operatorStack) == 0:
