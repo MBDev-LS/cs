@@ -1,30 +1,34 @@
 
 operatorList = {
-	'*': {'precedence': 2, 'associativity': 'left'},
+	'~': {'precedence': 4, 'associativity': 'right'},
+	'.': {'precedence': 3, 'associativity': 'left'},
 	'+': {'precedence': 2, 'associativity': 'left'},
 }
 
 variables = ['A', 'B', 'C', 'D']
-inputString = '(A+B)*(C+D)'
-inputString = 'A+B*C+D'
 
-intStack = []
+inputString = '(A+B).(C+D)'
+
+inputString = 'A.B+C.D'
+inputString = 'A+B.C+D'
+
+intQueue = []
 resultQueue = []
 
 for i, char in enumerate(inputString):
 	if char in variables:
-		intStack.append(char)
+		intQueue.append(char)
 	else:
-		fullNum = intStack
-		intStack = []
+		fullNum = intQueue
+		intQueue = []
 
 		if len(fullNum) > 0:
 			resultQueue.append(''.join(fullNum))
 		
 		resultQueue.append(char)
 
-if len(intStack) > 0:
-	resultQueue.append(''.join(intStack))
+if len(intQueue) > 0:
+	resultQueue.append(''.join(intQueue))
 
 inputString = resultQueue
 outputQueue = []
@@ -36,7 +40,7 @@ for i, char in enumerate(inputString):
 	elif char in operatorList:
 		if len(operatorStack) != 0:
 			while operatorStack[-1] != '(' and (operatorList[operatorStack[-1]]['precedence'] > operatorList[char]['precedence'] or (operatorList[operatorStack[-1]]['precedence'] == operatorList[char]['precedence'] and operatorList[char]['associativity'] == 'left')):
-			# while operatorStack[-1] != '(' and operatorList[operatorStack[-1]]['precedence'] > operatorList[char]['precedence']:
+			# while operatorStack[-1] != '(': # and operatorList[operatorStack[-1]]['precedence'] > operatorList[char]['precedence']:
 				outputQueue.append(operatorStack.pop())
 
 				if len(operatorStack) == 0:
@@ -62,4 +66,7 @@ while len(operatorStack) > 0:
 	
 	outputQueue.append(operatorStack.pop())
 
-print(' '.join(outputQueue))
+print(''.join(outputQueue))
+
+
+"A+B*C+D"
