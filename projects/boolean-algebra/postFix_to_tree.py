@@ -1,4 +1,7 @@
 
+from flask import g
+
+
 class Node():
 	def __init__(self, value: str, leftChild=None, rightChild=None) -> None:
 		self.value = value
@@ -6,6 +9,7 @@ class Node():
 		self.leftChild = leftChild
 		self.rightChild = rightChild
 		self.leaf = False if leftChild is None and rightChild is None else True
+		self.graphId = ''
 	
 	def setLeftChild(self, newLeftChild: list) -> int:
 		self.leftChild = newLeftChild
@@ -26,6 +30,9 @@ class Node():
 		print(f'{self.value}'.center(50))
 		print(f'/ \\'.center(50))
 		print(f'{self.leftChild}    {self.rightChild}'.center(50))
+
+	def setGraphId(self, graphId: str):
+		self.graphId = graphId
 	
 	def __str__(self) -> str:
 		return self.value
