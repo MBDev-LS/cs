@@ -44,7 +44,6 @@ postFixInputString = 'A B + ~ C D + .'
 postFixInputList = postFixInputString.split(' ')
 postFixInputList.reverse()
 
-print(postFixInputList)
 
 variables = [char for char in postFixInputList if char not in list(operatorsDict.keys()) + ['(', ')']]
 
@@ -103,7 +102,7 @@ def addTwoChildren(baseNode: Node, lChild: str, rChild: str, operatorsDict: dict
 	if rChild is not None:
 		if rChild not in variables:
 			operands = getOperands(rChild[1:], operatorsDict[rChild[0]]['operandCount'], operatorsDict,  variables)
-			print(operands)
+			
 			rightLeft = operands[0]
 			rightRight = operands[1] if len(operands) > 1 else None
 			rNode = Node(rChild[0])
@@ -149,7 +148,7 @@ def postfixToTree(postFixInputString):
 
 	result = checkTreeLeaves(result)
 	# displayTree(result, 1)
-	tempDisplayTree(result)
+	# tempDisplayTree(result)
 
 	return result
 
