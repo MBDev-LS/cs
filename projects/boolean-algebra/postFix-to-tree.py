@@ -8,6 +8,10 @@ class Node():
     def addBranch(self, newChild: str) -> int:
         self.branches.append(newChild)
         self.leaf = False
+    
+    def addBranches(self, newChildren: list) -> int:
+        self.branches += newChildren
+        self.leaf = False
 
     def setOperator(self, newValue: str) -> int:
         self.value = newValue
@@ -37,5 +41,24 @@ for i, char in enumerate(postFixInputList):
         newNode = Node(char)
         currentParent.addBranch(newNode)
         currentParent = newNode
+
+def findTreeForPostFixString(postFixString, currentParent: Node=None):
+    currentParent = currentParent if currentParent is not None else Node('START PLACEHOLDER')
+
+    for i, char in enumerate(postFixInputList):
+        if char not in operatorsDict:
+            currentParent.addBranch(Node(char))
+        else:
+            if foundOperator is False:
+                currentParent.setOperator(char)
+                continue
+            
+            newNode = Node(char)
+            currentParent.addBranch(newNode)
+            currentParent = newNode
+
+            currentParent = findTreeForPostFixString()
+
+
 
 # This approach is stupid, use the reverse bit and ditch the rest. Then use a recursive approach to create trees with the correct number of operands after operators 
