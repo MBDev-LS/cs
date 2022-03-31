@@ -142,35 +142,42 @@ def postfixToTree(postFixInputString):
 	postFixInputList = postFixInputString.split(' ')
 	postFixInputList.reverse()
 
-	print(postFixInputList)
 
 	variables = [char for char in postFixInputList if char not in list(operatorsDict.keys()) + ['(', ')']]
 
 	result = findTreeForPostFixString(postFixInputList, operatorsDict, variables)
 
 	result = checkTreeLeaves(result)
-	displayTree(result, 1)
+	# displayTree(result, 1)
+	tempDisplayTree(result)
 
 	return result
 
-def displayTree(topNode: Node, depth: int, side: str=None):
-	if depth == 1:
-		print(f'{topNode.value}'.center(50))
-	else:
-		print(f'{(depth+1)*" " if side == "r" else ""}{topNode.value}{(depth+1)*" " if side == "l" else ""}'.center(50))
-	
-	isLeft = True if topNode.leftChild is not None else False
-	isRight = True if topNode.rightChild is not None else False
-	print('{} {}'.format("/" if isLeft is True else " ", "\\" if isRight is True else " ").center(50))
+def tempDisplayTree(topNode: Node):
+	topNode.printDescendants()
 
-	if isLeft is True:
-		displayTree(topNode.leftChild, depth+1, 'l')
+	if topNode.leftChild is not None:
+		tempDisplayTree(topNode.leftChild)
+	if topNode.rightChild is not None:
+		tempDisplayTree(topNode.rightChild)
+
+	return topNode
+
+# def displayTree(topNode: Node, depth: int, side: str=None):
+# 	if depth == 1:
+# 		print(f'{topNode.value}'.center(50))
+# 	else:
+# 		print(f'{(depth+1)*" " if side == "r" else ""}{topNode.value}{(depth+1)*" " if side == "l" else ""}'.center(50))
 	
-	if isRight is True:
-		displayTree(topNode.rightChild, depth+1, 'r')
-		
+# 	isLeft = True if topNode.leftChild is not None else False
+# 	isRight = True if topNode.rightChild is not None else False
+# 	print('{} {}'.format("/" if isLeft is True else " ", "\\" if isRight is True else " ").center(50))
+
+# 	if isLeft is True:
+# 		displayTree(topNode.leftChild, depth+1, 'l')
 	
-	
+# 	if isRight is True:
+# 		displayTree(topNode.rightChild, depth+1, 'r')
 
 
 postfixToTree('A B + ~ C D + .')
