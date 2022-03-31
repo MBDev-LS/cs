@@ -1,7 +1,7 @@
 
 import testing_main
 import graphviz
-dot = graphviz.Digraph(comment='Boolean Expression')
+dot = graphviz.Graph(comment='Boolean Expression')
 
 expression = '(A+B).(C+D)'
 expression = 'A.B.C+A.C+A.C.D+A.C.D'
@@ -19,8 +19,7 @@ for var in variables:
 
 tree = testing_main.expressionToTree(expression)
 
-def drawTree(baseNode, nameDict: dict, graphText: str=None) -> str:
-    graphText = graphText if graphText is not None else ''
+def drawTree(baseNode, nameDict: dict, dot) -> str:
 
     print("Dealing with node:")
     baseNode.printDescendants()
@@ -30,7 +29,8 @@ def drawTree(baseNode, nameDict: dict, graphText: str=None) -> str:
         
         nameDict[baseNode.value]["nextCount"] += 1
     
-    graphText += f'{baseNode.graphId} [shape=circle, label="{baseNode.value}"]\n'
+    
+    dot.node(baseNode.graphId, baseNode.value, shape='circle')
     print(f'Added "{baseNode.graphId} [shape=circle, label="{baseNode.value}"]\\n" as main addition')
     
     if baseNode.leftChild is not None:
@@ -39,9 +39,9 @@ def drawTree(baseNode, nameDict: dict, graphText: str=None) -> str:
             nameDict[baseNode.leftChild.value]["nextCount"] += 1
             
         
-        graphText += f'{baseNode.graphId} -- {baseNode.leftChild.graphId}\n'
+        dot.edge(baseNode.graphId, baseNode.leftChild.graphId)
         print(f'Added "{baseNode.graphId} -- {baseNode.leftChild.graphId}\\n" as sub addition on the left')
-        graphText = drawTree(baseNode.leftChild, nameDict, graphText)
+        dot = drawTree(baseNode.leftChild, nameDict, dot)
 
     if baseNode.rightChild is not None:
         if baseNode.rightChild.graphId == '':
@@ -49,10 +49,10 @@ def drawTree(baseNode, nameDict: dict, graphText: str=None) -> str:
             nameDict[baseNode.rightChild.value]["nextCount"] += 1
             
         
-        graphText += f'{baseNode.graphId} -- {baseNode.rightChild.graphId}\n'
+        dot.edge(baseNode.graphId, baseNode.rightChild.graphId)
         print(f'Added "{baseNode.graphId} -- {baseNode.rightChild.graphId}\\n" as sub addition on the right')
-        graphText = drawTree(baseNode.rightChild, nameDict, graphText)
+        dot = drawTree(baseNode.rightChild, nameDict, dot)
     
-    return graphText
+    return dot
 
-print(drawTree(tree, nameDict))
+drawTree(tree, nameDict, dot).render('projects/boolean-algebra/doctest-output/test.gv').replace('\\', '/')
