@@ -1,21 +1,28 @@
 
+from pprint import pprint
 import testing_main
+
 import graphviz
+import dot2tex
+
+import re
+
 dot = graphviz.Graph(comment='Boolean Expression')
+dot.attr(rankdir='RL')  
 
 expression = '(A+B).(C+D)'
-expression = 'A.B.C+A.C+A.C.D+A.C.D'
+expression = 'A.B.C+A.C+A.C.D+A.C.D'.upper()
 
 nameDict = {
-    '~': {'name': 'not', 'nextCount': 1},
-    '.': {'name': 'and', 'nextCount': 1},
-    '+': {'name': 'or', 'nextCount': 1},
+    '~': {'name': 'not', 'nextCount': 1, 'placeholderShape': 'square', 'actualShape': 'not port'},
+    '.': {'name': 'and', 'nextCount': 1, 'placeholderShape': 'ellipse', 'actualShape': 'and port'},
+    '+': {'name': 'or', 'nextCount': 1, 'placeholderShape': 'diamond', 'actualShape': 'or port'},
 }
 
 variables = [char for char in expression if char not in list(nameDict.keys()) + ['(', ')']]
 
 for var in variables:
-    nameDict[var] = {'name': var.lower(), 'nextCount': 1}
+    nameDict[var] = {'name': var.lower(), 'nextCount': 1, 'placeholderShape': 'circle', 'actualShape': 'circle'}
 
 tree = testing_main.expressionToTree(expression)
 
@@ -30,8 +37,8 @@ def drawTree(baseNode, nameDict: dict, dot) -> str:
         nameDict[baseNode.value]["nextCount"] += 1
     
     
-    dot.node(baseNode.graphId, baseNode.value, shape='circle')
-    print(f'Added "{baseNode.graphId} [shape=circle, label="{baseNode.value}"]\\n" as main addition')
+    dot.node(baseNode.graphId, baseNode.value, shape=nameDict[baseNode.value]["placeholderShape"])
+    print(f'Added "{baseNode.graphId} [shape={nameDict[baseNode.value]["placeholderShape"]}, label="{baseNode.value}"]\\n" as main addition')
     
     if baseNode.leftChild is not None:
         if baseNode.leftChild.graphId == '':
@@ -55,4 +62,32 @@ def drawTree(baseNode, nameDict: dict, dot) -> str:
     
     return dot
 
-drawTree(tree, nameDict, dot).render('projects/boolean-algebra/doctest-output/test.gv').replace('\\', '/')
+dot = drawTree(tree, nameDict, dot)
+dot.render('projects/boolean-algebra/doctest-output/test.gv').replace('\\', '/')
+
+print('-------\n\n\n\n')
+print(dot.source)
+texSource = dot2tex.dot2tex(dot.source, format='tikz', crop=True)
+
+sourceList = texSource.split(';')
+newTexGraphInner = ' \draw\n'
+
+for line in sourceList:
+    formattedLine = line.replace('\n', '').strip()
+    reMatch = re.match(r"\\node \((and\d+|or\d+|not\d+|[a-z]\d+)\) at \((\d+\.\d+bp,\d+\.\dbp)\) \[draw,(diamond|ellipse|square|circle)\] \{([A-Z]|[+.~])\}", formattedLine)
+    if reMatch is not None:
+        pprint(formattedLine)
+        lineId = reMatch.group(1)
+        coordsNoBrackets = reMatch.group(2)
+        shapeType = reMatch.group(3)
+        value = reMatch.group(4)
+
+        print(lineId, coordsNoBrackets, shapeType, value)
+        
+        if shapeType == 'circle':
+            newTexGraphInner += f'circle [radius = 10pt]node[circle,fill=white,minimum size=10pt]' + '{' + value + '}\n'
+        else:
+            newTexGraphInner += f'({coordsNoBrackets}) node[{nameDict[value]["actualShape"]}] ({lineId}) ' + '{}\n'
+
+
+print(newTexGraphInner)
