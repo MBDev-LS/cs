@@ -1,42 +1,43 @@
 // Boolean Expression
 graph {
-	or1 [label="+" shape=circle]
+	rankdir=RL
+	or1 [label="+" shape=diamond]
 	or1 -- and1
-	and1 [label="." shape=circle]
+	and1 [label="." shape=ellipse]
 	and1 -- d1
 	d1 [label=D shape=circle]
 	and1 -- and2
-	and2 [label="." shape=circle]
+	and2 [label="." shape=ellipse]
 	and2 -- c1
 	c1 [label=C shape=circle]
 	and2 -- a1
 	a1 [label=A shape=circle]
 	or1 -- or2
-	or2 [label="+" shape=circle]
+	or2 [label="+" shape=diamond]
 	or2 -- and3
-	and3 [label="." shape=circle]
+	and3 [label="." shape=ellipse]
 	and3 -- d2
 	d2 [label=D shape=circle]
 	and3 -- and4
-	and4 [label="." shape=circle]
+	and4 [label="." shape=ellipse]
 	and4 -- c2
 	c2 [label=C shape=circle]
 	and4 -- a2
 	a2 [label=A shape=circle]
 	or2 -- or3
-	or3 [label="+" shape=circle]
+	or3 [label="+" shape=diamond]
 	or3 -- and5
-	and5 [label="." shape=circle]
+	and5 [label="." shape=ellipse]
 	and5 -- c3
 	c3 [label=C shape=circle]
 	and5 -- a3
 	a3 [label=A shape=circle]
 	or3 -- and6
-	and6 [label="." shape=circle]
+	and6 [label="." shape=ellipse]
 	and6 -- c4
 	c4 [label=C shape=circle]
 	and6 -- and7
-	and7 [label="." shape=circle]
+	and7 [label="." shape=ellipse]
 	and7 -- b1
 	b1 [label=B shape=circle]
 	and7 -- a4
