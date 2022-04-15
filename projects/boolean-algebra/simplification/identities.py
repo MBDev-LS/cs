@@ -1,29 +1,29 @@
-dominanceOr = 'A\+1' # Result '0'
-dominanceAnd = 'A\.0' # Result '0'
+# dominanceOr = 'A\+1' # Result '0'
+# dominanceAnd = 'A\.0' # Result '0'
 
-identityOr = 'A\+0' # Result 'A'
-identityAnd = 'A\.1' # Result 'A'
+# identityOr = 'A\+0' # Result 'A'
+# identityAnd = 'A\.1' # Result 'A'
 
-idempotenceOr = 'A\+A' # Result 'A'
-idempotenceAnd = 'A\.A' # Result 'A'
+# idempotenceOr = 'A\+A' # Result 'A'
+# idempotenceAnd = 'A\.A' # Result 'A'
 
-complementarityOr = 'A\+~A' # Result '1'
-complementarityAnd = 'A\.~A' # Result '0'
+# complementarityOr = 'A\+~A' # Result '1'
+# complementarityAnd = 'A\.~A' # Result '0'
 
-orCommutativityOne = 'A\+B' # Result 'B+A'
-andCommutativity = 'A\.B' # Result 'B.A'
+# orCommutativityOne = 'A\+B' # Result 'B+A'
+# andCommutativity = 'A\.B' # Result 'B.A'
 
-associativityOr = '\(A+B\)+C' # Result 'A+(B+C)'
-associativityAnd = '\(A.B\).C' # Result 'A.(B.C)'
+# associativityOr = '\(A+B\)+C' # Result 'A+(B+C)'
+# associativityAnd = '\(A.B\).C' # Result 'A.(B.C)'
 
-distributivityOr = 'A+\(B\.C\)' # Result '(A+B).(A+C)'
-distributivityAnd = 'A.\(B\+C\)' # Result '(A.B)+(A.C)'
+# distributivityOr = 'A+\(B\.C\)' # Result '(A+B).(A+C)'
+# distributivityAnd = 'A.\(B\+C\)' # Result '(A.B)+(A.C)'
 
-absorptionOr = 'A\.\(A\+B\)' # Result 'A'
-absorptionAnd = 'A\.\(A\+B\)' # Result 'A'
+# absorptionOr = 'A\.\(A\+B\)' # Result 'A'
+# absorptionAnd = 'A\.\(A\+B\)' # Result 'A'
 
-deMorgansOr = 'A\+B' # Result '~(~A.~B)'
-deMorgansAnd = 'A\.B' # Result '~(~A+~B)'
+# deMorgansOr = 'A\+B' # Result '~(~A.~B)'
+# deMorgansAnd = 'A\.B' # Result '~(~A+~B)'
 
 identitiesDict = {
 	'metadata': {
