@@ -47,5 +47,4 @@ for identity in identitiesDict['identities']:
             dynamicIdentitiesList.append(ident1)
             dynamicIdentitiesList.append(ident2)
 
-print(dynamicIdentitiesList)
 pprint(dynamicIdentitiesList)
