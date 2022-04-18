@@ -110,6 +110,16 @@ class List():
 		newNode = Node(item, currentNode.next)
 		currentNode.next = newNode
 	
+	def length(self):
+		selfLength = 0
+		currentNode = self.head
+
+		while currentNode != None:
+			currentNode = currentNode.next
+			selfLength += 1
+		
+		return selfLength
+	
 	def __str__(self) -> str:
 		currentNode = self.head
 		outputStr = '['
@@ -124,16 +134,6 @@ class List():
 
 		return outputStr
 
-def length(lst: List) -> int:
-	lstLength = 0
-	currentNode = lst.head
-
-	while currentNode != None:
-		currentNode = currentNode.next
-		lstLength += 1
-	
-	return lstLength
-
 
 baseNode = Node(1)
 lst = List(baseNode)
@@ -141,53 +141,53 @@ lst = List(baseNode)
 
 print('\n'+'Test 1'.center(24, '='))
 
-print(length(lst), lst)
+print(lst.length(), lst)
 lst.append(2)
-print(length(lst), lst)
+print(lst.length(), lst)
 print(lst.pop())
-print(length(lst), lst)
+print(lst.length(), lst)
 print(lst.pop())
-print(length(lst), lst)
+print(lst.length(), lst)
 
 
 
 print('\n'+'Test 2'.center(24, '='))
 
-print(length(lst), lst)
+print(lst.length(), lst)
 lst.append(1)
 lst.append(2)
 lst.append(3)
 lst.append(4)
 lst.append(5)
 
-print(length(lst), lst)
+print(lst.length(), lst)
 lst.pop(1)
-print(length(lst), lst)
+print(lst.length(), lst)
 lst.pop(0)
-print(length(lst), lst)
+print(lst.length(), lst)
 lst.pop(2)
-print(length(lst), lst)
+print(lst.length(), lst)
 lst.pop()
 lst.pop()
-print(length(lst), lst)
+print(lst.length(), lst)
 
 
 
 print('\n'+'Test 3'.center(24, '='))
-print(length(lst), lst)
+print(lst.length(), lst)
 lst.append(1)
 lst.append(2)
 lst.append(3)
 lst.append(4)
 lst.append(5)
 
-print(length(lst), lst)
+print(lst.length(), lst)
 lst.remove(1)
-print(length(lst), lst)
+print(lst.length(), lst)
 lst.remove(4)
-print(length(lst), lst)
+print(lst.length(), lst)
 lst.remove(5)
-print(length(lst), lst)
+print(lst.length(), lst)
 
 
 
@@ -199,7 +199,7 @@ lst.append(3)
 lst.append(4)
 lst.append(5)
 
-print(length(lst), lst)
+print(lst.length(), lst)
 
 try:
 	print(lst.search('01189998819991197253'))
@@ -227,16 +227,16 @@ lst.append(3)
 lst.append(4)
 lst.append(5)
 
-print(length(lst), lst)
+print(lst.length(), lst)
 lst.insert(0, 7)
-print(length(lst), lst)
+print(lst.length(), lst)
 lst.pop(1)
-print(length(lst), lst)
+print(lst.length(), lst)
 lst.insert(2, 7)
-print(length(lst), lst)
+print(lst.length(), lst)
 lst.pop(2)
-print(length(lst), lst)
+print(lst.length(), lst)
 lst.insert(5, 7)
-print(length(lst), lst)
+print(lst.length(), lst)
 
 
