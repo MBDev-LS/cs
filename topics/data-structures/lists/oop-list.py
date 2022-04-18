@@ -98,12 +98,14 @@ class List():
 	def insert(self, pos, item) -> None:
 		currentNode = self.head
 
-		for i in range(pos-1):
-			currentNode = currentNode.next
+		if currentNode is None:
+			self.head = Node(item)
+			return
 
-			if currentNode is None:
-				raise IndexError('pop index out of range')
-			
+		for i in range(pos-1):
+			if currentNode.next is None:
+				break
+			currentNode = currentNode.next
 		
 		newNode = Node(item, currentNode.next)
 		currentNode.next = newNode
@@ -132,107 +134,122 @@ def length(lst: List) -> int:
 	
 	return lstLength
 
-baseNode = Node(1)
-lst = List(baseNode)
 
 
-
-print('\n'+'Test 1'.center(24, '='))
-
-print(length(lst), lst)
-lst.append(2)
-print(length(lst), lst)
-print(lst.pop())
-print(length(lst), lst)
-print(lst.pop())
-print(length(lst), lst)
-
-
-
-print('\n'+'Test 2'.center(24, '='))
-
-print(length(lst), lst)
-lst.append(1)
-lst.append(2)
-lst.append(3)
-lst.append(4)
-lst.append(5)
-
-print(length(lst), lst)
-lst.pop(1)
-print(length(lst), lst)
-lst.pop(0)
-print(length(lst), lst)
-lst.pop(2)
-print(length(lst), lst)
-lst.pop()
-lst.pop()
-print(length(lst), lst)
-
-
-
-print('\n'+'Test 3'.center(24, '='))
-print(length(lst), lst)
-lst.append(1)
-lst.append(2)
-lst.append(3)
-lst.append(4)
-lst.append(5)
-
-print(length(lst), lst)
-lst.remove(1)
-print(length(lst), lst)
-lst.remove(4)
-print(length(lst), lst)
-lst.remove(5)
-print(length(lst), lst)
-
-
-
-print('\n'+'Test 4'.center(24, '='))
 lst = List()
-lst.append(1)
-lst.append(2)
-lst.append(3)
-lst.append(4)
-lst.append(5)
-
-print(length(lst), lst)
-
-try:
-	print(lst.search('01189998819991197253'))
-except ValueError as e:
-	print('Caught Error:')
-	print(f'ValueError: {e}')
-
-try:
-	print(lst.search(7))
-except ValueError as e:
-	print('Caught Error:')
-	print(f'ValueError: {e}')
-
-print(lst.search(1))
-print(lst.search(3))
-print(lst.search(5))
-
-
-
-print('\n'+'Test 5'.center(24, '='))
-lst = List()
-lst.append(1)
-lst.append(2)
-lst.append(3)
-lst.append(4)
-lst.append(5)
-
 print(length(lst), lst)
 lst.insert(0, 7)
 print(length(lst), lst)
-lst.pop(1)
+lst.insert(100, 77)
 print(length(lst), lst)
-lst.insert(2, 7)
-print(length(lst), lst)
-lst.pop(2)
-print(length(lst), lst)
-lst.insert(5, 7)
-print(length(lst), lst)
+
+
+
+
+
+# baseNode = Node(1)
+# lst = List(baseNode)
+
+
+
+# print('\n'+'Test 1'.center(24, '='))
+
+# print(length(lst), lst)
+# lst.append(2)
+# print(length(lst), lst)
+# print(lst.pop())
+# print(length(lst), lst)
+# print(lst.pop())
+# print(length(lst), lst)
+
+
+
+# print('\n'+'Test 2'.center(24, '='))
+
+# print(length(lst), lst)
+# lst.append(1)
+# lst.append(2)
+# lst.append(3)
+# lst.append(4)
+# lst.append(5)
+
+# print(length(lst), lst)
+# lst.pop(1)
+# print(length(lst), lst)
+# lst.pop(0)
+# print(length(lst), lst)
+# lst.pop(2)
+# print(length(lst), lst)
+# lst.pop()
+# lst.pop()
+# print(length(lst), lst)
+
+
+
+# print('\n'+'Test 3'.center(24, '='))
+# print(length(lst), lst)
+# lst.append(1)
+# lst.append(2)
+# lst.append(3)
+# lst.append(4)
+# lst.append(5)
+
+# print(length(lst), lst)
+# lst.remove(1)
+# print(length(lst), lst)
+# lst.remove(4)
+# print(length(lst), lst)
+# lst.remove(5)
+# print(length(lst), lst)
+
+
+
+# print('\n'+'Test 4'.center(24, '='))
+# lst = List()
+# lst.append(1)
+# lst.append(2)
+# lst.append(3)
+# lst.append(4)
+# lst.append(5)
+
+# print(length(lst), lst)
+
+# try:
+# 	print(lst.search('01189998819991197253'))
+# except ValueError as e:
+# 	print('Caught Error:')
+# 	print(f'ValueError: {e}')
+
+# try:
+# 	print(lst.search(7))
+# except ValueError as e:
+# 	print('Caught Error:')
+# 	print(f'ValueError: {e}')
+
+# print(lst.search(1))
+# print(lst.search(3))
+# print(lst.search(5))
+
+
+
+# print('\n'+'Test 5'.center(24, '='))
+# lst = List()
+# lst.append(1)
+# lst.append(2)
+# lst.append(3)
+# lst.append(4)
+# lst.append(5)
+
+# print(length(lst), lst)
+# lst.insert(0, 7)
+# print(length(lst), lst)
+# lst.pop(1)
+# print(length(lst), lst)
+# lst.insert(2, 7)
+# print(length(lst), lst)
+# lst.pop(2)
+# print(length(lst), lst)
+# lst.insert(5, 7)
+# print(length(lst), lst)
+
+
