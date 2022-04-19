@@ -73,15 +73,15 @@ class List():
 			currentNode = currentNode.next
 			index += 1
 	
-	def search(self, item):
-		currentNode = self.head
-		while currentNode != None:
-			if currentNode.data == item:
-				return True
+	# def search(self, item):
+	# 	currentNode = self.head
+	# 	while currentNode != None:
+	# 		if currentNode.data == item:
+	# 			return True
 
-			currentNode = currentNode.next
+	# 		currentNode = currentNode.next
 		
-		return False
+	# 	return False
 
 	def search(self, item):
 		currentNode = self.head
