@@ -68,26 +68,26 @@ dot.render('projects/boolean-algebra/doctest-output/test.gv').replace('\\', '/')
 print('-------\n\n\n\n')
 print(dot.source)
 texSource = dot2tex.dot2tex(dot.source, format='tikz', crop=True)
+print(texSource)
+# sourceList = texSource.split(';')
+# newTexGraphInner = ' \draw\n'
 
-sourceList = texSource.split(';')
-newTexGraphInner = ' \draw\n'
+# for line in sourceList:
+#     formattedLine = line.replace('\n', '').strip()
+#     reMatch = re.match(r"\\node \((and\d+|or\d+|not\d+|[a-z]\d+)\) at \((\d+\.\d+bp,\d+\.\dbp)\) \[draw,(diamond|ellipse|square|circle)\] \{([A-Z]|[+.~])\}", formattedLine)
+#     if reMatch is not None:
+#         pprint(formattedLine)
+#         lineId = reMatch.group(1)
+#         coordsNoBrackets = reMatch.group(2)
+#         shapeType = reMatch.group(3)
+#         value = reMatch.group(4)
 
-for line in sourceList:
-    formattedLine = line.replace('\n', '').strip()
-    reMatch = re.match(r"\\node \((and\d+|or\d+|not\d+|[a-z]\d+)\) at \((\d+\.\d+bp,\d+\.\dbp)\) \[draw,(diamond|ellipse|square|circle)\] \{([A-Z]|[+.~])\}", formattedLine)
-    if reMatch is not None:
-        pprint(formattedLine)
-        lineId = reMatch.group(1)
-        coordsNoBrackets = reMatch.group(2)
-        shapeType = reMatch.group(3)
-        value = reMatch.group(4)
-
-        print(lineId, coordsNoBrackets, shapeType, value)
+#         print(lineId, coordsNoBrackets, shapeType, value)
         
-        if shapeType == 'circle':
-            newTexGraphInner += f'circle [radius = 10pt]node[circle,fill=white,minimum size=10pt]' + '{' + value + '}\n'
-        else:
-            newTexGraphInner += f'({coordsNoBrackets}) node[{nameDict[value]["actualShape"]}] ({lineId}) ' + '{}\n'
+#         if shapeType == 'circle':
+#             newTexGraphInner += f'circle [radius = 10pt]node[circle,fill=white,minimum size=10pt]' + '{' + value + '}\n'
+#         else:
+#             newTexGraphInner += f'({coordsNoBrackets}) node[{nameDict[value]["actualShape"]}] ({lineId}) ' + '{}\n'
 
 
-print(newTexGraphInner)
+# print(newTexGraphInner)
