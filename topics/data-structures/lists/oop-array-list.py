@@ -1,5 +1,5 @@
 
-class List():
+class Array():
 	def __init__(self, length: int) -> None:
 		self.lst = [None for i in range(length)]
 		self.maxLength = length
@@ -74,10 +74,10 @@ class List():
 	def __str__(self) -> str:
 		return str(self.lst)
 
-def logList(lst: List) -> None:
+def logList(lst: Array) -> None:
 	print(lst.length(), lst.isEmpty(), lst.isFull(), lst)
 
-lst = List(4)
+lst = Array(4)
 logList(lst)
 
 

@@ -2,6 +2,7 @@
 import copy
 import re
 from pprint import pprint
+import random
 
 from identities import identitiesDict
 import dynamic_indentities
@@ -16,7 +17,8 @@ def principal_period(s): # Source: https://stackoverflow.com/a/29489919/15394242
     i = (s+s).find(s, 1, -1)
     return False if i == -1 else True
 
-def recursive_simplification(expression, dynamicIdentList, simplificationHistory=None):
+def recursive_simplification(expression, dynamicIdentList, simplificationHistory=None, depth=1):
+	random.shuffle(dynamicIdentList)
 	simplificationHistory = simplificationHistory if simplificationHistory is not None else [{
 			'expression': expression,
 			'depth': 0,
