@@ -7,18 +7,27 @@ import random
 from identities import identitiesDict
 import dynamic_indentities
 
-expression = 'A+(B.C)'
+expression = 'A.(B+C)'
 
 dynamicIdentList = dynamic_indentities.generate_dynamic_identities_list(expression, identitiesDict)
 
-# pprint(dynamicIdentList)
+def checkForRepeat(string) -> bool: # Source: https://stackoverflow.com/a/29489919/15394242
+    for i in range(len(string)):
+        subString = string[i:]
+        firstResult = (subString+subString).find(subString, 1, -1)
+        result =  False if firstResult == -1 else True
 
-def principal_period(s): # Source: https://stackoverflow.com/a/29489919/15394242
-    i = (s+s).find(s, 1, -1)
-    return False if i == -1 else True
+        if result is True:
+            return True
+    
+    return False
 
 def recursive_simplification(expression, dynamicIdentList, simplificationHistory=None, depth=1):
-	random.shuffle(dynamicIdentList)
+	if depth > 2:
+		return []
+
+	
+	# random.shuffle(dynamicIdentList)
 	simplificationHistory = simplificationHistory if simplificationHistory is not None else [{
 			'expression': expression,
 			'depth': 0,
@@ -40,11 +49,11 @@ def recursive_simplification(expression, dynamicIdentList, simplificationHistory
 		if newExpression in [historicDict['expression'] for historicDict in simplificationHistory]:
 			print(f"Rejected {newExpression} as it was in {', '.join([historicDict['expression'] for historicDict in simplificationHistory])}")
 			continue
-		elif principal_period('-'.join([historicDict['identity_used'] for historicDict in simplificationHistory] + [identity['name']])) is True:
+		elif checkForRepeat('-'.join([historicDict['identity_used'] for historicDict in simplificationHistory] + [identity['name']])) is True:
 			print(f"Rejected {newExpression} as principal_period returned True")
 			continue
 
-		print(principal_period('-'.join([historicDict['identity_used'] for historicDict in simplificationHistory])),
+		print(checkForRepeat('-'.join([historicDict['identity_used'] for historicDict in simplificationHistory])),
 		'-'.join([historicDict['identity_used'] for historicDict in simplificationHistory]))
 		
 		# if len(simplificationHistory) > 10:
@@ -61,7 +70,7 @@ def recursive_simplification(expression, dynamicIdentList, simplificationHistory
 		print(f'Appended:\n{simplificationHistory[-1]} to simplificationHistory')
 
 		print(f"Calling exendedHistorys({newExpression}, dynamicIdentList, {simplificationHistory})")
-		exendedHistorys = recursive_simplification(newExpression, dynamicIdentList, copy.deepcopy(simplificationHistory))
+		exendedHistorys = recursive_simplification(newExpression, dynamicIdentList, copy.deepcopy(simplificationHistory), depth+1)
 		print(f"recursive_simplification returned {exendedHistorys}, extending histories, {histories} by it")
 		histories += exendedHistorys
 	
