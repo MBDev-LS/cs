@@ -65,7 +65,7 @@ def AddPlayerB(Board, B):
 
 def DisplayErrorCode(ErrorNumber):
 	print('Error ', ErrorNumber)
-	
+
 def SetUpBoard(Board, A, B, FileFound):
 	FileName = 'game1.txt'
 	Answer = input('Do you want to load a saved game? (Y/N): ')
@@ -132,7 +132,7 @@ def PrintPlayerPieces(A, B):
 	print('Player B:')
 	print(B)
 	print()
-	
+
 def ClearList(ListOfMoves):
 	for Index in range(MAX_MOVES):
 		ListOfMoves[Index].Piece = ''
@@ -331,7 +331,7 @@ def PrintResult(A, B, NextPlayer):
 	print('Game ended')
 	print(NextPlayer, ' lost this game as they cannot make a move')
 	PrintPlayerPieces(A, B)
-	
+
 def Game():
 	A = [[0, 0, 0] for Piece in range(NUMBER_OF_PIECES + 1)]
 	B = [[0, 0, 0] for Piece in range(NUMBER_OF_PIECES + 1)]
@@ -366,8 +366,6 @@ def Game():
 				GameEnd = True
 	if FileFound:
 		PrintResult(A, B , NextPlayer)
-			
+
 if __name__ == "__main__":
-	Game()      
-	 
-	 
+	Game()
