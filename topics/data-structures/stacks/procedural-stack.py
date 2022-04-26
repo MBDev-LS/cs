@@ -39,18 +39,36 @@ def isFull(size, maxSize):
 def isEmpty(size):
 	return size == 0
 
-print(stack, isFull(size, maxSize), isEmpty(size))
+def stackLog(stack, size, maxSize, top):
+
+	outputStr = ''
+	outputStr += 'STACK LOG'
+	outputStr = outputStr.center(50)
+	outputStr += f'\n{"Index":>15}{"Top Pointer":>15}{"Value":>15}\n'
+	for i in range(maxSize):
+		if i > top:
+			outputStr += f'{i:>15}{"h" if top == i else " ":>15}{"":>15}\n'
+		else:
+			outputStr += f'{i:>15}{"h" if top == i else " ":>15}{stack[i]:>15}\n'
+	
+	print()
+	print(outputStr)
+	print(f'StackFull: {isFull(size, maxSize)}')
+	print(f'StackEmpty: {isEmpty(size)}\n')
+
+
+stackLog(stack, size, maxSize, top)
 
 stack, size, top = push(1, stack, maxSize, size, top)
 stack, size, top = push(2, stack, maxSize, size, top)
 
-print(stack, isFull(size, maxSize), isEmpty(size))
+stackLog(stack, size, maxSize, top)
 
 stack, size, top = push(3, stack, maxSize, size, top)
 stack, size, top = push(4, stack, maxSize, size, top)
 stack, size, top = push(5, stack, maxSize, size, top)
 
-print(stack, isFull(size, maxSize), isEmpty(size))
+stackLog(stack, size, maxSize, top)
 
 poppedItem, size, top =  pop(stack, size, top)
 
