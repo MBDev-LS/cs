@@ -1,9 +1,9 @@
 
 
 length = 10
-listLength = int(length*1.25)
-hashList = [None for i in range(int(length*1.5))]
-modValue = int(length*1.25)
+listLength = int(length*10)
+hashList = [None for i in range(int(length*10))]
+modValue = int(length*10)
 rehashValue = 1
 
 def getIndex(item: int, modValue: int) -> int:
@@ -29,6 +29,26 @@ def insertItem(item: int, rehashValue: int, hashList: list, listLength: int, mod
 	
 	print(f'Unable to add item {item} to hash list as hash list is full.')
 	return hashList
+
+def removeItem(item, hashList, listLength, modValue, rehashValue):
+	indexToRemove = getIndex(item, modValue)
+
+	if hashList[indexToRemove] == item:
+		hashList[indexToRemove] = None
+		
+		return hashList, True
+
+	rehashedIndex = (indexToRemove + rehashValue) % listLength
+	
+	while rehashedIndex != indexToRemove and hashList[rehashedIndex] is not None:
+		if hashList[rehashedIndex] == item:
+			hashList[rehashedIndex] = None
+			
+			return hashList, True
+		
+		rehashedIndex = (rehashedIndex + 1) % listLength
+	
+	return hashList, False
 
 def isFull(hashList: list, length: int) -> bool:
 	return len(set(hashList))-1 == length
@@ -59,3 +79,10 @@ insertItem(42, rehashValue, hashList, listLength, modValue)
 insertItem(72, rehashValue, hashList, listLength, modValue)
 insertItem(90, rehashValue, hashList, listLength, modValue)
 insertItem(90, rehashValue, hashList, listLength, modValue)
+
+logHashList(hashList, length)
+
+hashList, removed = removeItem(90, hashList, listLength, modValue, rehashValue)
+print(hashList, removed)
+hashList, removed = removeItem(4, hashList, listLength, modValue, rehashValue)
+print(hashList, removed)
