@@ -1,5 +1,4 @@
 
-
 maxLength = 10
 listmaxLength = int(maxLength*10)
 hashList = [None for i in range(int(maxLength*10))]
@@ -7,7 +6,13 @@ modValue = int(maxLength*10)
 rehashValue = 1
 size = 0
 
-def getIndex(item: int, modValue: int) -> int:
+def getIndex(item: int, modValue: int) -> int:#
+	if type(item) == str:
+		itemTotal = 0
+		for char in item:
+			itemTotal += ord(char)
+		
+		return itemTotal % modValue
 	return item % modValue
 
 def isFull(size: int, maxLength: int) -> bool:
@@ -63,7 +68,7 @@ def removeItem(item, hashList, listmaxLength, modValue, rehashValue, size):
 		
 		rehashedIndex = (rehashedIndex + 1) % listmaxLength
 	
-	print('Unable to remove item as from hash list as item is not in hash list.')
+	print('Unable to remove item as from hash list as hash list .')
 	return hashList, False, size
 
 
@@ -72,12 +77,11 @@ def logHashList(hashList: list, maxLength: int, size) -> None:
 	print(size, isFull(size, maxLength), isEmpty(size), hashList)
 
 logHashList(hashList, maxLength, size)
-hashList, size = insertItem(21, rehashValue, hashList, listmaxLength, size, modValue)
+hashList, size = insertItem("One", rehashValue, hashList, listmaxLength, size, modValue)
 logHashList(hashList, maxLength, size)
-hashList, size = insertItem(121, rehashValue, hashList, listmaxLength, size, modValue)
-hashList, removed, size = removeItem(121211221, hashList, listmaxLength, modValue, rehashValue, size)
+hashList, size = insertItem("Not One", rehashValue, hashList, listmaxLength, size, modValue)
 logHashList(hashList, maxLength, size)
-hashList, removed, size = removeItem(121, hashList, listmaxLength, modValue, rehashValue, size)
+hashList, removed, size = removeItem("One", hashList, listmaxLength, modValue, rehashValue, size)
 logHashList(hashList, maxLength, size)
 hashList, removed, size = removeItem(21, hashList, listmaxLength, modValue, rehashValue, size)
 hashList, removed, size = removeItem(1, hashList, listmaxLength, modValue, rehashValue, size)
