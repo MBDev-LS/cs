@@ -46,3 +46,7 @@ def generate_dynamic_identities_list(expression: str, identitiesDict: dict) -> l
                 dynamicIdentitiesList.append(ident2)
 
     return dynamicIdentitiesList
+
+if __name__ == '__main__':
+    import identities
+    print('\n'.join([ident['startRegex'].replace('\\', '') for ident in generate_dynamic_identities_list('A.(B+C)', identities.identitiesDict)]))
