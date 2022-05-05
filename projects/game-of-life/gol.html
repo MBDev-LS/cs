@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+	<style>
+		/* #louicss_main_table_wrapper {
+			
+		} */
+
+
+		
+		#louicss_main_table {
+			border-collapse: collapse;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%)
+		}
+		#louicss_main_table td {
+			border: 1px solid black;
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+</head>
+<body>
+	<div id="louicss_main_table_wrapper">
+		<table id="louicss_main_table">
+			<thead></thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+
+	<script>
+		let num_cols
+		let num_rows
+		$(function () {
+			num_cols = parseInt(prompt('Enter the width of the board:'))
+			num_rows = parseInt(prompt('Enter the height of the board:'))
+
+			
+			
+			const SQR_SIZE = Math.min($(window).width(), $(window).height()) - 100;
+
+			let cellHeight = ((SQR_SIZE - 1) / num_rows) - 2;
+			var cellWidth = ((SQR_SIZE - 1) / num_cols) - 2;
+
+
+			console.log({num_rows});
+			console.log({num_cols});
+			console.log({cellHeight});
+			console.log({cellWidth});
+			
+			for (let y = 0; y < num_rows; y++) {
+				var cells = '';
+				for (let x = 0; x < num_cols; x++) {
+					cells += '<td class="louicss_main_table_cell" ></td>';
+				};
+
+				$('#louicss_main_table').append('<tr>' + cells + '</tr>')
+			};
+
+			$('#louicss_main_table td').css('height', cellHeight);
+			$('#louicss_main_table td').css('max-width', cellWidth).css('min-width', cellWidth);
+
+			function resize() {
+
+			}
+		});
+
+
+
+
+
+	</script>
+</body>
+</html>
