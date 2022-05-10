@@ -208,10 +208,10 @@ def main():
 	filenameJson = filename + '.json'
 	
 	testingOption = input('Would you like to create a new graph (1) or load a saved one (2): ')
-	while testingOption not in ['1, 2']:
+	while testingOption not in ['1', '2']:
 		testingOption = input('Would you like to create a new graph (1) or load a saved one (2): ')
 	
-	if testingOption == 1:
+	if testingOption == '1':
 		graph = createGraph()
 	else:
 		graph = loadGraph(filenameJson)
