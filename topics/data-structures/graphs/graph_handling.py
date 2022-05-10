@@ -1,5 +1,10 @@
 
 import json
+from pathlib import Path
+
+from tabulate import tabulate
+import copy
+
 
 class Node():
 	def __init__(self, name: str, edges: dict=None) -> None:
@@ -29,26 +34,77 @@ class Graph():
 		
 		self.nodes.append(node)
 		return True
+	
+
+	def printAdjacencyMatrix(self) -> None:
+		tableData = []
+
+		nodeHeaders = [node for node in self.nodes]
+
+		for node in self.nodes:
+			rowList = [node.name]
+			for nodeHeader in nodeHeaders:
+				if nodeHeader in node.edges:
+					rowList.append(node.edges[nodeHeader])
+				else:
+					rowList.append('')
+			
+			tableData.append(rowList)
+
+		headers = [''] + [node.name for node in self.nodes]
+		
+		print(tabulate(tableData, headers=headers, tablefmt="fancy_grid"))
+	
+
+	def printAdjacencyList(self) -> None:
+		tableData = []
+
+		for node in self.nodes:
+			nodeDict = {}
+			for connectedNode in node.edges:
+				nodeDict[connectedNode.name] = node.edges[connectedNode]
+
+			tableData.append([node.name, str(nodeDict)])
+		
+		print(tabulate(tableData, headers=['Node', 'Edges'], tablefmt="fancy_grid"))
 
 	def export(self, filename) -> None:
-		nodeDict = {}
+		BASE_DIR = Path(__file__).resolve().parent
+		SAVES_DIR = BASE_DIR / 'saves'
+		FILE_DIR = SAVES_DIR / filename
+		nodesDict = {}
 		for node in self.nodes:
-			nodeDict[node.name] = [connectedNode.name for connectedNode in node.edges]
+			nodeDict = {}
+			for connectedNode in node.edges:
+				nodeDict[connectedNode.name] = node.edges[connectedNode]
+
+			nodesDict[node.name] = nodeDict
 		
-		with open(filename, 'w+') as f:
+		with open(FILE_DIR, 'w+') as f:
 			f.write(json.dumps(nodeDict))
 	
 	def jsonExport(self, filename) -> None:
-		nodeDict = {}
+		filenameWithExt = filename + '.json'
+		BASE_DIR = Path(__file__).resolve().parent
+		SAVES_DIR = BASE_DIR / 'saves'
+		FILE_DIR = SAVES_DIR / filenameWithExt
+		nodesDict = {}
 		for node in self.nodes:
-			nodeDict[node.name] = [connectedNode.name for connectedNode in node.edges]
+			nodeDict = {}
+			for connectedNode in node.edges:
+				nodeDict[connectedNode.name] = node.edges[connectedNode]
+
+			nodesDict[node.name] = nodeDict
 		
-		with open(filename + '.json', 'wt') as f:
-			f.write(json.dumps(nodeDict))
+		with open(FILE_DIR, 'w+') as f:
+			f.write(json.dumps(nodesDict))
 
 	def print(self) -> None:
 		outputString = '\n'.join([str(node) for node in self.nodes])
 		print(outputString)
+	
+	def __str__(self) -> str:
+		return '\n'.join([str(node) for node in self.nodes])
 
 def discreteInput(prompt: str, possibleInputs: list, caseSensitive: bool=True):
 	userInput = input(prompt)
@@ -65,47 +121,107 @@ def intInput(prompt: str):
 	while not userInput.isdigit():
 		userInput = input(prompt)
 	
-	return userInput
+	return int(userInput)
 
 
 
 def createGraph() -> Graph:
 	newGraph = Graph()
 	graphWeighted = discreteInput('Is graph weighted (y/n): ', ['y', 'n'], False)
+	graphDirected = discreteInput('Is graph directed (y/n): ', ['y', 'n'], False)
 
 	while True:
-		addNodeBool = discreteInput('Add node (y/n): ', ['y', 'n'], False)
-		if addNodeBool == 'n':
+		nodeName = input('Enter new node\'s name (\'-exit\' to exit): ')
+		if nodeName == '-exit':
 			break
-
-		nodeName = input('Enter new node\'s name: ')
+		while nodeName in [node.name for node in newGraph.nodes]:
+			print('Name of node must be unique.')
+			nodeName = input('Enter new node\'s name: ')
+		
 		newNode = Node(nodeName)
-
-		while True:
-			addEdgeBool = discreteInput('Add edge (y/n): ', ['y', 'n'], False)
-			if addEdgeBool == 'n':
-				break
-			elif len(newGraph.nodes) == 0:
-				print('No other nodes to connect to.')
-				break
-			
-			connectionTo = discreteInput(f'Nodes: {", ".join([node.name for node in newGraph.nodes])}\n' + 'Enter to connect new node to: ', [node.name for node in newGraph.nodes]) # possible issue regarding the use of node dict
-			if graphWeighted == 'y':
-				weight = intInput('Enter edge weight: ')
-			else:
-				weight = 1
-			newNode.addEdge(newGraph.getNodeByName(connectionTo), weight)
-
 		newGraph.addNode(newNode)
 
-	return newGraph
+
+	while True:
+		if len(newGraph.nodes) == 0:
+			print('No other nodes to connect to.')
+			break
+		
+		nodeNamesList = [node.name for node in newGraph.nodes]
+		connectionFrom = discreteInput(f'Nodes: {", ".join(nodeNamesList)}\n' + 'Enter node to connect (\'-exit\' to exit): ', [node.name for node in newGraph.nodes] + ['-exit']) # possible issue regarding the use of node dict
+		if connectionFrom == '-exit':
+			break
+		nodeNamesList.remove(connectionFrom)
+		connectionTo = discreteInput(f'Nodes: {", ".join(nodeNamesList)}\n' + f'Enter node to connect {connectionFrom} to (\'-exit\' to exit): ', nodeNamesList + ['-exit']) # possible issue regarding the use of node dict
+		if connectionTo == '-exit':
+			break
+
+		
+
+		if graphWeighted == 'y':
+			weight = intInput('Enter edge weight: ')
+		else:
+			weight = 1
+
+		newGraph.getNodeByName(connectionFrom).addEdge(newGraph.getNodeByName(connectionTo), weight)
+
+	
+
+
+	if graphDirected.lower() == 'y':
+		return newGraph
+	
+	copiedGraph = copy.deepcopy(newGraph)
+
+	for node in newGraph.nodes:
+		for edge in node.edges:
+			copiedGraph.getNodeByName(edge.name).addEdge(copiedGraph.getNodeByName(node.name), node.edges[edge])
+	
+	return copiedGraph
+
+
+def loadGraph(filename: str):
+	BASE_DIR = Path(__file__).resolve().parent
+	SAVES_DIR = BASE_DIR / 'saves'
+	FILE_DIR = SAVES_DIR / filename
+
+	try:
+		with open(FILE_DIR, 'rt') as f:
+			graphDict = json.loads(f.read())
+	except FileNotFoundError as e:
+		print(f'File cannot be loaded: {e}')
+		return
+	
+	loadedGraph = Graph()
+
+	for nodeName in graphDict:
+		newNode = Node(nodeName)
+		loadedGraph.addNode(newNode)
+	
+	print(loadedGraph)
+
+	for nodeName in graphDict:
+		for edgeNode in graphDict[nodeName]:
+			loadedGraph.getNodeByName(nodeName).addEdge(loadedGraph.getNodeByName(edgeNode), graphDict[nodeName][edgeNode])
+
+		
+	
+	return loadedGraph
+
+
 
 def main():
+	filename = 'testing'
+	filenameJson = filename + '.json'
+	
 	graph = createGraph()
+	# graph = loadGraph(filenameJson)
 	graph.print()
 
-	graph.export('test1.txt')
-	graph.jsonExport('test1')
+	graph.export(f'{filename}.txt')
+	graph.jsonExport(filename)
+	graph.printAdjacencyList()
+	graph.printAdjacencyMatrix()
 
 if __name__ == '__main__':
 	main()
