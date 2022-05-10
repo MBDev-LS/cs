@@ -111,7 +111,6 @@ def discreteInput(prompt: str, possibleInputs: list, caseSensitive: bool=True):
 
 	while (userInput not in possibleInputs and caseSensitive) or (userInput.lower() not in [possibleInput.lower() for possibleInput in possibleInputs]):
 		userInput = input(prompt)
-
 	
 	return userInput
 
@@ -122,7 +121,6 @@ def intInput(prompt: str):
 		userInput = input(prompt)
 	
 	return int(userInput)
-
 
 
 def createGraph() -> Graph:
@@ -140,7 +138,6 @@ def createGraph() -> Graph:
 		
 		newNode = Node(nodeName)
 		newGraph.addNode(newNode)
-
 
 	while True:
 		if len(newGraph.nodes) == 0:
@@ -164,9 +161,6 @@ def createGraph() -> Graph:
 			weight = 1
 
 		newGraph.getNodeByName(connectionFrom).addEdge(newGraph.getNodeByName(connectionTo), weight)
-
-	
-
 
 	if graphDirected.lower() == 'y':
 		return newGraph
@@ -207,7 +201,6 @@ def loadGraph(filename: str):
 		
 	
 	return loadedGraph
-
 
 
 def main():
