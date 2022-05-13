@@ -4,12 +4,18 @@ from pathlib import Path
 
 from tabulate import tabulate
 import copy
+from math import inf
 
 
 class Node():
-	def __init__(self, name: str, edges: dict=None) -> None:
+	def __init__(self, name: str, edges: dict=None, start: bool=False, end: bool=False) -> None:
 		self.name = name
 		self.edges = edges if edges is not None else {}
+		self.cost = inf
+		self.previousNode = None
+		self.start = start
+		self.end = end
+		self.shortestPath = []
 	
 	def addEdge(self, node, weight: int):
 		self.edges[node] = weight
@@ -18,8 +24,30 @@ class Node():
 		return f'{str(self.name)} -> {", ".join([node.name for node in self.edges])}'
 
 class Graph():
-	def __init__(self, nodes: list=None) -> None:
+	def __init__(self, nodes: list=None, startNode: Node=None, endNode: Node=None) -> None:
 		self.nodes = nodes if nodes is not None else []
+		self.startNode = startNode
+		if startNode is not None:
+			self.startNode.cost = 0
+		
+		self.endNode = endNode
+
+	def bfs(self, node: Node=None):
+		node = node if node is not None else self.startNode.edges
+
+		for edgeNode in node.edges:
+			if node.cost + node.edges[edgeNode] < edgeNode.cost:
+				edgeNode.shortestPath = node.shortestPath + [node]
+				edgeNode.cost = node.cost + node.edges[edgeNode]
+				edgeNode.previousNode = node
+				self.bfs(edgeNode)
+
+	def setStartNode(self, newStartNode) -> None:
+		self.startNode = newStartNode
+		self.startNode.cost = 0
+
+	def setEndNode(self, newEndNode) -> None:
+		self.endNode = newEndNode
 
 	def getNodeByName(self, nameToSearch: str):
 		for node in self.nodes:
@@ -250,6 +278,10 @@ def main():
 	graph.print()
 
 	print(f'Is weighted: {graph.isWeighted()}, Is directed: {graph.isDirected()}')
+
+	graph.setStartNode(graph.nodes[0])
+	graph.setStartNode(graph.nodes[-1])
+	graph.bfs()
 
 	graph.export(f'{filename}.txt')
 	graph.jsonExport(filename)
