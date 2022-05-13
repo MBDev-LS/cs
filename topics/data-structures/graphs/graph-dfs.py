@@ -32,14 +32,16 @@ class Graph():
 		
 		self.endNode = endNode
 
-	def bfs(self, node: Node=None):
-		node = node if node is not None else self.startNode.edges
+	def dfs(self, node: Node=None):
+		node = node if node is not None else self.startNode
+		
 
 		for edgeNode in node.edges:
 			if node.cost + node.edges[edgeNode] < edgeNode.cost:
 				edgeNode.shortestPath = node.shortestPath + [node]
 				edgeNode.cost = node.cost + node.edges[edgeNode]
 				edgeNode.previousNode = node
+				print(f'Found {edgeNode.name} from {node.name}')
 				self.bfs(edgeNode)
 
 	def setStartNode(self, newStartNode) -> None:
@@ -105,7 +107,14 @@ class Graph():
 		print(tabulate(tableData, headers=headers, tablefmt="fancy_grid"))
 	
 
-	def printAdjacencyList(self) -> None:
+	def printAdjacencyList(self, includeShortestPath=False) -> None:
+		if includeShortestPath is True:
+			if self.startNode is None:
+				print('Unable to include shortest path, as not start not is set.')
+				includeShortestPath = False
+			else:
+				self.bfs()
+
 		tableData = []
 
 		for node in self.nodes:
@@ -113,9 +122,17 @@ class Graph():
 			for connectedNode in node.edges:
 				nodeDict[connectedNode.name] = node.edges[connectedNode]
 
-			tableData.append([node.name, str(nodeDict)])
+			if includeShortestPath is True:
+				if self.startNode == node:
+					tableData.append([node.name, str(nodeDict), f'{node.name}'])
+				else:
+					tableData.append([node.name, str(nodeDict), ' -> '.join([pathNode.name for pathNode in node.shortestPath]) + f' -> {node.name}'])
+			else:
+				tableData.append([node.name, str(nodeDict)])
 		
-		print(tabulate(tableData, headers=['Node', 'Edges'], tablefmt="fancy_grid"))
+		headers = ['Node', 'Edges', f'Shortest path from {self.startNode.name}'] if includeShortestPath is True else ['Node', 'Edges']
+
+		print(tabulate(tableData, headers=headers, tablefmt="fancy_grid"))
 
 	def export(self, filename) -> None:
 		BASE_DIR = Path(__file__).resolve().parent
@@ -280,12 +297,14 @@ def main():
 	print(f'Is weighted: {graph.isWeighted()}, Is directed: {graph.isDirected()}')
 
 	graph.setStartNode(graph.nodes[0])
-	graph.setStartNode(graph.nodes[-1])
-	graph.bfs()
+	graph.setEndNode(graph.nodes[-1])
+	graph.dfs()
+
+	print(' -> '.join([node.name for node in graph.endNode.shortestPath]))
 
 	graph.export(f'{filename}.txt')
 	graph.jsonExport(filename)
-	graph.printAdjacencyList()
+	graph.printAdjacencyList(True)
 	graph.printAdjacencyMatrix()
 
 if __name__ == '__main__':
