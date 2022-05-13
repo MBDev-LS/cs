@@ -32,17 +32,29 @@ class Graph():
 		
 		self.endNode = endNode
 
-	def dfs(self, node: Node=None):
-		node = node if node is not None else self.startNode
-		
+	def bfs(self, startNode: Node=None) -> list:
+		startNode = startNode if startNode is not None else self.startNode
+		queue = [startNode]
+		traversalOrder = [startNode]
 
-		for edgeNode in node.edges:
-			if node.cost + node.edges[edgeNode] < edgeNode.cost:
-				edgeNode.shortestPath = node.shortestPath + [node]
-				edgeNode.cost = node.cost + node.edges[edgeNode]
-				edgeNode.previousNode = node
-				print(f'Found {edgeNode.name} from {node.name}')
-				self.dfs(edgeNode)
+		while len(queue) > 0:
+			currentNode = queue.pop(0)
+			print(f'Branching from {currentNode.name}')
+
+			for edgeNode in currentNode.edges:
+				if currentNode.cost + currentNode.edges[edgeNode] < edgeNode.cost:
+					if edgeNode not in traversalOrder:
+						print(f'From {currentNode} found {edgeNode.name}')
+						traversalOrder.append(edgeNode)
+					
+					
+					edgeNode.shortestPath = currentNode.shortestPath + [currentNode]
+					edgeNode.cost = currentNode.cost + currentNode.edges[edgeNode]
+					edgeNode.previousNode = currentNode
+
+					queue.append(edgeNode)
+	
+		return traversalOrder
 
 	def setStartNode(self, newStartNode) -> None:
 		self.startNode = newStartNode
@@ -87,6 +99,26 @@ class Graph():
 		return True
 	
 
+	def exportAdjacencyMatrix(self) -> None:
+		tableData = []
+
+		nodeHeaders = [node for node in self.nodes]
+
+		outputString = ''
+
+		for node in self.nodes:
+			rowList = []
+			for nodeHeader in nodeHeaders:
+				if nodeHeader in node.edges:
+					rowList.append(node.edges[nodeHeader])
+				else:
+					rowList.append(0)
+			
+			tableData.append(rowList)
+			outputString += ', '.join([str(item) for item in rowList]) + '\n'
+		
+		print(outputString)
+
 	def printAdjacencyMatrix(self) -> None:
 		tableData = []
 
@@ -113,7 +145,7 @@ class Graph():
 				print('Unable to include shortest path, as not start not is set.')
 				includeShortestPath = False
 			else:
-				self.dfs()
+				self.bfs()
 
 		tableData = []
 
@@ -298,14 +330,25 @@ def main():
 
 	graph.setStartNode(graph.nodes[0])
 	graph.setEndNode(graph.nodes[-1])
-	graph.dfs()
-
-	print(' -> '.join([node.name for node in graph.endNode.shortestPath]))
+	traversalOrder = graph.bfs()
+	print('----')
+	print(' '.join([node.name for node in traversalOrder]))
 
 	graph.export(f'{filename}.txt')
 	graph.jsonExport(filename)
 	graph.printAdjacencyList(True)
 	graph.printAdjacencyMatrix()
 
+	graph.exportAdjacencyMatrix()
+
 if __name__ == '__main__':
 	main()
+
+
+"""
+   A  B  C
+A  0, 1, 0, 
+B  1, 0, 0, 
+C  0, 1, 0, 
+
+"""
