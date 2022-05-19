@@ -34,9 +34,7 @@ class BinaryTree():
 			self.addNode(nodeValue, baseNode.rChild)
 		else:
 			return
-		
 
-	
 	def getDepth(self, node=None, depth=0):
 		depth += 1
 		node = node if node is not None else self.rootNode
@@ -90,3 +88,4 @@ tree.addNode(2)
 print(tree.getDepth())
 
 tree.displayAdjacencyTable()
+
