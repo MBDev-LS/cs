@@ -1,4 +1,6 @@
 
+import tabulate
+
 class BinaryNode():
 	def __init__(self, value, lChild=None, rChild=None) -> None:
 		self.value = value
@@ -55,17 +57,36 @@ class BinaryTree():
 		else:
 			return max(lRes, rRes)
 
-	def getAdjacencyTable(self, baseNode: BinaryNode):
+	def getNodeList(self, baseNode: BinaryNode, nodeList: list=None):
 		baseNode = baseNode if baseNode is not None else self.rootNode
-		
+		nodeList = [baseNode]
+
+		if baseNode.lChild is not None:
+			nodeList += self.getNodeList(baseNode.lChild)
 		
 
+		if baseNode.rChild is not None:
+			nodeList += self.getNodeList(baseNode.rChild)
+	
+		return nodeList
 
-	def display(self) -> None:
-		pass
+
+	def displayAdjacencyTable(self, baseNode: BinaryNode=None):
+		baseNode = baseNode if baseNode is not None else self.rootNode
+
+		tableList = []
+
+		for node in self.getNodeList(baseNode):
+			lValue = str(node.lChild.value) if node.lChild is not None else ''
+			rValue = str(node.rChild.value) if node.rChild is not None else ''
+			tableList.append([str(node.value), lValue, rValue])
+		
+		print(tabulate.tabulate(tableList, headers=['Node', 'Left Child', 'Right Child'], tablefmt='fancy_grid'))
+
 
 tree = BinaryTree()
 tree.addNode(4)
 tree.addNode(2)
 print(tree.getDepth())
-tree.print()
+
+tree.displayAdjacencyTable()
