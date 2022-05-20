@@ -5,6 +5,7 @@
 
 # Version number: 0.1.3
 
+from pathlib import Path
 
 SPACE = '     '
 UNUSED = 'XXXXX'
@@ -76,6 +77,7 @@ def DisplayErrorCode(ErrorNumber):
 def SetUpBoard(Board, A, B, FileFound):
 	FileName = 'game1.txt'
 	Answer = input('Do you want to load a saved game? (Y/N): ')
+	
 	if Answer == 'Y' or Answer == 'y':
 		FileName = input('Enter the filename: ')
 	try:
