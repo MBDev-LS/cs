@@ -1,6 +1,4 @@
 
-
-
 def main():
 	import sys
 	import os
