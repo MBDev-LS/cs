@@ -80,11 +80,14 @@ def SetUpBoard(Board, A, B, FileFound):
 	if Answer == 'Y' or Answer == 'y':
 		FileName = input('Enter the filename: ')
 	try:
+		# Start of modification
 		BASE_DIR = Path(__file__).resolve().parent
 		SAVES_DIR = BASE_DIR / 'games'
 		FILE_DIR = SAVES_DIR / FileName
+		
 
 		FileHandle = open(FILE_DIR, 'r')
+		# End of modification
 		FileFound = True
 		A = LoadPieces(FileHandle, A)
 		B = LoadPieces(FileHandle, B)
