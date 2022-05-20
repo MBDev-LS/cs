@@ -6,7 +6,6 @@ def main():
 	import os
 
 	arguments = sys.argv
-	print(arguments)
 	if len(arguments) == 1:
 		print('error: please provide a commit reason')
 		exit()
