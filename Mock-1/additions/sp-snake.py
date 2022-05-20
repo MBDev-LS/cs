@@ -5,15 +5,15 @@
 
 from random import *
 
-SOIL = '.'
-SEED = 'S'
-PLANT = 'P'
-ROCKS = 'X'
+SOIL = '🟫'
+SEED = '🌱'
+PLANT = '🌳'
+ROCKS = '⬜️'
 
-SNAKEBODY = '='
-SNAKEHEAD = '>'
-DEADSNAKEHEAD = '✖'
-DEADSNAKEBODY = ':'
+SNAKEBODY = '🟩'
+SNAKEHEAD = '🐸'
+DEADSNAKEHEAD = '💀'
+DEADSNAKEBODY = '🦴'
 
 FIELDLENGTH = 20 
 FIELDWIDTH = 35 
