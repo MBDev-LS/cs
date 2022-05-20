@@ -13,7 +13,7 @@ def main():
 		print(f'error: expected 1 argument, {len(arguments)} given')
 		exit()
 
-	os.system('ls -l')
+	os.system(f'git pull; git add --all; git commit -m "{arguments[0]}"; git push')
 
 
 if __name__ == '__main__':
