@@ -5,6 +5,7 @@
 
 # Version number: 0.1.3
 
+from pathlib import Path
 
 SPACE = '     '
 UNUSED = 'XXXXX'
@@ -79,7 +80,11 @@ def SetUpBoard(Board, A, B, FileFound):
 	if Answer == 'Y' or Answer == 'y':
 		FileName = input('Enter the filename: ')
 	try:
-		FileHandle = open(FileName, 'r')
+		BASE_DIR = Path(__file__).resolve().parent
+		SAVES_DIR = BASE_DIR / 'game'
+		FILE_DIR = SAVES_DIR / FileName
+
+		FileHandle = open(FILE_DIR, 'r')
 		FileFound = True
 		A = LoadPieces(FileHandle, A)
 		B = LoadPieces(FileHandle, B)
