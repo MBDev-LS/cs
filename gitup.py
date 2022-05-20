@@ -6,14 +6,14 @@ def main():
 	import os
 
 	arguments = sys.argv
-	if len(arguments) == 0:
+	if len(arguments) == 1:
 		print('error: please provide a commit reason')
 		exit()
-	if len(arguments) > 1:
+	if len(arguments) > 2:
 		print(f'error: expected 1 argument, {len(arguments)} given')
 		exit()
 
-	os.system('ls -l')
+	os.system(f'git pull; git add --all; git commit -m "{arguments[1]}"; git push')
 
 
 if __name__ == '__main__':
