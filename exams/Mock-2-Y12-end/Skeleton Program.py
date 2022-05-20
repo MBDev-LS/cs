@@ -5,6 +5,7 @@
 
 # Version number: 0.1.3
 
+from pathlib import Path
 
 SPACE = '     '
 UNUSED = 'XXXXX'
