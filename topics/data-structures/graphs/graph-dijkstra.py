@@ -1,7 +1,7 @@
 
 import json
 from pathlib import Path
-from numpy import sort
+from sqlalchemy import true
 
 from tabulate import tabulate
 import copy
@@ -33,42 +33,44 @@ class Graph():
 		
 		self.endNode = endNode
 
-	def bfs(self, startNode: Node=None) -> list:
-		startNode = startNode if startNode is not None else self.startNode
-		queue = [startNode]
-		traversalOrder = [startNode]
+	def dijkstra(self, startNode: Node, endNode: Node):
+		self.setStartNode(startNode)
+		self.setEndNode(endNode)
 
-		while len(queue) > 0:
-			queue = sorted(queue, key=lambda n: n.cost)
-			currentNode = queue.pop(0)
-			print(f'Branching from {currentNode.name}')
+		possibilities = sorted([node for node in self.nodes], key=lambda n: (n.cost, n.name))
+		visited = []
+
+		while len(possibilities) > 0:
+			possibilities = sorted(possibilities, key=lambda n: (n.cost, n.name))
+			currentNode = possibilities.pop(0)
+			visited.append(currentNode)
 
 			for edgeNode in currentNode.edges:
-				if currentNode.cost + currentNode.edges[edgeNode] < edgeNode.cost:
-					if edgeNode.end is True:
-						edgeNode.shortestPath = currentNode.shortestPath + [currentNode]
-						edgeNode.cost = currentNode.cost + currentNode.edges[edgeNode]
-						edgeNode.previousNode = currentNode
-
-						return edgeNode.shortestPath
-					elif edgeNode not in traversalOrder:
-						print(f'From {currentNode} found {edgeNode.name}')
-						traversalOrder.append(edgeNode)
-					
-					
-					edgeNode.shortestPath = currentNode.shortestPath + [currentNode]
-					edgeNode.cost = currentNode.cost + currentNode.edges[edgeNode]
+				newDistance = currentNode.cost + currentNode.edges[edgeNode]
+				if newDistance < edgeNode.cost:
+					edgeNode.cost = newDistance
 					edgeNode.previousNode = currentNode
+		
+		reversedPath = []
+		currentPathNode = self.endNode
 
-					queue.append(edgeNode)
-	
-		return traversalOrder
+		while currentPathNode.start is not True:
+			reversedPath.append(currentPathNode)
+			currentPathNode = currentPathNode.previousNode
+		
+		reversedPath.append(currentPathNode)
+
+		reversedPath.reverse()
+
+		return reversedPath
 
 	def setStartNode(self, newStartNode) -> None:
 		self.startNode = newStartNode
+		self.startNode.start = True
 		self.startNode.cost = 0
 
 	def setEndNode(self, newEndNode) -> None:
+		self.startNode.end = True
 		self.endNode = newEndNode
 
 	def getNodeByName(self, nameToSearch: str):
@@ -107,26 +109,6 @@ class Graph():
 		return True
 	
 
-	def exportAdjacencyMatrix(self) -> None:
-		tableData = []
-
-		nodeHeaders = [node for node in self.nodes]
-
-		outputString = ''
-
-		for node in self.nodes:
-			rowList = []
-			for nodeHeader in nodeHeaders:
-				if nodeHeader in node.edges:
-					rowList.append(node.edges[nodeHeader])
-				else:
-					rowList.append(0)
-			
-			tableData.append(rowList)
-			outputString += ', '.join([str(item) for item in rowList]) + '\n'
-		
-		print(outputString)
-
 	def printAdjacencyMatrix(self) -> None:
 		tableData = []
 
@@ -153,7 +135,7 @@ class Graph():
 				print('Unable to include shortest path, as not start not is set.')
 				includeShortestPath = False
 			else:
-				self.bfs()
+				self.dijkstra(self.nodes[0], self.nodes[-1])
 
 		tableData = []
 
@@ -173,6 +155,27 @@ class Graph():
 		headers = ['Node', 'Edges', f'Shortest path from {self.startNode.name}'] if includeShortestPath is True else ['Node', 'Edges']
 
 		print(tabulate(tableData, headers=headers, tablefmt="fancy_grid"))
+
+	def exportAdjacencyMatrix(self) -> None:
+		tableData = []
+
+		nodeHeaders = [node for node in self.nodes]
+
+		outputString = ''
+
+		for node in self.nodes:
+			rowList = []
+			for nodeHeader in nodeHeaders:
+				if nodeHeader in node.edges:
+					rowList.append(node.edges[nodeHeader])
+				else:
+					rowList.append(0)
+			
+			tableData.append(rowList)
+			outputString += ', '.join([str(item) for item in rowList]) + '\n'
+		
+		print(outputString)
+
 
 	def export(self, filename) -> None:
 		BASE_DIR = Path(__file__).resolve().parent
@@ -336,11 +339,9 @@ def main():
 
 	print(f'Is weighted: {graph.isWeighted()}, Is directed: {graph.isDirected()}')
 
-	graph.setStartNode(graph.nodes[0])
-	graph.setEndNode(graph.nodes[-1])
-	traversalOrder = graph.bfs()
-	print('----')
-	print(' '.join([node.name for node in traversalOrder]))
+	print('Dijkstra')
+	print(' -> '.join([node.name for node in graph.dijkstra(graph.nodes[0], graph.getNodeByName('d'))]))
+
 
 	graph.export(f'{filename}.txt')
 	graph.jsonExport(filename)
