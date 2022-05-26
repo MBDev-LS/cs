@@ -4,6 +4,7 @@ from pathlib import Path
 
 from tabulate import tabulate
 import copy
+from math import inf
 
 
 class Node():
@@ -27,22 +28,18 @@ class Graph():
 		
 		self.endNode = endNode
 
-	def bfs(self, startNode: Node) -> list:
-		nodeQueue = [startNode]
-		visitedNodes = []
+	def dfs(self, startNode: Node=None) -> list:
+		currentNode = startNode
+		visited = []
 
-		while len(nodeQueue) > 0:
-			currentNode = nodeQueue.pop(0)
-			visitedNodes.append(currentNode)
+		visited.append(currentNode)
+		currentNode.visited = True
 
-			edgeNodes = sorted(currentNode.edges, key=lambda n: n.name)
-			
-			for edgeNode in edgeNodes:
-				if edgeNode not in nodeQueue and edgeNode not in visitedNodes:
-					nodeQueue.append(edgeNode)
+		for edgeNode in currentNode.edges:
+			if edgeNode.visited is False:
+				visited += self.dfs(edgeNode)
 		
-		return visitedNodes
-
+		return visited
 
 	def setStartNode(self, newStartNode) -> None:
 		self.startNode = newStartNode
@@ -180,9 +177,6 @@ class Graph():
 		return '\n'.join([str(node) for node in self.nodes])
 
 
-
-
-
 def discreteInput(prompt: str, possibleInputs: list, caseSensitive: bool=True):
 	userInput = input(prompt)
 
@@ -308,8 +302,7 @@ def main():
 	graph.printAdjacencyList()
 	graph.printAdjacencyMatrix()
 
-	for node in graph.nodes:
-		print(f'{node.name}: {" ".join([edgeNode.name for edgeNode in node.edges])}')
+	print('Traversal Order: ' + ' '.join([node.name for node in graph.dfs(graph.nodes[0])]))
 
 	graph.exportAdjacencyMatrix()
 
