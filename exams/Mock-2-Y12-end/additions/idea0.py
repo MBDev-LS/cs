@@ -71,7 +71,14 @@ def AddPlayerB(Board, B):
 
 
 def DisplayErrorCode(ErrorNumber):
-	print('Error ', ErrorNumber)
+	errorMeanings = {
+		0: 'A type \'0\' error has occured, stay completely still.',
+		1: 'A type \'1\' error has occured, STAY CALM.',
+		2: 'A type \'2\' error has occured, don\'t move a muscle!',
+		3: 'A type \'3\' error has occured, please remain in your seat.',
+		4: 'A type \'4\' error has occured, whatever you do, don\'t turn around...'
+	}
+	print('Error ', errorMeanings[ErrorNumber])
 
 
 def SetUpBoard(Board, A, B, FileFound):
@@ -402,4 +409,9 @@ def Game():
 
 
 if __name__ == "__main__":
+	for i in range(0, 5):
+		DisplayErrorCode(i)
+		input('Press enter for next error: ')
 	Game()
+
+
