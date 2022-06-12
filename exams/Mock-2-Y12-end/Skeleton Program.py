@@ -82,7 +82,7 @@ def SetUpBoard(Board, A, B, FileFound):
 		FileName = input('Enter the filename: ')
 	try:
 		# Start of modification
-		BASE_DIR = Path(__file__).resolve().parent.parent # will not work for main one
+		BASE_DIR = Path(__file__).resolve().parent # will not work for main one
 		SAVES_DIR = BASE_DIR / 'games'
 		FILE_DIR = SAVES_DIR / FileName
 		
