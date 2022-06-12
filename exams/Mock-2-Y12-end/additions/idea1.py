@@ -27,10 +27,19 @@ class MoveRecord:
 
 
 def LoadPieces(FileHandle, PlayersPieces):
-	for Index in range(NUMBER_OF_PIECES + 1):
-		PlayersPieces[Index][ROW] = int(FileHandle.readline())
-		PlayersPieces[Index][COLUMN] = int(FileHandle.readline())
-		PlayersPieces[Index][DAME] = int(FileHandle.readline())
+
+	if type(FileHandle) == str:
+		charList = list(FileHandle)
+		for Index in range(NUMBER_OF_PIECES + 1):
+			PlayersPieces[Index][ROW] = int(charList.pop(0))
+			PlayersPieces[Index][COLUMN] = int(charList.pop(0))
+			PlayersPieces[Index][DAME] = int(charList.pop(0))
+	else:
+		for Index in range(NUMBER_OF_PIECES + 1):
+				PlayersPieces[Index][ROW] = int(FileHandle.readline())
+				PlayersPieces[Index][COLUMN] = int(FileHandle.readline())
+				PlayersPieces[Index][DAME] = int(FileHandle.readline())
+
 	return PlayersPieces
 
 
@@ -99,84 +108,8 @@ def SetUpBoard(Board, A, B, FileFound):
 		except:
 			DisplayErrorCode(4)
 	else:
-		defaultSave = '''0
-		0
-		0
-		0
-		1
-		0
-		0
-		3
-		0
-		0
-		5
-		0
-		0
-		7
-		0
-		1
-		0
-		0
-		1
-		2
-		0
-		1
-		4
-		0
-		1
-		6
-		0
-		2
-		1
-		0
-		2
-		3
-		0
-		2
-		5
-		0
-		2
-		7
-		0
-		0
-		0
-		0
-		7
-		0
-		0
-		7
-		2
-		0
-		7
-		4
-		0
-		7
-		6
-		0
-		6
-		1
-		0
-		6
-		3
-		0
-		6
-		5
-		0
-		6
-		7
-		0
-		5
-		0
-		0
-		5
-		2
-		0
-		5
-		4
-		0
-		5
-		6
-		0'''
+		defaultSave = '000010030050070100120140160210230250270000700720740760610630650670500520540560'
+		FileFound = True
 		A = LoadPieces(defaultSave, A)
 		B = LoadPieces(defaultSave, B)
 		Board = CreateNewBoard(Board)
