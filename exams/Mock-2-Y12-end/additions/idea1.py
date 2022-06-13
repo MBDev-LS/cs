@@ -109,7 +109,7 @@ def SetUpBoard(Board, A, B, FileFound):
 			DisplayErrorCode(4)
 	else:
 		defaultSave = '000010030050070100120140160210230250270000700720740760610630650670500520540560'
-		FileFound = True
+		#FileFound = True
 		A = LoadPieces(defaultSave, A)
 		B = LoadPieces(defaultSave, B)
 		Board = CreateNewBoard(Board)

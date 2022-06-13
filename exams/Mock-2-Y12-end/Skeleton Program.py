@@ -125,6 +125,7 @@ def PrintMiddleRow(Board, ThisRow):
 			print(Board[ThisRow][BoardColumn], end='|')
 		else:
 			print('{0:>4}'.format(Board[ThisRow][BoardColumn]), end=' |')
+
 	print()
 
 
