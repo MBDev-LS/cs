@@ -51,7 +51,7 @@ minNum = int(minNum) if minNum.isdigit() else 0
 maxNum = int(maxNum) if maxNum.isdigit() else 1000
 
 numberOfQuestionsToAnswer = intInput('Enter the number of questions you wish to answer (leave blank for infinite): ', True)
-numberOfQuestionsToAnswer = int(maxNum) if numberOfQuestionsToAnswer.isdigit() else inf
+numberOfQuestionsToAnswer = int(numberOfQuestionsToAnswer) if numberOfQuestionsToAnswer.isdigit() else inf
 
 score = 0
 questionsAnswered = 0
@@ -76,12 +76,3 @@ while True:
 
 	if questionsAnswered >= numberOfQuestionsToAnswer:
 		endTest(score, questionsAnswered)
-
-
-
-
-# Add score counting, setting of min/max options and end mechanic
-
-questionDict = getQuestion('den', 'hex')
-print(questionDict['prompt'])
-print(questionDict['answer'])
