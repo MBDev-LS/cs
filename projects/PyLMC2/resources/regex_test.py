@@ -46,7 +46,7 @@ def validate(instruction: str, line_num: int): # , data_info: dict
 	if INSTRUCTION_SET[instruction_type]['regex_group'] in ['mGroup', 'gGroup']:
 		if re.match(instruction_type + regexTypes[INSTRUCTION_SET[instruction_type]['regex_group']], instruction) is None:
 			return "syntax error (1)"
-		print(re.match(instruction_type + regexTypes[INSTRUCTION_SET[instruction_type]['regex_group']], instruction).groups())
+		# print(re.match(instruction_type + regexTypes[INSTRUCTION_SET[instruction_type]['regex_group']], instruction).groups())
     
 	# if re.search(9r"'([0-9]{1,3})'", 'LDR R0, 99')
 	
@@ -54,5 +54,5 @@ def validate(instruction: str, line_num: int): # , data_info: dict
 
 # LDR R0, 99
 
-print(re.search(r"LDR\sR[0-9]{1,2},\s?([0-9]{1,3})", 'LDR R0, 99').group(1))
+print(re.search(r"LDR\sR([0-9]{1,2}),\s?([0-9]{1,3})", 'LDR R0, 99').groups())
 print(validate('LDR R0, 9999', 0))
