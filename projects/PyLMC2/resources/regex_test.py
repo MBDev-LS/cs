@@ -1,4 +1,3 @@
-import regex
 
 import re
 
@@ -7,6 +6,7 @@ import re
 # print(re.findall(r"[A-Z]{3}\sR[0-9]{1,2},\s?[0-9]{1,3}", 'LDR R0, 99'))
 
 # print(re.findall(r"\s?[A-Z]{3}", 'LDR R0, 99'))
+
 
 INSTRUCTION_SET = {
 	'LDR': {'code': 1, 'regex_group': 'mGroup'},
@@ -36,7 +36,7 @@ regexTypes = {
 }
 
 def validate(instruction: str, line_num: int): # , data_info: dict
-	instruction_type = re.findall(r"\s?[A-Z]{3}\s", instruction)
+	instruction_type = re.findall(r"\s?([A-Z]{1}|[A-Z]{3,4})\s", instruction)
 
 	if len(instruction_type) == 0 or instruction_type[0][:-1] not in INSTRUCTION_SET:
 		return "bad instruction"
@@ -55,4 +55,6 @@ def validate(instruction: str, line_num: int): # , data_info: dict
 # LDR R0, 99
 
 print(re.search(r"LDR\sR([0-9]{1,2}),\s?([0-9]{1,3})", 'LDR R0, 99').groups())
+print(validate('NDER R2, 9999', 0))
+print(validate('LDR R0, 9999', 0))
 print(validate('LDR R0, 9999', 0))
