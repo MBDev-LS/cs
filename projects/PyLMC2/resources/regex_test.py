@@ -26,7 +26,7 @@ INSTRUCTION_SET = {
 	'HALT': {'code': 1, 'regex_group': 'HALT'},
 }
 
-regexTypes = {
+REGEXTYPES = {
 	"mGroup":  r"\sR(1[0-2]|[0-9]),\s?[0-9]{1,3}",
 	"gGroup":  r"\sR(1[0-2]|[0-9]),\sR(1[0-2]|[0-9]),\s?(R(1[0-2]|[0-9])|#\d+)",
 	"b":       r"B\s[a-zA-Z]+",
@@ -39,14 +39,14 @@ def instructionSyntaxCheck(instruction: str, line_num: int):
 	instruction_type = re.findall(r"\s?([A-Z]{1}|[A-Z]{3,4})\s", instruction)
 
 	if len(instruction_type) == 0 or instruction_type[0].strip() not in INSTRUCTION_SET:
-		return "bad instruction"
+		return f"error: unknown instruction \'{instruction_type[0]}\' on line {line_num}"
 
 	instruction_type = instruction_type[0].strip()
 
 	if INSTRUCTION_SET[instruction_type]['regex_group'] in ['mGroup', 'gGroup']:
-		if re.match(instruction_type + regexTypes[INSTRUCTION_SET[instruction_type]['regex_group']] + '$', instruction) is None:
-			return "syntax error (1)"
-		# print(re.match(instruction_type + regexTypes[INSTRUCTION_SET[instruction_type]['regex_group']], instruction).groups())
+		if re.match('^' + instruction_type + REGEXTYPES[INSTRUCTION_SET[instruction_type]['regex_group']] + '$', instruction) is None:
+			return f"error: syntax error on line {line_num}"
+		# print(re.match(instruction_type + REGEXTYPES[INSTRUCTION_SET[instruction_type]['regex_group']], instruction).groups())
     
 	# if re.search(9r"'([0-9]{1,3})'", 'LDR R0, 99')
 	
@@ -61,9 +61,9 @@ def instructionSyntaxCheck(instruction: str, line_num: int):
 # 	instruction_type = instruction_type[0].strip()
 
 # 	if INSTRUCTION_SET[instruction_type]['regex_group'] in ['mGroup', 'gGroup']:
-# 		if re.match(instruction_type + regexTypes[INSTRUCTION_SET[instruction_type]['regex_group']] + '$', instruction) is None:
+# 		if re.match(instruction_type + REGEXTYPES[INSTRUCTION_SET[instruction_type]['regex_group']] + '$', instruction) is None:
 # 			return "syntax error (1)"
-# 		# print(re.match(instruction_type + regexTypes[INSTRUCTION_SET[instruction_type]['regex_group']], instruction).groups())
+# 		# print(re.match(instruction_type + REGEXTYPES[INSTRUCTION_SET[instruction_type]['regex_group']], instruction).groups())
     
 # 	# if re.search(9r"'([0-9]{1,3})'", 'LDR R0, 99')
 	
@@ -72,6 +72,6 @@ def instructionSyntaxCheck(instruction: str, line_num: int):
 # LDR R0, 99
 
 print(re.search(r"LDR\sR([0-9]{1,2}),\s?([0-9]{1,3})", 'LDR R0, 99').groups())
-print(instructionSyntaxCheck('NDER R2, 9999', 0))
+print(instructionSyntaxCheck('awjdnk NDER R2, 9999', 0))
 print(instructionSyntaxCheck('LDR R0, 9999', 0))
 print(instructionSyntaxCheck('LDR R0, 999', 0))
