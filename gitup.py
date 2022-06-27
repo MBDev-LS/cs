@@ -11,7 +11,7 @@ def main():
 		print(f'error: expected 1 argument, {len(arguments)} given')
 		exit()
 
-	os.system(f'git pull; git add --all; git commit -m "{arguments[1]}"; git push')
+	os.system(f'git pull; git add --all; git commit -m "{arguments[1]}"; git push; git status')
 
 
 if __name__ == '__main__':
