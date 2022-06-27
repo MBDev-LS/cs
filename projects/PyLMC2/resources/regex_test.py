@@ -35,16 +35,16 @@ regexTypes = {
 	"labels": r"\s*[a-zA-Z]+:",
 }
 
-def validate(instruction: str, line_num: int): # , data_info: dict
+def instructionSyntaxCheck(instruction: str, line_num: int):
 	instruction_type = re.findall(r"\s?([A-Z]{1}|[A-Z]{3,4})\s", instruction)
 
-	if len(instruction_type) == 0 or instruction_type[0][:-1] not in INSTRUCTION_SET:
+	if len(instruction_type) == 0 or instruction_type[0].strip() not in INSTRUCTION_SET:
 		return "bad instruction"
 
-	instruction_type = instruction_type[0][:-1]
+	instruction_type = instruction_type[0].strip()
 
 	if INSTRUCTION_SET[instruction_type]['regex_group'] in ['mGroup', 'gGroup']:
-		if re.match(instruction_type + regexTypes[INSTRUCTION_SET[instruction_type]['regex_group']], instruction) is None:
+		if re.match(instruction_type + regexTypes[INSTRUCTION_SET[instruction_type]['regex_group']] + '$', instruction) is None:
 			return "syntax error (1)"
 		# print(re.match(instruction_type + regexTypes[INSTRUCTION_SET[instruction_type]['regex_group']], instruction).groups())
     
@@ -52,9 +52,26 @@ def validate(instruction: str, line_num: int): # , data_info: dict
 	
 	return True
 
+# def validate(instruction: str, line_num: int): # , data_info: dict
+# 	instruction_type = re.findall(r"\s?([A-Z]{1}|[A-Z]{3,4})\s", instruction)
+
+# 	if len(instruction_type) == 0 or instruction_type[0].strip() not in INSTRUCTION_SET:
+# 		return "bad instruction"
+
+# 	instruction_type = instruction_type[0].strip()
+
+# 	if INSTRUCTION_SET[instruction_type]['regex_group'] in ['mGroup', 'gGroup']:
+# 		if re.match(instruction_type + regexTypes[INSTRUCTION_SET[instruction_type]['regex_group']] + '$', instruction) is None:
+# 			return "syntax error (1)"
+# 		# print(re.match(instruction_type + regexTypes[INSTRUCTION_SET[instruction_type]['regex_group']], instruction).groups())
+    
+# 	# if re.search(9r"'([0-9]{1,3})'", 'LDR R0, 99')
+	
+# 	return True
+
 # LDR R0, 99
 
 print(re.search(r"LDR\sR([0-9]{1,2}),\s?([0-9]{1,3})", 'LDR R0, 99').groups())
 print(validate('NDER R2, 9999', 0))
 print(validate('LDR R0, 9999', 0))
-print(validate('LDR R0, 9999', 0))
+print(validate('LDR R0, 999', 0))
