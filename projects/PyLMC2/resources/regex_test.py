@@ -72,6 +72,6 @@ def instructionSyntaxCheck(instruction: str, line_num: int):
 # LDR R0, 99
 
 print(re.search(r"LDR\sR([0-9]{1,2}),\s?([0-9]{1,3})", 'LDR R0, 99').groups())
-print(validate('NDER R2, 9999', 0))
-print(validate('LDR R0, 9999', 0))
-print(validate('LDR R0, 999', 0))
+print(instructionSyntaxCheck('NDER R2, 9999', 0))
+print(instructionSyntaxCheck('LDR R0, 9999', 0))
+print(instructionSyntaxCheck('LDR R0, 999', 0))
