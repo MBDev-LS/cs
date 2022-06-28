@@ -25,15 +25,33 @@ INSTRUCTION_SET = {
 	'LSR': {'code': 1, 'regex_group': 'gGroup'},
 	'HALT': {'code': 1, 'regex_group': 'HALT'},
 }
+2
+
 
 REGEXTYPES = {
-	"mGroup":  r"\sR(1[0-2]|[0-9]),\s?[0-9]{1,3}",
-	"gGroup":  r"\sR(1[0-2]|[0-9]),\sR(1[0-2]|[0-9]),\s?(R(1[0-2]|[0-9])|#\d+)",
-	"b":       r"B\s[a-zA-Z]+",
-	"B+" :     r"B(ET|GT|NE|LT)\s[a-zA-Z]+",
-	"HALT":    r"HALT",
-	"labels": r"\s*[a-zA-Z]+:",
+	"mGroup": r"\sR(1[0-2]|[0-9]),\s?[0-9]{1,3}", # second bit makes no sense
+	"gGroup": r"\sR(1[0-2]|[0-9]),\sR(1[0-2]|[0-9]),\s?(R(1[0-2]|[0-9])|#\d+)",
+	"b":      r"B\s[a-zA-Z]+",
+	"B+" :    r"B(ET|GT|NE|LT)\s[a-zA-Z]+",
+	"HALT":   r"HALT",
+	"labels":r"(\s*[a-zA-Z]+:)*",
 }
+
+def steppedSyntaxCheck(instruction: str, line_num: int):
+	instruction_type = re.findall(r"\s?([A-Z]{1}|[A-Z]{3,4})\s", instruction)[0].upper().strip()
+	instructionRegex = '^' + REGEXTYPES['labels'] + instruction_type + REGEXTYPES[INSTRUCTION_SET[instruction_type]['regex_group']] + '$'
+
+	instructionRegexExpressions = []
+	for i in range(len(instructionRegex)):
+		if instructionRegex[i:i+3] == r',\s':
+			if i <= len(instructionRegex) - 2:
+				instructionRegexExpressions.append(instructionRegex[:i])
+		elif instructionRegex[i:i+2] == r'\s':
+			if i <= len(instructionRegex) - 1:
+				instructionRegexExpressions.append(instructionRegex[:i])
+	
+	print(instructionRegex, instructionRegexExpressions)
+
 
 def instructionSyntaxCheck(instruction: str, line_num: int):
 	instruction_type = re.findall(r"\s?([A-Z]{1}|[A-Z]{3,4})\s", instruction)
@@ -41,9 +59,13 @@ def instructionSyntaxCheck(instruction: str, line_num: int):
 	if len(instruction_type) == 0 or instruction_type[0].strip() not in INSTRUCTION_SET:
 		return f"error: unknown instruction \'{instruction_type[0]}\' on line {line_num}"
 
-	instruction_type = instruction_type[0].strip()
+	instruction_type = instruction_type[0].strip() # Can this not be done betfore first if statement to make this section simplier
+	
+	
 
 	if INSTRUCTION_SET[instruction_type]['regex_group'] in ['mGroup', 'gGroup']:
+		steppedSyntaxCheck(instruction, line_num)
+		
 		if re.match('^' + instruction_type + REGEXTYPES[INSTRUCTION_SET[instruction_type]['regex_group']] + '$', instruction) is None:
 			return f"error: syntax error on line {line_num}"
 		# print(re.match(instruction_type + REGEXTYPES[INSTRUCTION_SET[instruction_type]['regex_group']], instruction).groups())
