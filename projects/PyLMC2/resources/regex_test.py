@@ -37,20 +37,73 @@ REGEXTYPES = {
 	"labels":r"(\s*[a-zA-Z]+:)*",
 }
 
+class Operand:
+	def __init__(self, value, addressingMode) -> None:
+		self.value = value
+		self.adressingMode = addressingMode
+
+def splitRegex(regexStr: str, *args) -> list:
+	splitChars = args
+
+	intialList = regexStr.split(splitChars[0])
+	endList = []
+
+	for i in range(1, len(splitChars)):
+		
+		for string in intialList:
+			endList += string.split(splitChars[i])
+
+		if i < len(splitChars)-1:
+			intialList = endList
+			endList = []
+
+	while '' in endList:
+		endList.remove('')
+	
+	return endList
+
+def reportDetailedError(instructionList: str, errorIndex: int):
+	# Use error index and length of corresponding
+	# string in instructionList to place error.
+	# 
+	# Then use instruction index to select error:
+	# If there is a label in the instruction, and
+	# error index is 0 then the error is with the
+	# label. If no label is present and the error
+	# index is 0 the the issue is with the
+	# 'instruction type'. If the error index > 1,
+	# the error will depend  the 'instruction
+	# type', will need system for checking this.
+	# 
+	# The infomation given by the current parameters
+	# is sufficient if this is implemented in the
+	# way I currently envisage it.
+	# 
+	# You may decide whether to use print or to
+	# raise an exception when reporting an error.
+	# If print is used, consider that the program
+	# should then be stopped accordingly, likely
+	# with the use of exit().
+	pass 
+
 def steppedSyntaxCheck(instruction: str, line_num: int):
 	instruction_type = re.findall(r"\s?([A-Z]{1}|[A-Z]{3,4})\s", instruction)[0].upper().strip()
-	instructionRegex = '^' + REGEXTYPES['labels'] + instruction_type + REGEXTYPES[INSTRUCTION_SET[instruction_type]['regex_group']] + '$'
+	if instruction.split(' ')[0].upper() not in INSTRUCTION_SET:
+		instructionRegexList = [REGEXTYPES['labels'], instruction_type] + splitRegex(REGEXTYPES[INSTRUCTION_SET[instruction_type]['regex_group']],',\s?', ',\s', '\s?', '\s') + ['$']
+	else:
+		instructionRegexList = [instruction_type] + splitRegex(REGEXTYPES[INSTRUCTION_SET[instruction_type]['regex_group']],',\s?', ',\s', '\s?', '\s') + ['$']
 
-	instructionRegexExpressions = []
-	for i in range(len(instructionRegex)):
-		if instructionRegex[i:i+3] == r',\s':
-			if i <= len(instructionRegex) - 2:
-				instructionRegexExpressions.append(instructionRegex[:i])
-		elif instructionRegex[i:i+2] == r'\s':
-			if i <= len(instructionRegex) - 1:
-				instructionRegexExpressions.append(instructionRegex[:i])
 	
-	print(instructionRegex, instructionRegexExpressions)
+
+	instructionList = instruction.split(' ')
+	print(instructionList, instructionRegexList)
+
+	for i, regexStr in enumerate(instructionList):
+		if i >= len(instructionList):
+			reportDetailedError(instructionList, i)
+
+		# Now check if instructionList[i] matches the regexStr
+
 
 
 def instructionSyntaxCheck(instruction: str, line_num: int):
