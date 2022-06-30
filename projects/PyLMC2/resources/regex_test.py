@@ -25,16 +25,19 @@ INSTRUCTION_SET = {
 	'LSR': {'code': 1, 'regex_group': 'gGroup'},
 	'HALT': {'code': 1, 'regex_group': 'HALT'},
 }
-2
-
 
 REGEXTYPES = {
 	"mGroup": r"\sR(1[0-2]|[0-9]),\s?[0-9]{1,3}", # second bit makes no sense
 	"gGroup": r"\sR(1[0-2]|[0-9]),\sR(1[0-2]|[0-9]),\s?(R(1[0-2]|[0-9])|#\d+)",
-	"b":      r"B\s[a-zA-Z]+",
-	"B+" :    r"B(ET|GT|NE|LT)\s[a-zA-Z]+",
+	"b":      r"\s[a-zA-Z]+",
+	"B+" :    r"(ET|GT|NE|LT)\s[a-zA-Z]+",
 	"HALT":   r"HALT",
 	"labels":r"(\s*[a-zA-Z]+:)*",
+}
+
+ERRORINDEXTOERRORWITHLABEL = {
+	0: "error: issue with label",
+	1: "error: issue with instruction"
 }
 
 class Operand:
@@ -62,7 +65,40 @@ def splitRegex(regexStr: str, *args) -> list:
 	
 	return endList
 
-def reportDetailedError(instructionList: str, errorIndex: int):
+def printError(line_num: int, errorText: str, lineText: str, arrowText: str):
+	print(f"""  error in program, line {line_num}
+{errorText}
+{lineText}
+{arrowText}""")
+
+	exit()
+
+ERRORINDEXTOERROR = {
+
+}
+
+def reportDetailedError(instructionList: str, errorIndex: int, line_num: int, instructionMissing: bool=False):
+	baseArrowOffset = 0
+	for i in range(errorIndex):
+		baseArrowOffset += len(instructionList[i]) + 1
+	
+	arrowLine = (baseArrowOffset * ' ') + '^'.center(len(instructionList[errorIndex])) if instructionMissing is False else (baseArrowOffset * ' ') + '^'.center(2)
+	lineText = ' '.join(instructionList)
+
+	offsetErrorIndex = errorIndex if instructionList[0].upper() in INSTRUCTION_SET else errorIndex - 1
+
+	if instructionList[0].upper() not in INSTRUCTION_SET:
+		if errorIndex in ERRORINDEXTOERRORWITHLABEL:
+			printError(line_num, ERRORINDEXTOERRORWITHLABEL[errorIndex], lineText, arrowLine)
+	
+	if 'R' in instructionList[errorIndex].upper():
+		printError(line_num, 'error: bad parameter, unknown register referenced', lineText, arrowLine)
+	else:
+		printError(line_num, 'error: bad parameter', lineText, arrowLine)
+
+
+
+
 	# Use error index and length of corresponding
 	# string in instructionList to place error.
 	# 
@@ -84,25 +120,27 @@ def reportDetailedError(instructionList: str, errorIndex: int):
 	# If print is used, consider that the program
 	# should then be stopped accordingly, likely
 	# with the use of exit().
-	pass 
+
 
 def steppedSyntaxCheck(instruction: str, line_num: int):
 	instruction_type = re.findall(r"\s?([A-Z]{1}|[A-Z]{3,4})\s", instruction)[0].upper().strip()
 	if instruction.split(' ')[0].upper() not in INSTRUCTION_SET:
-		instructionRegexList = [REGEXTYPES['labels'], instruction_type] + splitRegex(REGEXTYPES[INSTRUCTION_SET[instruction_type]['regex_group']],',\s?', ',\s', '\s?', '\s') + ['$']
+		# instructionRegexList = [REGEXTYPES['labels'], instruction_type] + splitRegex(REGEXTYPES[INSTRUCTION_SET[instruction_type]['regex_group']],',\s?', ',\s', '\s?', '\s') + ['$']
+		instructionRegexList = [REGEXTYPES['labels'], instruction_type] + splitRegex(REGEXTYPES[INSTRUCTION_SET[instruction_type]['regex_group']], '\s?', '\s') + ['$']
 	else:
-		instructionRegexList = [instruction_type] + splitRegex(REGEXTYPES[INSTRUCTION_SET[instruction_type]['regex_group']],',\s?', ',\s', '\s?', '\s') + ['$']
-
-	
+		# instructionRegexList = [instruction_type] + splitRegex(REGEXTYPES[INSTRUCTION_SET[instruction_type]['regex_group']],',\s?', ',\s', '\s?', '\s') + ['$']
+		instructionRegexList = [instruction_type] + splitRegex(REGEXTYPES[INSTRUCTION_SET[instruction_type]['regex_group']], '\s?', '\s') + ['$']
 
 	instructionList = instruction.split(' ')
 	print(instructionList, instructionRegexList)
 
-	for i, regexStr in enumerate(instructionList):
+	for i, regexStr in enumerate(instructionRegexList[:-1]):
 		if i >= len(instructionList):
-			reportDetailedError(instructionList, i)
+			reportDetailedError(instructionList, i, line_num, True)
+		elif re.match(regexStr, instructionList[i]) is None:
+			reportDetailedError(instructionList, i, line_num)
 
-		# Now check if instructionList[i] matches the regexStr
+		# Now check if instructionList[i] matches the regexStr - should be done
 
 
 
@@ -117,10 +155,10 @@ def instructionSyntaxCheck(instruction: str, line_num: int):
 	
 
 	if INSTRUCTION_SET[instruction_type]['regex_group'] in ['mGroup', 'gGroup']:
-		steppedSyntaxCheck(instruction, line_num)
+		
 		
 		if re.match('^' + instruction_type + REGEXTYPES[INSTRUCTION_SET[instruction_type]['regex_group']] + '$', instruction) is None:
-			return f"error: syntax error on line {line_num}"
+			steppedSyntaxCheck(instruction, line_num)
 		# print(re.match(instruction_type + REGEXTYPES[INSTRUCTION_SET[instruction_type]['regex_group']], instruction).groups())
     
 	# if re.search(9r"'([0-9]{1,3})'", 'LDR R0, 99')
@@ -146,7 +184,8 @@ def instructionSyntaxCheck(instruction: str, line_num: int):
 
 # LDR R0, 99
 
+
 print(re.search(r"LDR\sR([0-9]{1,2}),\s?([0-9]{1,3})", 'LDR R0, 99').groups())
 print(instructionSyntaxCheck('awjdnk NDER R2, 9999', 0))
-print(instructionSyntaxCheck('LDR R0, 9999', 0))
-print(instructionSyntaxCheck('LDR R0, 999', 0))
+# print(instructionSyntaxCheck('lab LDR R0, a12', 0))
+print(instructionSyntaxCheck('LDR RDAVE, 999', 0))
