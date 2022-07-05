@@ -51,18 +51,23 @@ class Graph():
 					edgeNode.cost = newDistance
 					edgeNode.previousNode = currentNode
 		
-		reversedPath = []
-		currentPathNode = self.endNode
-
-		while currentPathNode.start is not True:
-			reversedPath.append(currentPathNode)
-			currentPathNode = currentPathNode.previousNode
+		for node in self.nodes:
+			print(f'{node.name}: {node.cost}')
 		
-		reversedPath.append(currentPathNode)
+		return
 
-		reversedPath.reverse()
+		# reversedPath = []
+		# currentPathNode = self.endNode
 
-		return reversedPath
+		# while currentPathNode.start is not True:
+		# 	reversedPath.append(currentPathNode)
+		# 	currentPathNode = currentPathNode.previousNode
+		
+		# reversedPath.append(currentPathNode)
+
+		# reversedPath.reverse()
+
+		# return reversedPath
 
 	def setStartNode(self, newStartNode) -> None:
 		self.startNode = newStartNode
@@ -323,7 +328,7 @@ def loadGraph(filename: str):
 
 
 def main():
-	filename = 'testing'
+	filename = 'board2'
 	filenameJson = filename + '.json'
 	
 	testingOption = input('Would you like to create a new graph (1) or load a saved one (2): ')
@@ -339,8 +344,11 @@ def main():
 
 	print(f'Is weighted: {graph.isWeighted()}, Is directed: {graph.isDirected()}')
 
+	print('-'*50)
 	print('Dijkstra')
-	print(' -> '.join([node.name for node in graph.dijkstra(graph.nodes[0], graph.getNodeByName('d'))]))
+	graph.dijkstra(graph.nodes[0], graph.getNodeByName('d'))
+	print('-'*50)
+	# print(' -> '.join([node.name for node in graph.dijkstra(graph.nodes[0], graph.getNodeByName('d'))]))
 
 
 	graph.export(f'{filename}.txt')
