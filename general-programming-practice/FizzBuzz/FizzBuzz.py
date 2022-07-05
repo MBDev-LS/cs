@@ -1,7 +1,7 @@
 
 import time
 
-maxNum = 100
+maxNum = 10000000
 
 counters = {
 	'fizz': 0,
@@ -23,7 +23,7 @@ for i in range(1, maxNum+1):
 	elif output == 'FizzBuzz':
 		counters['fizzbuzz'] += 1
 
-	print(f'{str(i).rjust(len(str(maxNum)))}: {i if len(output) == 0 else output}')
+	# print(f'{str(i).rjust(len(str(maxNum)))}: {i if len(output) == 0 else output}')
 
 t1 = time.perf_counter()
 
