@@ -1,0 +1,2843 @@
+[
+	{
+		"member_id": "42090",
+		"person_id": "24745",
+		"name": "Marcus Jones",
+		"party": "Conservative",
+		"constituency": "Nuneaton",
+		"office": [
+			{
+				"dept": "",
+				"position": "Comptroller (HM Household) (Whip, House of Commons)",
+				"from_date": "2021-09-17",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42115",
+		"person_id": "25272",
+		"name": "Suella Braverman",
+		"party": "Conservative",
+		"constituency": "Fareham",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Attorney-General",
+				"from_date": "2021-09-10",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42118",
+		"person_id": "25388",
+		"name": "Julian Knight",
+		"party": "Conservative",
+		"constituency": "Solihull",
+		"office": [
+			{
+				"dept": "Digital, Culture, Media and Sport Committee",
+				"position": "Chair",
+				"from_date": "2020-01-29",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Digital, Culture, Media and Sport Committee",
+				"position": "Chair",
+				"from_date": "2020-01-29",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Digital, Culture, Media and Sport Sub-committee on Online Harms and Disinformation",
+				"position": "Chair",
+				"from_date": "2020-03-10",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Digital, Culture, Media and Sport Sub-committee on Online Harms and Disinformation",
+				"position": "Chair",
+				"from_date": "2020-03-10",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Liaison Committee (Commons)",
+				"position": "Member",
+				"from_date": "2020-05-20",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42120",
+		"person_id": "10348",
+		"name": "Eleanor Laing",
+		"party": "Conservative",
+		"constituency": "Epping Forest",
+		"office": [
+			{
+				"dept": "Panel of Chairs",
+				"position": "Member",
+				"from_date": "2020-01-15",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Deputy Speaker and Chairman of Ways and Means",
+				"from_date": "2020-01-08",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Finance Committee (Commons)",
+				"position": "Member",
+				"from_date": "2020-03-09",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Parliamentary Works Estimates Commission",
+				"position": "Member",
+				"from_date": "2020-09-23",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Standing Orders (Private Bills) Committee (Commons)",
+				"position": "Chair",
+				"from_date": "2021-04-12",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Standing Orders (Private Bills) Committee (Commons)",
+				"position": "Chair",
+				"from_date": "2021-04-12",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42129",
+		"person_id": "25630",
+		"name": "Damien Moore",
+		"party": "Conservative",
+		"constituency": "Southport",
+		"office": [
+			{
+				"dept": "National Insurance Contributions Bill Committee",
+				"position": "Member",
+				"from_date": "2021-06-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Judicial Review and Courts Bill",
+				"position": "Member",
+				"from_date": "2021-10-27",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Charities Bill [HL] Second Reading Committee",
+				"position": "Member",
+				"from_date": "2022-01-12",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Charities Bill [HL] Committee",
+				"position": "Member",
+				"from_date": "2022-01-20",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Online Safety Bill Committee",
+				"position": "Member",
+				"from_date": "2022-05-18",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42132",
+		"person_id": "24822",
+		"name": "Nadhim Zahawi",
+		"party": "Conservative",
+		"constituency": "Stratford-on-Avon",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Secretary of State for Education",
+				"from_date": "2021-09-15",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42143",
+		"person_id": "25419",
+		"name": "Ranil Jayawardena",
+		"party": "Conservative",
+		"constituency": "North East Hampshire",
+		"office": [
+			{
+				"dept": "",
+				"position": "Parliamentary Under-Secretary (Department for International Trade)",
+				"from_date": "2020-05-06",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42146",
+		"person_id": "25350",
+		"name": "Amanda Milling",
+		"party": "Conservative",
+		"constituency": "Cannock Chase",
+		"office": [
+			{
+				"dept": "",
+				"position": "Minister of State (Foreign, Commonwealth and Development Office)",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42155",
+		"person_id": "25403",
+		"name": "Will Quince",
+		"party": "Conservative",
+		"constituency": "Colchester",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Parliamentary Under-Secretary of State for Education",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42161",
+		"person_id": "25600",
+		"name": "Trudy Harrison",
+		"party": "Conservative",
+		"constituency": "Copeland",
+		"office": [
+			{
+				"dept": "",
+				"position": "Parliamentary Under-Secretary (Department for Transport)",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Taxi and Private Hire Vehicles (Safeguarding and Road Safety) Bill (England and Wales) Committee",
+				"position": "Member",
+				"from_date": "2021-10-27",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42169",
+		"person_id": "25807",
+		"name": "Jane Stevenson",
+		"party": "Conservative",
+		"constituency": "Wolverhampton North East",
+		"office": [
+			{
+				"dept": "Consolidation, &c., Bills (Joint Committee)",
+				"position": "Member",
+				"from_date": "2020-03-09",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Digital, Culture, Media and Sport Committee",
+				"position": "Member",
+				"from_date": "2021-10-19",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Digital, Culture, Media and Sport Sub-committee on Online Harms and Disinformation",
+				"position": "Member",
+				"from_date": "2021-10-19",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Animal (Penalty Notices) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-12-01",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Glue Traps (Offences) Bill Committee",
+				"position": "Member",
+				"from_date": "2022-01-12",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Public Service Pensions and Judicial Offices Bill [HL] Committee",
+				"position": "Member",
+				"from_date": "2022-01-19",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Online Safety Bill Committee",
+				"position": "Member",
+				"from_date": "2022-05-18",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42180",
+		"person_id": "25693",
+		"name": "Kemi Badenoch",
+		"party": "Conservative",
+		"constituency": "Saffron Walden",
+		"office": [
+			{
+				"dept": "",
+				"position": "Minister for Equalities",
+				"from_date": "2020-02-14",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Minister of State (Housing, Communities and Local Government)",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Minister of State (Foreign, Commonwealth and Development Office)",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Minister of State (Foreign, Commonwealth and Development Office) (jointly with Department for Levelling Up, Housing and Communities)",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Elections Bill Committee",
+				"position": "Member",
+				"from_date": "2021-09-22",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Speaker's Committee on the Electoral Commission",
+				"position": "Member",
+				"from_date": "2021-11-04",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Local Government (Disqualification) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-11-24",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42181",
+		"person_id": "25811",
+		"name": "Tom Hunt",
+		"party": "Conservative",
+		"constituency": "Ipswich",
+		"office": [
+			{
+				"dept": "Education Committee",
+				"position": "Member",
+				"from_date": "2020-03-02",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Petitions Committee",
+				"position": "Member",
+				"from_date": "2020-03-02",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Judicial Review and Courts Bill",
+				"position": "Member",
+				"from_date": "2021-10-27",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Skills and Post-16 Education [HL] Bill Committee",
+				"position": "Member",
+				"from_date": "2021-11-24",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Public Order Bill Committee",
+				"position": "Member",
+				"from_date": "2022-05-25",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42191",
+		"person_id": "25338",
+		"name": "Kevin Foster",
+		"party": "Conservative",
+		"constituency": "Torbay",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Parliamentary Under-Secretary of State for the Home Department",
+				"from_date": "2019-12-16",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42203",
+		"person_id": "10190",
+		"name": "Nigel Evans",
+		"party": "Conservative",
+		"constituency": "Ribble Valley",
+		"office": [
+			{
+				"dept": "Panel of Chairs",
+				"position": "Member",
+				"from_date": "2020-01-15",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Deputy Speaker (Second Deputy Chairman of Ways and Means)",
+				"from_date": "2020-01-08",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Standing Orders (Private Bills) Committee (Commons)",
+				"position": "Member",
+				"from_date": "2021-04-12",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42204",
+		"person_id": "10265",
+		"name": "John Hayes",
+		"party": "Conservative",
+		"constituency": "South Holland and The Deepings",
+		"office": [
+			{
+				"dept": "Intelligence and Security Committee of Parliament",
+				"position": "Member",
+				"from_date": "2020-07-13",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Higher Education (Freedom of Speech) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-09-07",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Judicial Review and Courts Bill",
+				"position": "Member",
+				"from_date": "2021-10-27",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Taxi and Private Hire Vehicles (Safeguarding and Road Safety) Bill (England and Wales) Committee",
+				"position": "Member",
+				"from_date": "2021-10-27",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42208",
+		"person_id": "25652",
+		"name": "Julia Lopez",
+		"party": "Conservative",
+		"constituency": "Hornchurch and Upminster",
+		"office": [
+			{
+				"dept": "",
+				"position": "Parliamentary Secretary (Cabinet Office)",
+				"from_date": "2020-02-13",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Minister of State",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Product Security and Telecommunications Infrastructure Bill Committee",
+				"position": "Member",
+				"from_date": "2022-03-02",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42220",
+		"person_id": "25381",
+		"name": "Nigel Huddleston",
+		"party": "Conservative",
+		"constituency": "Mid Worcestershire",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Parliamentary Under-Secretary of State for Digital, Culture, Media and Sport",
+				"from_date": "2020-02-13",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Cultural Objects (Protection From Seizure) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-11-09",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Charities Bill [HL] Second Reading Committee",
+				"position": "Member",
+				"from_date": "2022-01-12",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Charities Bill [HL] Committee",
+				"position": "Member",
+				"from_date": "2022-01-19",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Dormant Assets Bill [HL] Committee",
+				"position": "Member",
+				"from_date": "2021-12-15",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42230",
+		"person_id": "25614",
+		"name": "Vicky Ford",
+		"party": "Conservative",
+		"constituency": "Chelmsford",
+		"office": [
+			{
+				"dept": "",
+				"position": "Parliamentary Under-Secretary (Foreign, Commonwealth and Development Office)",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42233",
+		"person_id": "25657",
+		"name": "Simon Clarke",
+		"party": "Conservative",
+		"constituency": "Middlesbrough South and East Cleveland",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Chief Secretary to the Treasury",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Public Service Pensions and Judicial Offices Bill [HL] Committee",
+				"position": "Member",
+				"from_date": "2022-01-19",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42246",
+		"person_id": "10241",
+		"name": "Damian Green",
+		"party": "Conservative",
+		"constituency": "Ashford",
+		"office": [
+			{
+				"dept": "Digital, Culture, Media and Sport Committee",
+				"position": "Member",
+				"from_date": "2020-03-02",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Digital, Culture, Media and Sport Sub-committee on Online Harms and Disinformation",
+				"position": "Member",
+				"from_date": "2020-03-10",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42251",
+		"person_id": "24759",
+		"name": "Andrew Stephenson",
+		"party": "Conservative",
+		"constituency": "Pendle",
+		"office": [
+			{
+				"dept": "",
+				"position": "Assistant Whip",
+				"from_date": "2017-06-15",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Minister of State (Department for Transport)",
+				"from_date": "2020-02-13",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42252",
+		"person_id": "24933",
+		"name": "George Eustice",
+		"party": "Conservative",
+		"constituency": "Camborne and Redruth",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Secretary of State for Environment, Food and Rural Affairs",
+				"from_date": "2020-02-13",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42256",
+		"person_id": "25285",
+		"name": "Alan Mak",
+		"party": "Conservative",
+		"constituency": "Havant",
+		"office": [
+			{
+				"dept": "Joint Committee on the Fixed-Term Parliaments Act",
+				"position": "Member",
+				"from_date": "2020-11-10",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Compensation (London Capital & Finance plc and Fraud Compensation Fund) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-06-08",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Government Whip, Lord Commissioner of HM Treasury",
+				"from_date": "2021-04-21",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Finance (No.2) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-12-08",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Public Service Pensions and Judicial Offices Bill [HL] Committee",
+				"position": "Member",
+				"from_date": "2022-01-19",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42267",
+		"person_id": "11397",
+		"name": "Nadine Dorries",
+		"party": "Conservative",
+		"constituency": "Mid Bedfordshire",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Secretary of State for Digital, Culture, Media and Sport",
+				"from_date": "2021-09-15",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42269",
+		"person_id": "25670",
+		"name": "Gillian Keegan",
+		"party": "Conservative",
+		"constituency": "Chichester",
+		"office": [
+			{
+				"dept": "",
+				"position": "Minister of State (Department of Health and Social Care)",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Down Syndrome Bill Committee",
+				"position": "Member",
+				"from_date": "2022-01-19",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42272",
+		"person_id": "24854",
+		"name": "Sajid Javid",
+		"party": "Conservative",
+		"constituency": "Bromsgrove",
+		"office": [
+			{
+				"dept": "",
+				"position": "Secretary of State for Health and Social Care",
+				"from_date": "2021-06-26",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42278",
+		"person_id": "25371",
+		"name": "Maggie Throup",
+		"party": "Conservative",
+		"constituency": "Erewash",
+		"office": [
+			{
+				"dept": "Air Traffic Management and Unmanned Aircraft Bill [Lords] Committee",
+				"position": "Member",
+				"from_date": "2021-02-04",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Rating (Coronavirus) and Directors Disqualification (Dissolved Companies) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-07-07",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "The Parliamentary Under-Secretary for Health and Social Care",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42279",
+		"person_id": "24862",
+		"name": "Robin Walker",
+		"party": "Conservative",
+		"constituency": "Worcester",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Parliamentary Under-Secretary of State for Scotland",
+				"from_date": "2019-12-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Northern Ireland (Ministers, Elections and Petitions of Concern) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-06-28",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Minister of State (Education)",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42287",
+		"person_id": "24815",
+		"name": "Dominic Raab",
+		"party": "Conservative",
+		"constituency": "Esher and Walton",
+		"office": [
+			{
+				"dept": "",
+				"position": "Deputy Prime Minister",
+				"from_date": "2021-09-15",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "The Lord Chancellor and Secretary of State for Justice ",
+				"from_date": "2021-09-15",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42288",
+		"person_id": "25376",
+		"name": "James Cleverly",
+		"party": "Conservative",
+		"constituency": "Braintree",
+		"office": [
+			{
+				"dept": "",
+				"position": "Minister of State (Minister for Europe)",
+				"from_date": "2022-02-08",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42293",
+		"person_id": "25593",
+		"name": "Robert Courts",
+		"party": "Conservative",
+		"constituency": "Witney",
+		"office": [
+			{
+				"dept": "",
+				"position": "Parliamentary Under-Secretary (Department for Transport)",
+				"from_date": "2020-09-08",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Air Traffic Management and Unmanned Aircraft Bill [Lords] Committee",
+				"position": "Member",
+				"from_date": "2021-02-04",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42295",
+		"person_id": "25842",
+		"name": "Antony Higginbotham",
+		"party": "Conservative",
+		"constituency": "Burnley",
+		"office": [
+			{
+				"dept": "Public Accounts Committee",
+				"position": "Member",
+				"from_date": "2021-05-25",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Health and Care Bill Committee",
+				"position": "Member",
+				"from_date": "2021-09-27",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Judicial Review and Courts Bill",
+				"position": "Member",
+				"from_date": "2021-10-27",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Professional Qualifications Bill [HL] Committee",
+				"position": "Member",
+				"from_date": "2022-01-12",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42297",
+		"person_id": "25699",
+		"name": "Eddie Hughes",
+		"party": "Conservative",
+		"constituency": "Walsall North",
+		"office": [
+			{
+				"dept": "Building Safety Bill Committee",
+				"position": "Member",
+				"from_date": "2021-09-09",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Parliamentary Under Secretary of State (Department for Levelling Up, Housing and Communities)",
+				"from_date": "2021-09-19",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Leasehold Reform (Ground Rent) Bill [HL] Committee",
+				"position": "Member",
+				"from_date": "2021-12-01",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42305",
+		"person_id": "11216",
+		"name": "Andrew Selous",
+		"party": "Conservative",
+		"constituency": "South West Bedfordshire",
+		"office": [
+			{
+				"dept": "Ecclesiastical Committee (Joint Committee)",
+				"position": "Member",
+				"from_date": "2020-03-04",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "The Second Church Estates Commissioner",
+				"from_date": "2020-01-10",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "The Second Church Estates Commissioner",
+				"from_date": "2020-01-10",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42307",
+		"person_id": "25644",
+		"name": "Giles Watling",
+		"party": "Conservative",
+		"constituency": "Clacton",
+		"office": [
+			{
+				"dept": "Digital, Culture, Media and Sport Committee",
+				"position": "Member",
+				"from_date": "2020-03-02",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Administration Committee",
+				"position": "Member",
+				"from_date": "2020-03-02",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Digital, Culture, Media and Sport Sub-committee on Online Harms and Disinformation",
+				"position": "Member",
+				"from_date": "2020-03-10",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Cultural Objects (Protection From Seizure) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-11-09",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Animal (Penalty Notices) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-12-01",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42326",
+		"person_id": "11610",
+		"name": "Greg Hands",
+		"party": "Conservative",
+		"constituency": "Chelsea and Fulham",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Minister of State, Department for Business, Energy and Industrial Strategy",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Nuclear Energy (Financing) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-11-09",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42328",
+		"person_id": "25342",
+		"name": "Wendy Morton",
+		"party": "Conservative",
+		"constituency": "Aldridge-Brownhills",
+		"office": [
+			{
+				"dept": "Taxis and Private Hire Vehicles (Disabled Persons) Bill Committee",
+				"position": "Member",
+				"from_date": "2022-02-02",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Motor Vehicles (Compulsory Insurance) Bill Committee",
+				"position": "Member",
+				"from_date": "2022-01-05",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Minister of State (Department for Transport)",
+				"from_date": "2022-02-09",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42335",
+		"person_id": "24820",
+		"name": "David Rutley",
+		"party": "Conservative",
+		"constituency": "Macclesfield",
+		"office": [
+			{
+				"dept": "",
+				"position": "Assistant Whip (HM Treasury)",
+				"from_date": "2017-06-15",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "National Insurance Contributions Bill Committee",
+				"position": "Member",
+				"from_date": "2021-06-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "The Parliamentary Under-Secretary of State for Work and Pensions",
+				"from_date": "2021-09-17",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42337",
+		"person_id": "24962",
+		"name": "Guy Opperman",
+		"party": "Conservative",
+		"constituency": "Hexham",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Parliamentary Under-Secretary of State for Work and Pensions",
+				"from_date": "2017-06-14",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Compensation (London Capital & Finance plc and Fraud Compensation Fund) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-06-08",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Pension Schemes (Conversion of Guaranteed Minimum Pensions) Bill Committee",
+				"position": "Member",
+				"from_date": "2022-01-26",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42338",
+		"person_id": "24731",
+		"name": "Rebecca Harris",
+		"party": "Conservative",
+		"constituency": "Castle Point",
+		"office": [
+			{
+				"dept": "",
+				"position": "Assistant Whip",
+				"from_date": "2017-06-15",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "The Lord Commissioner of Her Majesty's Treasury",
+				"from_date": "2018-01-09",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Committee of Selection",
+				"position": "Member",
+				"from_date": "2020-01-15",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Elections Bill Committee",
+				"position": "Member",
+				"from_date": "2021-09-22",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42343",
+		"person_id": "24879",
+		"name": "Brandon Lewis",
+		"party": "Conservative",
+		"constituency": "Great Yarmouth",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Secretary of State for Northern Ireland",
+				"from_date": "2020-02-13",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42345",
+		"person_id": "24926",
+		"name": "Jacob Rees-Mogg",
+		"party": "Conservative",
+		"constituency": "North East Somerset",
+		"office": [
+			{
+				"dept": "Members Estimate Committee",
+				"position": "Member",
+				"from_date": "2019-07-24",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Minister of State (Minister for Brexit Opportunities and Government efficiency)",
+				"from_date": "2022-02-08",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42346",
+		"person_id": "25414",
+		"name": "James Cartlidge",
+		"party": "Conservative",
+		"constituency": "South Suffolk",
+		"office": [
+			{
+				"dept": "",
+				"position": "Parliamentary Under Secretary of State (Ministry of Justice) ",
+				"from_date": "2021-09-19",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Judicial Review and Courts Bill",
+				"position": "Member",
+				"from_date": "2021-10-27",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Assistant Whip",
+				"from_date": "2021-09-19",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42348",
+		"person_id": "25424",
+		"name": "Victoria Atkins",
+		"party": "Conservative",
+		"constituency": "Louth and Horncastle",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Minister of State, Ministry of Justice",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42351",
+		"person_id": "25628",
+		"name": "Leo Docherty",
+		"party": "Conservative",
+		"constituency": "Aldershot",
+		"office": [
+			{
+				"dept": "Select Committee on the Armed Forces Bill",
+				"position": "Member",
+				"from_date": "2021-02-25",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Parliamentary Under-Secretary of State (jointly with the Ministry of Defence)",
+				"from_date": "2021-04-21",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42353",
+		"person_id": "25859",
+		"name": "Nicholas Fletcher",
+		"party": "Conservative",
+		"constituency": "Don Valley",
+		"office": [
+			{
+				"dept": "Petitions Committee",
+				"position": "Member",
+				"from_date": "2020-03-02",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Judicial Review and Courts Bill",
+				"position": "Member",
+				"from_date": "2021-10-27",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Down Syndrome Bill Committee",
+				"position": "Member",
+				"from_date": "2022-01-19",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Pension Schemes (Conversion of Guaranteed Minimum Pensions) Bill Committee",
+				"position": "Member",
+				"from_date": "2022-01-26",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Online Safety Bill Committee",
+				"position": "Member",
+				"from_date": "2022-05-18",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42362",
+		"person_id": "24817",
+		"name": "George Freeman",
+		"party": "Conservative",
+		"constituency": "Mid Norfolk",
+		"office": [
+			{
+				"dept": "",
+				"position": "Parliamentary Under-Secretary (Department for Business, Energy and Industrial Strategy)",
+				"from_date": "2021-09-17",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42388",
+		"person_id": "24778",
+		"name": "Priti Patel",
+		"party": "Conservative",
+		"constituency": "Witham",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Secretary of State for the Home Department",
+				"from_date": "2019-07-24",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42395",
+		"person_id": "25692",
+		"name": "Rachel Maclean",
+		"party": "Conservative",
+		"constituency": "Redditch",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Minister of State, Home Department",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "The Parliamentary Under-Secretary of State for the Home Department",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42399",
+		"person_id": "25659",
+		"name": "Alex Burghart",
+		"party": "Conservative",
+		"constituency": "Brentwood and Ongar",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Parliamentary Under-Secretary of State for Education",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Education (Careers Guidance in Schools) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-09-22",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Skills and Post-16 Education [HL] Bill Committee",
+				"position": "Member",
+				"from_date": "2021-11-24",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42406",
+		"person_id": "24769",
+		"name": "Heather Wheeler",
+		"party": "Conservative",
+		"constituency": "South Derbyshire",
+		"office": [
+			{
+				"dept": "Select Committee on the Armed Forces Bill",
+				"position": "Member",
+				"from_date": "2021-02-25",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Assistant Whip",
+				"from_date": "2021-09-20",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Animal Welfare (Kept Animals) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-11-03",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Charities Bill [HL] Second Reading Committee",
+				"position": "Member",
+				"from_date": "2022-01-12",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Charities Bill [HL] Committee",
+				"position": "Member",
+				"from_date": "2022-01-19",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Dormant Assets Bill [HL] Committee",
+				"position": "Member",
+				"from_date": "2021-12-15",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "The Parliamentary Secretary, Cabinet Office",
+				"from_date": "2022-02-08",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Animal Welfare (Sentience) Bill [HL] Committee",
+				"position": "Member",
+				"from_date": "2022-02-09",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42409",
+		"person_id": "25685",
+		"name": "Lee Rowley",
+		"party": "Conservative",
+		"constituency": "North East Derbyshire",
+		"office": [
+			{
+				"dept": "",
+				"position": "Parliamentary Under-Secretary (Department for Business, Energy and Industrial Strategy)",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Government Whip, Lord Commissioner of HM Treasury",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42419",
+		"person_id": "25597",
+		"name": "Dr Caroline Johnson",
+		"party": "Conservative",
+		"constituency": "Sleaford and North Hykeham",
+		"office": [
+			{
+				"dept": "Education Committee",
+				"position": "Member",
+				"from_date": "2020-03-02",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Judicial Review and Courts Bill",
+				"position": "Member",
+				"from_date": "2021-10-27",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Taxi and Private Hire Vehicles (Safeguarding and Road Safety) Bill (England and Wales) Committee",
+				"position": "Member",
+				"from_date": "2021-10-27",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42420",
+		"person_id": "24747",
+		"name": "Christopher Pincher",
+		"party": "Conservative",
+		"constituency": "Tamworth",
+		"office": [
+			{
+				"dept": "Committee of Selection",
+				"position": "Member",
+				"from_date": "2022-02-22",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "The Treasurer of Her Majesty's Household",
+				"from_date": "2022-02-09",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Building Safety Bill Committee",
+				"position": "Member",
+				"from_date": "2021-09-09",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42431",
+		"person_id": "25877",
+		"name": "Sarah Dines",
+		"party": "Conservative",
+		"constituency": "Derbyshire Dales",
+		"office": [
+			{
+				"dept": "Select Committee on the Armed Forces Bill",
+				"position": "Member",
+				"from_date": "2021-03-01",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Northern Ireland (Ministers, Elections and Petitions of Concern) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-06-28",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Assistant Whip",
+				"from_date": "2022-02-10",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Levelling-up and Regeneration Bill Committee",
+				"position": "Member",
+				"from_date": "2022-06-15",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42439",
+		"person_id": "25674",
+		"name": "Alister Jack",
+		"party": "Conservative",
+		"constituency": "Dumfries and Galloway",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Secretary of State for Scotland",
+				"from_date": "2019-07-24",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42454",
+		"person_id": "25879",
+		"name": "Julie Marson",
+		"party": "Conservative",
+		"constituency": "Hertford and Stortford",
+		"office": [
+			{
+				"dept": "Treasury Committee",
+				"position": "Member",
+				"from_date": "2020-03-02",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Northern Ireland (Ministers, Elections and Petitions of Concern) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-06-28",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Judicial Review and Courts Bill",
+				"position": "Member",
+				"from_date": "2021-10-27",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Approved Premises (Substance Testing) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-12-08",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Marriage and Civil Partnership (Minimum Age) Bill Committee",
+				"position": "Member",
+				"from_date": "2022-01-05",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Taxis and Private Hire Vehicles (Disabled Persons) Bill Committee",
+				"position": "Member",
+				"from_date": "2022-02-02",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Treasury Sub-Committee on Financial Services Regulations",
+				"position": "Member",
+				"from_date": "2022-06-20",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42455",
+		"person_id": "25428",
+		"name": "Rishi Sunak",
+		"party": "Conservative",
+		"constituency": "Richmond (Yorks)",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Chancellor of the Exchequer",
+				"from_date": "2020-02-13",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42464",
+		"person_id": "24866",
+		"name": "Michael Ellis",
+		"party": "Conservative",
+		"constituency": "Northampton North",
+		"office": [
+			{
+				"dept": "",
+				"position": "Paymaster General",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Minister of State (Cabinet Office) (Attends Cabinet)",
+				"from_date": "2022-02-08",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42467",
+		"person_id": "11668",
+		"name": "Ben Wallace",
+		"party": "Conservative",
+		"constituency": "Wyre and Preston North",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Secretary of State for Defence",
+				"from_date": "2019-07-24",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42470",
+		"person_id": "10999",
+		"name": "Boris Johnson",
+		"party": "Conservative",
+		"constituency": "Uxbridge and South Ruislip",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Prime Minister",
+				"from_date": "2019-07-24",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Leader of the Conservative Party",
+				"from_date": "2019-07-23",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "The Prime Minister",
+				"from_date": "2019-07-24",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42473",
+		"person_id": "25398",
+		"name": "Helen Whately",
+		"party": "Conservative",
+		"constituency": "Faversham and Mid Kent",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Exchequer Secretary",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Public Accounts Committee",
+				"position": "Member",
+				"from_date": "2021-11-30",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Finance (No.2) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-12-08",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42474",
+		"person_id": "24916",
+		"name": "Steve Barclay",
+		"party": "Conservative",
+		"constituency": "North East Cambridgeshire",
+		"office": [
+			{
+				"dept": "",
+				"position": "Chancellor of the Duchy of Lancaster",
+				"from_date": "2022-02-08",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42476",
+		"person_id": "25331",
+		"name": "Paul Scully",
+		"party": "Conservative",
+		"constituency": "Sutton and Cheam",
+		"office": [
+			{
+				"dept": "",
+				"position": "Parliamentary Under-Secretary (Department for Business, Energy and Industrial Strategy)",
+				"from_date": "2020-02-13",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Rating (Coronavirus) and Directors Disqualification (Dissolved Companies) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-07-01",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Minister of State (London)",
+				"from_date": "2021-09-19",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Subsidy Control Bill Committee",
+				"position": "Member",
+				"from_date": "2021-10-20",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Commercial Rent (Coronavirus) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-12-01",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Professional Qualifications Bill [HL] Committee",
+				"position": "Member",
+				"from_date": "2022-01-12",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42477",
+		"person_id": "24813",
+		"name": "Simon Hart",
+		"party": "Conservative",
+		"constituency": "Carmarthen West and South Pembrokeshire",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Secretary of State for Wales",
+				"from_date": "2019-12-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Welsh Grand Committee",
+				"position": "Member",
+				"from_date": "2022-01-18",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42480",
+		"person_id": "25408",
+		"name": "Jo Churchill",
+		"party": "Conservative",
+		"constituency": "Bury St Edmunds",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Parliamentary Under-Secretary of State for Environment, Food and Rural Affairs",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Animal (Penalty Notices) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-12-01",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Glue Traps (Offences) Bill Committee",
+				"position": "Member",
+				"from_date": "2022-01-12",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Animal Welfare (Sentience) Bill [HL] Committee",
+				"position": "Member",
+				"from_date": "2022-02-09",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Genetic Technology (Precision Breeding) Bill Committee",
+				"position": "Member",
+				"from_date": "2022-06-22",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42482",
+		"person_id": "24782",
+		"name": "Damian Hinds",
+		"party": "Conservative",
+		"constituency": "East Hampshire",
+		"office": [
+			{
+				"dept": "",
+				"position": "Minister of State (Home Office) (Security)",
+				"from_date": "2021-08-13",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42507",
+		"person_id": "11719",
+		"name": "David Davies",
+		"party": "Conservative",
+		"constituency": "Monmouth",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Parliamentary Under-Secretary of State for Wales",
+				"from_date": "2019-12-22",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Assistant Whip",
+				"from_date": "2020-02-13",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Welsh Grand Committee",
+				"position": "Member",
+				"from_date": "2022-01-18",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42508",
+		"person_id": "24864",
+		"name": "Stuart Andrew",
+		"party": "Conservative",
+		"constituency": "Pudsey",
+		"office": [
+			{
+				"dept": "",
+				"position": "Assistant Whip",
+				"from_date": "2017-06-15",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Minister of State (Minister for Housing)",
+				"from_date": "2022-02-08",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Levelling-up and Regeneration Bill Committee",
+				"position": "Member",
+				"from_date": "2022-06-15",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42518",
+		"person_id": "25330",
+		"name": "Mims Davies",
+		"party": "Conservative",
+		"constituency": "Mid Sussex",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Parliamentary Under-Secretary of State for Work and Pensions",
+				"from_date": "2019-07-25",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42539",
+		"person_id": "11858",
+		"name": "Michael Gove",
+		"party": "Conservative",
+		"constituency": "Surrey Heath",
+		"office": [
+			{
+				"dept": "",
+				"position": "Secretary of State for Levelling Up, Housing and Communities",
+				"from_date": "2021-09-19",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Minister for Intergovernmental Relations",
+				"from_date": "2021-09-19",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Speaker's Committee on the Electoral Commission",
+				"position": "Member",
+				"from_date": "2021-12-08",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42551",
+		"person_id": "25439",
+		"name": "Anne-Marie Trevelyan",
+		"party": "Conservative",
+		"constituency": "Berwick-upon-Tweed",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Secretary of State for International Trade and President of the Board of Trade",
+				"from_date": "2021-09-15",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42552",
+		"person_id": "25679",
+		"name": "Neil O'Brien",
+		"party": "Conservative",
+		"constituency": "Harborough",
+		"office": [
+			{
+				"dept": "",
+				"position": "Parliamentary Under Secretary of State (Department for Levelling Up, Housing and Communities)",
+				"from_date": "2021-09-19",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Levelling-up and Regeneration Bill Committee",
+				"position": "Member",
+				"from_date": "2022-06-15",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42560",
+		"person_id": "24878",
+		"name": "Nigel Adams",
+		"party": "Conservative",
+		"constituency": "Selby and Ainsty",
+		"office": [
+			{
+				"dept": "",
+				"position": "Minister without Portfolio ",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Minister of State (Cabinet Office) (Minister without Portfolio)",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42565",
+		"person_id": "25431",
+		"name": "Andrea Jenkyns",
+		"party": "Conservative",
+		"constituency": "Morley and Outwood",
+		"office": [
+			{
+				"dept": "European Scrutiny Committee",
+				"position": "Member",
+				"from_date": "2020-03-02",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Assistant Whip",
+				"from_date": "2021-09-20",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Local Government (Disqualification) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-11-29",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42573",
+		"person_id": "24938",
+		"name": "Penny Mordaunt",
+		"party": "Conservative",
+		"constituency": "Portsmouth North",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Minister of State, Department for International Trade",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42575",
+		"person_id": "24691",
+		"name": "Chloe Smith",
+		"party": "Conservative",
+		"constituency": "Norwich North",
+		"office": [
+			{
+				"dept": "",
+				"position": "Assistant Whip",
+				"from_date": "2017-06-15",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "The Minister of State, Department for Work and Pensions",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "British Sign Language Bill Committee",
+				"position": "Member",
+				"from_date": "2022-02-09",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42578",
+		"person_id": "25316",
+		"name": "Michelle Donelan",
+		"party": "Conservative",
+		"constituency": "Chippenham",
+		"office": [
+			{
+				"dept": "Higher Education (Freedom of Speech) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-09-07",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Minister of State (Department for Education) (Higher and Further Education)",
+				"from_date": "2021-09-15",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42582",
+		"person_id": "25438",
+		"name": "James Heappey",
+		"party": "Conservative",
+		"constituency": "Wells",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Parliamentary Under-Secretary of State for Defence",
+				"from_date": "2019-12-16",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42591",
+		"person_id": "24902",
+		"name": "Alok Sharma",
+		"party": "Conservative",
+		"constituency": "Reading West",
+		"office": [
+			{
+				"dept": "",
+				"position": "Minister without Portfolio ",
+				"from_date": "2021-01-08",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "COP26 President (Cabinet Office)",
+				"from_date": "2021-01-08",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42594",
+		"person_id": "25346",
+		"name": "Kit Malthouse",
+		"party": "Conservative",
+		"constituency": "North West Hampshire",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Minister of State, Home Department",
+				"from_date": "2019-07-25",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "The Minister of State, Ministry of Justice",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Minister of State (Ministry of Justice and Home Office) ",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Approved Premises (Substance Testing) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-12-08",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Public Order Bill Committee",
+				"position": "Member",
+				"from_date": "2022-05-25",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42595",
+		"person_id": "25420",
+		"name": "Victoria Prentis",
+		"party": "Conservative",
+		"constituency": "Banbury",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Minister of State, Department for Environment, Food and Rural Affairs",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Animal Welfare (Kept Animals) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-11-03",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42600",
+		"person_id": "24780",
+		"name": "Conor Burns",
+		"party": "Conservative",
+		"constituency": "Bournemouth West",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Minister of State, Northern Ireland Office",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42608",
+		"person_id": "24944",
+		"name": "Craig Whittaker",
+		"party": "Conservative",
+		"constituency": "Calder Valley",
+		"office": [
+			{
+				"dept": "",
+				"position": "Assistant Whip",
+				"from_date": "2017-06-15",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Joint Committee on the Fixed-Term Parliaments Act",
+				"position": "Member",
+				"from_date": "2020-11-10",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Nationality and Borders Bill Committee",
+				"position": "Member",
+				"from_date": "2021-09-20",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Nuclear Energy (Financing) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-11-09",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Commercial Rent (Coronavirus) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-12-01",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Professional Qualifications Bill [HL] Committee",
+				"position": "Member",
+				"from_date": "2022-01-12",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42612",
+		"person_id": "24860",
+		"name": "Jake Berry",
+		"party": "Conservative",
+		"constituency": "Rossendale and Darwen",
+		"office": [
+			{
+				"dept": "",
+				"position": "Minister of State (Cabinet Office)",
+				"from_date": "2019-07-25",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42615",
+		"person_id": "24839",
+		"name": "John Glen",
+		"party": "Conservative",
+		"constituency": "Salisbury",
+		"office": [
+			{
+				"dept": "",
+				"position": "Minister of State (Treasury) (City)",
+				"from_date": "2018-01-09",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "The Economic Secretary to the Treasury",
+				"from_date": "2018-01-09",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Compensation (London Capital & Finance plc and Fraud Compensation Fund) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-06-08",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42622",
+		"person_id": "24841",
+		"name": "Chris Heaton-Harris",
+		"party": "Conservative",
+		"constituency": "Daventry",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Parliamentary Secretary to the Treasury",
+				"from_date": "2022-02-08",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42623",
+		"person_id": "24803",
+		"name": "Gareth Johnson",
+		"party": "Conservative",
+		"constituency": "Dartford",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Lord Commissioner of Her Majesty's Treasury",
+				"from_date": "2022-02-09",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42625",
+		"person_id": "24909",
+		"name": "Mark Spencer",
+		"party": "Conservative",
+		"constituency": "Sherwood",
+		"office": [
+			{
+				"dept": "Speaker's Committee for the Independent Parliamentary Standards Authority",
+				"position": "Member",
+				"from_date": "2022-02-08",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "House of Commons Commission",
+				"position": "Member",
+				"from_date": "2022-02-08",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Lord President of the Council and Leader of the House of Commons",
+				"from_date": "2022-02-08",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Public Accounts Commission",
+				"position": "Member",
+				"from_date": "2022-02-08",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42628",
+		"person_id": "25407",
+		"name": "Rebecca Pow",
+		"party": "Conservative",
+		"constituency": "Taunton Deane",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Parliamentary Under-Secretary of State for Environment, Food and Rural Affairs",
+				"from_date": "2019-09-12",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42629",
+		"person_id": "10062",
+		"name": "Graham Brady",
+		"party": "Conservative",
+		"constituency": "Altrincham and Sale West",
+		"office": [
+			{
+				"dept": "Panel of Chairs",
+				"position": "Member",
+				"from_date": "2020-01-15",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Chair, Conservative Party 1922 Committee",
+				"from_date": "2010-05-26",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42632",
+		"person_id": "24934",
+		"name": "Mike Freer",
+		"party": "Conservative",
+		"constituency": "Finchley and Golders Green",
+		"office": [
+			{
+				"dept": "",
+				"position": "Assistant Whip",
+				"from_date": "2017-06-15",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Parliamentary Under-Secretary (Department for International Trade)",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42637",
+		"person_id": "24947",
+		"name": "Iain Stewart",
+		"party": "Conservative",
+		"constituency": "Milton Keynes South",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Parliamentary Under-Secretary of State for Scotland",
+				"from_date": "2020-06-02",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42640",
+		"person_id": "25911",
+		"name": "Simon Jupp",
+		"party": "Conservative",
+		"constituency": "East Devon",
+		"office": [
+			{
+				"dept": "Transport Committee",
+				"position": "Member",
+				"from_date": "2020-03-02",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Consolidation, &c., Bills (Joint Committee)",
+				"position": "Member",
+				"from_date": "2020-03-09",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Digital, Culture, Media and Sport Committee",
+				"position": "Member",
+				"from_date": "2021-10-19",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Digital, Culture, Media and Sport Sub-committee on Online Harms and Disinformation",
+				"position": "Member",
+				"from_date": "2021-10-19",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Charities Bill [HL] Second Reading Committee",
+				"position": "Member",
+				"from_date": "2022-01-12",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Charities Bill [HL] Committee",
+				"position": "Member",
+				"from_date": "2022-01-19",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42644",
+		"person_id": "25397",
+		"name": "Maria Caulfield",
+		"party": "Conservative",
+		"constituency": "Lewes",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Parliamentary Under-Secretary for Health and Social Care",
+				"from_date": "2021-09-17",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42653",
+		"person_id": "25396",
+		"name": "Edward Argar",
+		"party": "Conservative",
+		"constituency": "Charnwood",
+		"office": [
+			{
+				"dept": "",
+				"position": "Minister of State (Department of Health and Social Care)",
+				"from_date": "2019-09-10",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Health and Care Bill Committee",
+				"position": "Member",
+				"from_date": "2021-09-07",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42662",
+		"person_id": "24770",
+		"name": "Kwasi Kwarteng",
+		"party": "Conservative",
+		"constituency": "Spelthorne",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Secretary of State for Business, Energy and Industrial Strategy ",
+				"from_date": "2021-01-08",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42663",
+		"person_id": "25387",
+		"name": "Tom Pursglove",
+		"party": "Conservative",
+		"constituency": "Corby",
+		"office": [
+			{
+				"dept": "Nationality and Borders Bill Committee",
+				"position": "Member",
+				"from_date": "2021-09-15",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Parliamentary Under Secretary of State (Ministry of Justice and Home Office)",
+				"from_date": "2021-09-19",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Marriage and Civil Partnership (Minimum Age) Bill Committee",
+				"position": "Member",
+				"from_date": "2022-01-05",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42667",
+		"person_id": "11917",
+		"name": "Grant Shapps",
+		"party": "Conservative",
+		"constituency": "Welwyn Hatfield",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Secretary of State for Transport",
+				"from_date": "2019-07-24",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42670",
+		"person_id": "25436",
+		"name": "Amanda Solloway",
+		"party": "Conservative",
+		"constituency": "Derby North",
+		"office": [
+			{
+				"dept": "",
+				"position": "Government Whip, Lord Commissioner of HM Treasury",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42672",
+		"person_id": "25399",
+		"name": "Lucy Frazer",
+		"party": "Conservative",
+		"constituency": "South East Cambridgeshire",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Financial Secretary to the Treasury",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Finance (No.2) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-12-08",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42673",
+		"person_id": "25917",
+		"name": "Marco Longhi",
+		"party": "Conservative",
+		"constituency": "Dudley North",
+		"office": [
+			{
+				"dept": "European Scrutiny Committee",
+				"position": "Member",
+				"from_date": "2020-03-02",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Judicial Review and Courts Bill",
+				"position": "Member",
+				"from_date": "2021-10-27",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "British Sign Language Bill Committee",
+				"position": "Member",
+				"from_date": "2022-02-09",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Health and Social Care Committee",
+				"position": "Member",
+				"from_date": "2022-05-23",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Public Order Bill Committee",
+				"position": "Member",
+				"from_date": "2022-05-25",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42681",
+		"person_id": "24855",
+		"name": "James Morris",
+		"party": "Conservative",
+		"constituency": "Halesowen and Rowley Regis",
+		"office": [
+			{
+				"dept": "",
+				"position": "Assistant Whip",
+				"from_date": "2019-07-29",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Committee of Selection",
+				"position": "Member",
+				"from_date": "2020-06-22",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "The Vice-Chamberlain of Her Majesty's Household",
+				"from_date": "2021-09-17",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42690",
+		"person_id": "10057",
+		"name": "Peter Bottomley",
+		"party": "Conservative",
+		"constituency": "Worthing West",
+		"office": [
+			{
+				"dept": "Ecclesiastical Committee (Joint Committee)",
+				"position": "Member",
+				"from_date": "2020-03-04",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Father of the House of Commons",
+				"from_date": "2019-12-17",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42692",
+		"person_id": "25422",
+		"name": "Michael Tomlinson",
+		"party": "Conservative",
+		"constituency": "Mid Dorset and North Poole",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Lord Commissioner of Her Majesty's Treasury",
+				"from_date": "2020-02-13",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Higher Education (Freedom of Speech) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-09-07",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Committee of Selection",
+				"position": "Member",
+				"from_date": "2021-10-20",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Subsidy Control Bill Committee",
+				"position": "Member",
+				"from_date": "2021-10-20",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Skills and Post-16 Education [HL] Bill Committee",
+				"position": "Member",
+				"from_date": "2021-11-24",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42694",
+		"person_id": "24901",
+		"name": "Steve Brine",
+		"party": "Conservative",
+		"constituency": "Winchester",
+		"office": [
+			{
+				"dept": "Digital, Culture, Media and Sport Committee",
+				"position": "Member",
+				"from_date": "2020-03-02",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Digital, Culture, Media and Sport Sub-committee on Online Harms and Disinformation",
+				"position": "Member",
+				"from_date": "2020-03-10",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Cultural Objects (Protection From Seizure) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-11-09",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42697",
+		"person_id": "25383",
+		"name": "Scott Mann",
+		"party": "Conservative",
+		"constituency": "North Cornwall",
+		"office": [
+			{
+				"dept": "Northern Ireland (Ministers, Elections and Petitions of Concern) Bill Committee",
+				"position": "Member",
+				"from_date": "2021-06-28",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Building Safety Bill Committee",
+				"position": "Member",
+				"from_date": "2021-09-09",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Assistant Whip",
+				"from_date": "2021-09-19",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Judicial Review and Courts Bill",
+				"position": "Member",
+				"from_date": "2021-10-27",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Leasehold Reform (Ground Rent) Bill [HL] Committee",
+				"position": "Member",
+				"from_date": "2021-12-01",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Public Order Bill Committee",
+				"position": "Member",
+				"from_date": "2022-05-25",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42706",
+		"person_id": "24941",
+		"name": "Elizabeth Truss",
+		"party": "Conservative",
+		"constituency": "South West Norfolk",
+		"office": [
+			{
+				"dept": "",
+				"position": "Minister for Women and Equalities",
+				"from_date": "2019-09-10",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Foreign Secretary, Foreign, Commonwealth and Development Office",
+				"from_date": "2021-09-15",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42708",
+		"person_id": "25410",
+		"name": "Steve Double",
+		"party": "Conservative",
+		"constituency": "St Austell and Newquay",
+		"office": [
+			{
+				"dept": "Health and Care Bill Committee",
+				"position": "Member",
+				"from_date": "2021-09-20",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "",
+				"position": "Assistant Whip",
+				"from_date": "2021-09-20",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Product Security and Telecommunications Infrastructure Bill Committee",
+				"position": "Member",
+				"from_date": "2022-03-02",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Online Safety Bill Committee",
+				"position": "Member",
+				"from_date": "2022-05-18",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42709",
+		"person_id": "24771",
+		"name": "Therese Coffey",
+		"party": "Conservative",
+		"constituency": "Suffolk Coastal",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Secretary of State for Work and Pensions",
+				"from_date": "2019-09-08",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42719",
+		"person_id": "25340",
+		"name": "Alex Chalk",
+		"party": "Conservative",
+		"constituency": "Cheltenham",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Solicitor-General",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42720",
+		"person_id": "25377",
+		"name": "Chris Philp",
+		"party": "Conservative",
+		"constituency": "Croydon South",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Parliamentary Under-Secretary of State for Digital, Culture, Media and Sport",
+				"from_date": "2021-09-16",
+				"to_date": "9999-12-31"
+			},
+			{
+				"dept": "Online Safety Bill Committee",
+				"position": "Member",
+				"from_date": "2022-05-18",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42721",
+		"person_id": "25417",
+		"name": "Jeremy Quin",
+		"party": "Conservative",
+		"constituency": "Horsham",
+		"office": [
+			{
+				"dept": "",
+				"position": "The Minister of State, Ministry of Defence",
+				"from_date": "2020-02-13",
+				"to_date": "9999-12-31"
+			}
+		]
+	},
+	{
+		"member_id": "42725",
+		"person_id": "25927",
+		"name": "Andrew Griffith",
+		"party": "Conservative",
+		"constituency": "Arundel and South Downs",
+		"office": [
+			{
+				"dept": "",
+				"position": "Parliamentary Secretary (Minister for Policy and Head of the Prime Minister\u2019s Policy Unit)",
+				"from_date": "2022-02-03",
+				"to_date": "9999-12-31"
+			}
+		]
+	}
+]
