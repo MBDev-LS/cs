@@ -6,4 +6,7 @@ frequencies = [digitList.count(digit) for digit in set(digitList)]
 
 frequencies.sort()
 
-print(frequencies[-1] if frequencies[-1] != frequencies[-2] else 'Data was multimodal')
+if numOfDigits == 1:
+	print(frequencies[-1])
+elif numOfDigits > 1:
+	print(frequencies[-1] if frequencies[-1] != frequencies[-2] else 'Data was multimodal')
