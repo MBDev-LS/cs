@@ -12,9 +12,11 @@ for digit in set(digitList):
 
 frequencies.sort()
 
-if numOfDigits == 1:
+if numOfDigits == 0:
+	print("Really?")
+elif numOfDigits == 1:
 	print(frequencies[-1])
-elif numOfDigits > 1:
+else:
 	print(frequencies[-1] if frequencies[-1] != frequencies[-2] else 'Data was multimodal')
 
 # Watch out for edge cases, numOfDigits == 1
