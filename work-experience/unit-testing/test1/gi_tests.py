@@ -1,6 +1,8 @@
 
 import unittest
 
+from gi_main import *
+
 class TestGetAreaRectangle(unittest.TestCase):
 	def runTest(self):
 		rectangle = Rectangle(2, 3)

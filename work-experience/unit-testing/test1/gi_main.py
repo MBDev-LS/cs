@@ -1,6 +1,4 @@
 
-import gi_tests
-
 class Rectangle:
 	def __init__(self, width, height):
 		self.width = width
@@ -14,7 +12,3 @@ class Rectangle:
 
 	def set_height(self, height):
 		self.height = height
-
-
-
-gi_tests.unittest.main()
