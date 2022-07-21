@@ -1,3 +1,4 @@
+
 # Our code to be tested
 class Rectangle:
     def __init__(self, width, height):
