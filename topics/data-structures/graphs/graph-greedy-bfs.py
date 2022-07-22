@@ -56,11 +56,11 @@ class Graph():
 		for node in self.nodes:
 			node.setHeuristic(self.startNode)
 
-		possibilities = sorted([node for node in self.nodes], key=lambda n: (n.cost + n.heuristic, n.name))
+		possibilities = sorted([node for node in self.nodes], key=lambda n: (n.heuristic, n.name))
 		visited = []
 
 		while len(possibilities) > 0:
-			possibilities = sorted(possibilities, key=lambda n: (n.cost + n.heuristic, n.name))
+			possibilities = sorted(possibilities, key=lambda n: (n.heuristic, n.name))
 			currentNode = possibilities.pop(0)
 			visited.append(currentNode)
 
@@ -72,18 +72,8 @@ class Graph():
 		
 		for node in self.nodes:
 			print(f'{node.name}: {node.cost}')
-
-		path = []
-		currentNode = self.endNode
-		path.append(currentNode)
-		while currentNode.previousNode.start is not True:
-			currentNode = currentNode.previousNode
-			path.append(currentNode)
 		
-		path.append(currentNode.previousNode)
-		path.reverse()
-		
-		return path
+		return
 
 	def setStartNode(self, newStartNode) -> None:
 		self.startNode = newStartNode
@@ -381,11 +371,11 @@ def main():
 
 	print('-'*50)
 	print('A*'.center(50))
-	print(" -> ".join([n.name for n in graph.a_star(graph.nodes[0], graph.nodes[-1])]))
+	graph.a_star(graph.nodes[0], graph.getNodeByName('d'))
 	print('-'*50)
 	# print(' -> '.join([node.name for node in graph.dijkstra(graph.nodes[0], graph.getNodeByName('d'))]))
 
-	filename = input('Enter the filename so save this graph as (no ext.): ')
+
 	graph.export(f'{filename}.txt')
 	graph.jsonExport(filename)
 	graph.printAdjacencyList(True)
