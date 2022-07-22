@@ -60,4 +60,4 @@ class TestBinaryValueAdd:
 		operand.
 		"""
 		res = _binaryValue.add('2121')
-		assert res == 'error: bad operand given', 'appropriate error not returned when invalid operand supplied'
+		assert res + '.' == 'error: bad operand given', 'appropriate error not returned when invalid operand supplied'
