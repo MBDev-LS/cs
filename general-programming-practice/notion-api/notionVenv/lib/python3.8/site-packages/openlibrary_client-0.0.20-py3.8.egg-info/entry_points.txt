@@ -1,0 +1,3 @@
+[console_scripts]
+ol = olclient.cli:main
+
