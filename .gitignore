@@ -4,6 +4,7 @@
 __pycache__
 .pytest_cache
 config.py
+ankivenv
 
 # General
 .DS_Store
