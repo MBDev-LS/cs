@@ -3,6 +3,7 @@
 .vscode
 __pycache__
 .pytest_cache
+_ignore__*
 
 # General
 .DS_Store
