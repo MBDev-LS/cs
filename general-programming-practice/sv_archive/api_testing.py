@@ -10,8 +10,6 @@ save_api = WaybackMachineSaveAPI(url, user_agent)
 
 
 
-
-
 startTime = time.perf_counter()
 
 print(save_api.save())
