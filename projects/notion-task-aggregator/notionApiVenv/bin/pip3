@@ -1,4 +1,4 @@
-#!/Users/louisstevens/Documents/cs/notionApiVenv/bin/python3
+#!/Users/louisstevens/Documents/cs/projects/notion-task-aggregator/notionApiVenv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

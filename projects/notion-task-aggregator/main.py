@@ -1,12 +1,19 @@
 
-from pprint import pprint
 import config
-from notion_client import Client
 
+from pytion import Notion
 
-notion = Client(auth=config.NOTION_SECRET)
+no = Notion(token=config.NOTION_SECRET)
 
-list_users_response = notion.users.list()
-pprint(list_users_response)
+database = no.databases.get(config.DATABASE_ID)  # retrieve database data (not content) and create object
 
-# Docs for DBs: https://ramnes.github.io/notion-sdk-py/reference/api_endpoints/#notion_client.api_endpoints.DatabasesEndpoint
+# retrieve database content by filtering with sorting
+
+# pages = database.db_filter(property_name="Done", property_type="checkbox", value=False, descending="title")
+pages = database.db_query()
+
+for page in pages.obj.array:
+    dbBlock = no.pages.get(page.id).get_block_children().obj.array[3]
+    database = no.databases.get(dbBlock.id)
+    print(database.db_query())
+
