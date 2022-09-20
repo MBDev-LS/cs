@@ -37,8 +37,8 @@ def property_to_python(notionProperty): # Should return None if property not set
 			else:
 				return int(notionProperty.raw['formula']['number'])
 
-	elif notionProperty.type == 'title':
-		return notionProperty.value.simple
+	elif notionProperty.name == 'title':
+		return notionProperty.value.simple if notionProperty.value is not None else None
 	else:
 		return str(notionProperty.raw[notionProperty.raw['type']])
 
@@ -111,7 +111,7 @@ def get_tasks_for_database(no, databaseId: str, topicTypes: bool=False):
 		for taskPage in taskListDatabasePages.obj.array:
 			newTaskProperties = {name: property_to_python(data) for name, data in taskPage.properties.items()}
 			
-			newTaskProperties['status'] = newTaskProperties['API-Status']
+			newTaskProperties['Priority'] = newTaskProperties['API-Status']
 			del newTaskProperties['API-Status']
 
 			newTask = {

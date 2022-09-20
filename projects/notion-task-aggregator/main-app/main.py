@@ -8,12 +8,6 @@ from pytion import Notion
 no = Notion(token=config.NOTION_SECRET)
 
 
-
-
-
-
-
-
 def getFullTaskList(no: Notion):
 	mainTaskList = []
 
