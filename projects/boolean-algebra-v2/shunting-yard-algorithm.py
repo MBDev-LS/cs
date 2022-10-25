@@ -4,37 +4,21 @@
 
 
 OPERATOR_DICT = {
-	'^': {
-		'precedence': 4,
-		'associativity': 'r',
+	'~': {
+		'precedence': 3,
+		'associativity': 'right',
 		'operandNum': 2
 	},
-	'*': {
-		'precedence': 3,
-		'associativity': 'l',
-		'operandNum': 2
-	},
-	'/': {
-		'precedence': 3,
-		'associativity': 'l',
+	'.': {
+		'precedence': 2,
+		'associativity': 'left',
 		'operandNum': 2
 	},
 	'+': {
-		'precedence': 2,
-		'associativity': 'l',
+		'precedence': 1,
+		'associativity': 'left',
 		'operandNum': 2
-	},
-	'-': {
-		'precedence': 2,
-		'associativity': 'l',
-		'operandNum': 2
-	},
-	# '~': {
-	# 	'precedence': 2,
-	# 	'associativity': 'r',
-	# 	'operandNum': 2
-	# }
-	# This does not yet work. Speak to sir about it.
+	}
 }
 
 def split_into_components(inputStr: str) -> list:
@@ -46,7 +30,6 @@ def split_into_components(inputStr: str) -> list:
 		if char in OPERATOR_DICT or char in ['(', ')']:
 			if len(holdingList) > 0:
 				outputList.append(''.join(holdingList))
-			
 			holdingList = []
 			outputList.append(char)
 		else:
@@ -71,13 +54,16 @@ outputList: {outputList}
 operatorStack: {operatorStack}
 ''')
 
-		if chars.isdigit() is True:
+		if chars not in OPERATOR_DICT and chars not in ['(', ')']:
 			outputList.append(chars)
 		elif chars in OPERATOR_DICT:
 			if len(operatorStack) > 0:
 				while operatorStack[-1]	!= '(' and (OPERATOR_DICT[operatorStack[-1]]['precedence'] > OPERATOR_DICT[chars]['precedence']
-				or (OPERATOR_DICT[operatorStack[-1]]['precedence'] == OPERATOR_DICT[chars]['precedence'] and OPERATOR_DICT[chars]['associativity'] == 'l')):
+				or (OPERATOR_DICT[operatorStack[-1]]['precedence'] == OPERATOR_DICT[chars]['precedence'] and OPERATOR_DICT[chars]['associativity'] == 'left')):
 					outputList.append(operatorStack.pop())
+
+					if len(operatorStack) == 0:
+						break
 			
 			operatorStack.append(chars)
 		elif chars == '(':
@@ -98,4 +84,4 @@ operatorStack: {operatorStack}
 	
 	return ' '.join(outputList)
 
-print(infix_to_rpn('3 + ~ 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3'))
+print(infix_to_rpn('~ (~A + B.C)'))
