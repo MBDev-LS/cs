@@ -2,6 +2,8 @@
 # Explanation of the algorithm: https://en.wikipedia.org/wiki/Reverse_Polish_notation
 # Explanation of precedence & associativity: https://youtu.be/SKj-s6chzkM
 
+# At the splitting stage, oop the variables and operators
+
 
 OPERATOR_DICT = {
 	'~': {
@@ -84,4 +86,5 @@ operatorStack: {operatorStack}
 	
 	return ' '.join(outputList)
 
-print(infix_to_rpn('~ (~A + B.C)'))
+if __name__ == '__main__':
+	print(infix_to_rpn('~ (~A + B.C)'))
