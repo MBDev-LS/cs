@@ -5,8 +5,6 @@ import testing_main
 import graphviz
 import dot2tex
 
-import re
-
 dot = graphviz.Graph(comment='Boolean Expression')
 dot.attr(rankdir='RL')  
 

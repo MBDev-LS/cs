@@ -1,13 +1,20 @@
 
+from utilities import printLog
+
+# Normal Expression Classes
+
 class Variable():
 	def __init__(self, identifier: str) -> None:
 		self.identifier = identifier
+	
+	
+	def __str__(self) -> str:
+		return self.identifier
 
 class Operator():
-	def __init__(self, identifier: str, operatorDict: dict=None, precedence: int=None, associativity: str=None, operandNum: int=None) -> None:
-		self.identifier = identifier
+	def __init__(self, text: str, operatorDict: dict=None, precedence: int=None, associativity: str=None, operandNum: int=None) -> None:
+		self.text = text
 
-		
 		if operatorDict is not None:
 			self.attrFromDict(operatorDict)
 		else:
@@ -37,10 +44,34 @@ class Operator():
 				expectedDictFuncs[key](operatorDict[key])
 			else:
 				expectedDictFuncs[key](None)
+	
+
+	def __str__(self) -> str:
+		return self.text
+
+class Bracket():
+	def __init__(self, bracketType: str) -> None:
+		if bracketType not in ['opening', 'closing']:
+			printLog('warning', f'\'{bracketType}\' is an invalid bracketType')
+		
+		self.bracketType = bracketType
+	
+	def __str__(self) -> str:
+		if self.bracketType == 'opening':
+			return '('
+		elif self.bracketType == 'closing':
+			return ')'
+		else:
+			return '<bracket with invalid type>'
+
+# Tree Classes
 
 class TreeNode():
 	def __init__(self) -> None:
-		pass
+		self.rootNode = False
+	
+	def setRootNode(self, isRootNode: bool) -> None:
+		self.rootNode = isRootNode
 
 
 class OperatorTreeNode(TreeNode):
@@ -90,10 +121,10 @@ class TwoOperandTreeNode(OperatorTreeNode):
 
 
 class VariableTreeNode(TreeNode):
-	def __init__(self, variableName: str) -> None:
+	def __init__(self, identifier: str) -> None:
 		super().__init__()
 
-		variableName = variableName
+		self.identifier = identifier
 
 
 

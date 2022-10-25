@@ -1,7 +1,4 @@
 
-from flask import g
-
-
 class Node():
 	def __init__(self, value: str, leftChild=None, rightChild=None) -> None:
 		self.value = value
