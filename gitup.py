@@ -25,7 +25,7 @@ Help Command: py gitup.py help
 
 Flags
 
--dontpull, -dp	: Will not pull before attempting to commit and push 
+-dontpull, -dp	: Will not pull before attempting to commit and push
 -status, -s	: Will display status after attempting to push commit
 
 		""")
