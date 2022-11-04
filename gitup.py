@@ -6,6 +6,7 @@ def removeItemFromList(lst: list, item) -> list:
 	
 	return lst
 
+
 def main():
 	import sys
 	import os
@@ -24,7 +25,7 @@ Help Command: py gitup.py help
 
 Flags
 
--dontpull, -dp	: Will not pull before attempting to commit and push
+-dontpull, -dp	: Will not pull before attempting to commit and push 
 -status, -s	: Will display status after attempting to push commit
 
 		""")
@@ -48,14 +49,12 @@ Flags
 		print('error: unexpected argument (\'py gitup help\' for help)')
 		exit(1)
 
-
 	os.system(f'{"" if dontPull else "git pull; "}git add --all; git commit -m "{arguments[1]}"; git push;')
 
 	print()
 
 	if displayStatus:
 		os.system("git status")
-
 
 
 if __name__ == '__main__':
