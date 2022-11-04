@@ -1,11 +1,18 @@
 
+def removeItemFromList(lst: list, item) -> list:
+
+	while item in lst:
+		lst.remove(item)
+	
+	return lst
+
 def main():
 	import sys
 	import os
 
 	arguments = sys.argv
 	if len(arguments) == 1:
-		print('error: please provide a commit reason (or command)')
+		print('error: please provide a commit reason (or command, \'py gitup help\' for help)')
 		exit(1)
 	elif arguments[1] == 'help':
 		print("""
@@ -28,7 +35,19 @@ Flags
 	
 	dontPull = ('-dontpull' in arguments) or ('-dp' in arguments)
 	displayStatus = ('-status' in arguments) or ('-s' in arguments)
+
+	arguments = removeItemFromList(arguments, '-dontpull')
+	arguments = removeItemFromList(arguments, '-dp')
+	arguments = removeItemFromList(arguments, '-status')
+	arguments = removeItemFromList(arguments, '-s')
 	
+	if len(arguments) < 2:
+		print('error: please provide a commit message (or a command, \'py gitup help\' for help)')
+		exit(1)
+	elif len(arguments) < 2:
+		print('error: unexpected argument (\'py gitup help\' for help)')
+		exit(1)
+
 
 	os.system(f'{"" if dontPull else "git pull; "}git add --all; git commit -m "{arguments[1]}"; git push;')
 
