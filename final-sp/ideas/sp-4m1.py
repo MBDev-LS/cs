@@ -4,6 +4,7 @@
 # developed in the Python 3.9 programming environment
 
 # Converted indentation to tabs - Louis (04/11/2022)
+# Idea: Reject non-int inputs when getting square reference
 
 import random
 
