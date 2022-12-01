@@ -5,7 +5,7 @@
 
 # Converted indentation to tabs - Louis (04/11/2022)
 # Idea: 
-# Author: 
+# Author: Louis
 
 import random
 
