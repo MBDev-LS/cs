@@ -28,7 +28,7 @@ class Dastan:
 	
 	def _GetName(self, playerId: str):
 		inputtedName = input(f'Please enter a name for {playerId}: ')
-		return
+		return f'Player {inputtedName}'
 
 	def __DisplayBoard(self):
 		print("\n" + "   ", end="")
