@@ -144,6 +144,12 @@ class Dastan:
 				if Choice == 9:
 					self.__UseMoveOptionOffer()
 					self.__DisplayState()
+				
+				if self.__CheckIfGameOver() is True:
+					self.__DisplayState()
+					self.__DisplayFinalResult()
+					exit()
+					
 			while not SquareIsValid:
 				StartSquareReference = self.__GetSquareReference("containing the piece to move")
 				SquareIsValid = self.__CheckSquareIsValid(StartSquareReference, True)
@@ -433,7 +439,7 @@ class MoveOptionQueue:
 
 class Player:
 	def __init__(self, N, D):
-		self.__Score = 100
+		self.__Score = 10 # 100
 		self.__Name = N
 		self.__Direction = D
 		self.__Queue = MoveOptionQueue()
