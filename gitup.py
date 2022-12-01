@@ -44,6 +44,7 @@ Flags
 	arguments = removeItemFromList(arguments, '-dp')
 	arguments = removeItemFromList(arguments, '-status')
 	arguments = removeItemFromList(arguments, '-s')
+	arguments = removeItemFromList(arguments, '-sp')
 	
 	if len(arguments) < 2:
 		print('error: please provide a commit message (or a command, \'py gitup help\' for help)')
@@ -62,4 +63,3 @@ Flags
 
 if __name__ == '__main__':
 	main()
-
