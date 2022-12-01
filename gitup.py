@@ -27,6 +27,7 @@ Flags
 
 -dontpull, -dp	: Will not pull before attempting to commit and push
 -status, -s	: Will display status after attempting to push commit
+-sp		: Will add a '[SP] ' tag to the front of the commit reason
 
 		""")
 		exit(0)
@@ -36,6 +37,8 @@ Flags
 	
 	dontPull = ('-dontpull' in arguments) or ('-dp' in arguments)
 	displayStatus = ('-status' in arguments) or ('-s' in arguments)
+	addSpTag = '-sp' in arguments
+	addSpTagText = '[SP] ' if addSpTag else ''
 
 	arguments = removeItemFromList(arguments, '-dontpull')
 	arguments = removeItemFromList(arguments, '-dp')
@@ -49,7 +52,7 @@ Flags
 		print('error: unexpected argument (\'py gitup help\' for help)')
 		exit(1)
 
-	os.system(f'{"" if dontPull else "git pull; "}git add --all; git commit -m "{arguments[1]}"; git push;')
+	os.system(f'{"" if dontPull else "git pull; "}git add --all; git commit -m "{addSpTagText}{arguments[1]}"; git push;')
 
 	print()
 
