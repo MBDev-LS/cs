@@ -4,7 +4,7 @@
 # developed in the Python 3.9 programming environment
 
 # Converted indentation to tabs - Louis (04/11/2022)
-# Idea: 
+# Idea: Prevent player from taking the offer more than once per round
 # Author: Louis
 
 import random
@@ -137,11 +137,17 @@ class Dastan:
 			self.__DisplayState()
 			SquareIsValid = False
 			Choice = 0
+			hasUsedOffer = False
+
 			while Choice < 1 or Choice > 3:
 				Choice = int(input("Choose move option to use from queue (1 to 3) or 9 to take the offer: "))
-				if Choice == 9:
+				if Choice == 9 and hasUsedOffer is not True:
+					hasUsedOffer = True
 					self.__UseMoveOptionOffer()
 					self.__DisplayState()
+				elif Choice == 9 and hasUsedOffer is True:
+					print('You may only take the offer once per round.')
+				
 			while not SquareIsValid:
 				StartSquareReference = self.__GetSquareReference("containing the piece to move")
 				SquareIsValid = self.__CheckSquareIsValid(StartSquareReference, True)
