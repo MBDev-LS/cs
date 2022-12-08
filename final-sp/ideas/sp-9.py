@@ -4,8 +4,8 @@
 # developed in the Python 3.9 programming environment
 
 # Converted indentation to tabs - Louis (04/11/2022)
-# Idea: 
-# Author: 
+# Idea: Allow user to spend extra points to use move 4 or 5 in queue
+# Author: Louis
 
 import random
 
