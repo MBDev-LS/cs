@@ -137,8 +137,8 @@ class Dastan:
 			self.__DisplayState()
 			SquareIsValid = False
 			Choice = 0
-			while Choice < 1 or Choice > 3:
-				Choice = int(input("Choose move option to use from queue (1 to 3) or 9 to take the offer: "))
+			while Choice < 1 or Choice > 5:
+				Choice = int(input("Choose move option to use from queue (1 to 5) or 9 to take the offer: "))
 				if Choice == 9:
 					self.__UseMoveOptionOffer()
 					self.__DisplayState()
@@ -152,7 +152,7 @@ class Dastan:
 			MoveLegal = self._CurrentPlayer.CheckPlayerMove(Choice, StartSquareReference, FinishSquareReference)
 			if MoveLegal:
 				PointsForPieceCapture = self.__CalculatePieceCapturePoints(FinishSquareReference)
-				self._CurrentPlayer.ChangeScore(-(Choice + (2 * (Choice - 1))))
+				self._CurrentPlayer.ChangeScore(-(Choice + (2 * (Choice - 1))) if Choice < 4 else -(Choice + (4 * (Choice - 1))))
 				self._CurrentPlayer.UpdateQueueAfterMove(Choice)
 				self.__UpdateBoard(StartSquareReference, FinishSquareReference)
 				self.__UpdatePlayerScore(PointsForPieceCapture)
