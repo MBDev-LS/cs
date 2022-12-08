@@ -4,7 +4,7 @@
 # developed in the Python 3.9 programming environment
 
 # Converted indentation to tabs - Louis (04/11/2022)
-# Idea: Allow users to set board dimensions at game start.
+# Idea: Allow users to set board dimensions at game start
 
 import random
 

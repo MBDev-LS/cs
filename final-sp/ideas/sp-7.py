@@ -4,7 +4,7 @@
 # developed in the Python 3.9 programming environment
 
 # Converted indentation to tabs - Louis (04/11/2022)
-# Idea: Prevent player from taking the offer more than once per round
+# Idea: Prevent player from taking the offer more than once per round (without UI editing)
 # Author: Louis
 
 import random
@@ -50,10 +50,9 @@ class Dastan:
 		print()
 		print()
 
-	def __DisplayState(self, canUseOffer: bool=True):
+	def __DisplayState(self):
 		self.__DisplayBoard()
-		if canUseOffer is True:
-			print("Move option offer: " + self._MoveOptionOffer[self._MoveOptionOfferPosition])
+		print("Move option offer: " + self._MoveOptionOffer[self._MoveOptionOfferPosition])
 		print()
 		print(self._CurrentPlayer.GetPlayerStateAsString())
 		print("Turn: " + self._CurrentPlayer.GetName())
@@ -141,11 +140,11 @@ class Dastan:
 			hasUsedOffer = False
 
 			while Choice < 1 or Choice > 3:
-				Choice = int(input(f"Choose move option to use from queue (1 to 3){'or 9 to take the offer' if not hasUsedOffer else ''}: "))
+				Choice = int(input("Choose move option to use from queue (1 to 3) or 9 to take the offer: "))
 				if Choice == 9 and hasUsedOffer is not True:
 					hasUsedOffer = True
 					self.__UseMoveOptionOffer()
-					self.__DisplayState(not hasUsedOffer)
+					self.__DisplayState()
 				elif Choice == 9 and hasUsedOffer is True:
 					print('You may only take the offer once per round.')
 				
