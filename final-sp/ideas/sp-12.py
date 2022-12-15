@@ -146,6 +146,7 @@ class Dastan:
 				StartSquareReference = self.__GetSquareReference("containing the piece to move")
 				SquareIsValid = self.__CheckSquareIsValid(StartSquareReference, True)
 			SquareIsValid = False
+			
 			MoveLegal = False
 			while not SquareIsValid or not MoveLegal:
 				FinishSquareReference = self.__GetSquareReference("to move to")
@@ -154,6 +155,7 @@ class Dastan:
 
 				if not MoveLegal:
 					print('Please enter a legal move.')
+			
 			if MoveLegal:
 				PointsForPieceCapture = self.__CalculatePieceCapturePoints(FinishSquareReference)
 				self._CurrentPlayer.ChangeScore(-(Choice + (2 * (Choice - 1))))
