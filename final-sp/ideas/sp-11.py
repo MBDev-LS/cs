@@ -4,8 +4,10 @@
 # developed in the Python 3.9 programming environment
 
 # Converted indentation to tabs - Louis (04/11/2022)
-# Idea: 
-# Author: 
+# Idea: Display a preview on the board showing valid next moves
+# Author: Louis
+
+import copy
 
 import random
 
@@ -152,7 +154,7 @@ class Dastan:
 				StartSquareReference = self.__GetSquareReference("containing the piece to move")
 				SquareIsValid = self.__CheckSquareIsValid(StartSquareReference, True)
 
-			checkedBoard = self._Board
+			checkedBoard = copy.deepcopy(self._Board)
 
 			for rowNum in range(6):
 				for columnNum in range(6):
