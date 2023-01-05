@@ -115,7 +115,7 @@ class Dastan:
 		while True:
 			ReplaceChoice = input("Choose the move option from your queue to replace (1 to 5): ")
 			while not ReplaceChoice.isdigit():
-				print('its not a number...')
+				print('Error: the input given is not a number.')
 				ReplaceChoice = input("Choose the move option from your queue to replace (1 to 5): ")
 			ReplaceChoice = int(ReplaceChoice)
 			if ReplaceChoice > 5 or ReplaceChoice < 1:
