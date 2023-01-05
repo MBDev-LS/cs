@@ -151,7 +151,7 @@ class Dastan:
 		
 		opponent.ShuffleQueue()
 
-		print('You successfully shuffled your opponent, you saucy Michael Rosen!')
+		print(f'You successfully shuffled your opponent, you saucy Michael Rosen!\nTheir new queue is: {opponent.GetQueue().GetQueueAsString()}')
 
 
 
