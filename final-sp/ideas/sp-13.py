@@ -138,7 +138,7 @@ class Dastan:
 		
 		opponent = self._Players[1] if self._CurrentPlayer.SameAs(self._Players[0]) else self._Players[0]
 
-		willShuffle = input(f'\n{self._CurrentPlayer.GetName()}, your opponent\'s queue is currently: {opponent.GetQueu().GetQueueAsString()}\nWould you like to shuffle your opponents queue for 10 points (y/n)? ').lower()
+		willShuffle = input(f'\n{self._CurrentPlayer.GetName()}, your opponent\'s queue is currently: {opponent.GetQueue().GetQueueAsString()}\nWould you like to shuffle your opponents queue for 10 points (y/n)? ').lower()
 		while willShuffle not in ['y', 'n']:
 			print("Please enter 'y' or 'n'.")
 			willShuffle = input(f'\n{self._CurrentPlayer.GetName()}, your opponent\'s queue is currently: {opponent.GetQueue().GetQueueAsString()}\nWould you like to shuffle your opponents queue for 10 points (y/n)? ').lower()
@@ -151,7 +151,7 @@ class Dastan:
 		
 		opponent.ShuffleQueue()
 
-		print('You successfully shuffled your opponent, you saucy Michael Rosen!')
+		print(f'You successfully shuffled your opponent, you saucy Michael Rosen!\nTheir new queue is: {opponent.GetQueue().GetQueueAsString()}')
 
 
 
