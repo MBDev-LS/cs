@@ -136,17 +136,19 @@ class Dastan:
 			print(f'{self._CurrentPlayer.GetName()} cannot shuffle as they do not have 10 points.')
 			return
 		
-		willShuffle = input(f'{self._CurrentPlayer.GetName()} would you like to shuffle your opponents queue for 10 points (y/n)? ').lower()
+		opponent = self._Players[1] if self._CurrentPlayer.SameAs(self._Players[0]) else self._Players[0]
+
+		willShuffle = input(f'\n{self._CurrentPlayer.GetName()}, your opponent\'s queue is currently: {opponent.GetQueue.GetQueueAsString()}\nWould you like to shuffle your opponents queue for 10 points (y/n)? ').lower()
 		while willShuffle not in ['y', 'n']:
 			print("Please enter 'y' or 'n'.")
-			willShuffle = input(f'{self._CurrentPlayer.GetName()} would you like to shuffle your opponents queue for 10 points (y/n)? ').lower()
+			willShuffle = input(f'\n{self._CurrentPlayer.GetName()}, your opponent\'s queue is currently: {opponent.GetQueue.GetQueueAsString()}\nWould you like to shuffle your opponents queue for 10 points (y/n)? ').lower()
 		
 		if willShuffle == 'n':
 			return
 		
 		self._CurrentPlayer.ChangeScore(-10)
 
-		opponent = self._Players[1] if self._CurrentPlayer.SameAs(self._Players[0]) else self._Players[0]
+		
 		opponent.ShuffleQueue()
 
 		print('You successfully shuffled your opponent, you saucy Michael Rosen!')
@@ -499,6 +501,9 @@ class Player:
 	def CheckPlayerMove(self, Pos, StartSquareReference, FinishSquareReference):
 		Temp = self.__Queue.GetMoveOptionInPosition(Pos - 1)
 		return Temp.CheckIfThereIsAMoveToSquare(StartSquareReference, FinishSquareReference)
+	
+	def GetQueue(self) -> MoveOptionQueue:
+		return self.__Queue
 	
 	def ShuffleQueue(self):
 		self.__Queue.ShuffleQueue()
