@@ -149,6 +149,8 @@ class Dastan:
 		opponent = self._Players[1] if self._CurrentPlayer.SameAs(self._Players[0]) else self._Players[0]
 		opponent.ShuffleQueue()
 
+		print('You successfully shuffled your opponent, you saucy Michael Rosen!')
+
 
 
 	def PlayGame(self):
