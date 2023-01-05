@@ -136,10 +136,10 @@ class Dastan:
 			print(f'{self._CurrentPlayer.GetName()} cannot shuffle as they do not have 10 points.')
 			return
 		
-		willShuffle = input(f'{self._CurrentPlayer.GetName()} would you like to shuffle your opponents queue (y/n)? ').lower()
+		willShuffle = input(f'{self._CurrentPlayer.GetName()} would you like to shuffle your opponents queue for 10 points (y/n)? ').lower()
 		while willShuffle not in ['y', 'n']:
 			print("Please enter 'y' or 'n'.")
-			willShuffle = input(f'{self._CurrentPlayer.GetName()} would you like to shuffle your opponents queue (y/n)? ').lower()
+			willShuffle = input(f'{self._CurrentPlayer.GetName()} would you like to shuffle your opponents queue for 10 points (y/n)? ').lower()
 		
 		if willShuffle == 'n':
 			return
