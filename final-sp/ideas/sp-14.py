@@ -4,8 +4,8 @@
 # developed in the Python 3.9 programming environment
 
 # Converted indentation to tabs - Louis (04/11/2022)
-# Idea: Allow player to pay points to alter the opponent’s queue
-# Author: Louis
+# Idea: Only allow the player to take the offer if they have enough points.
+# Author: Damian
 
 import random
 
@@ -112,9 +112,15 @@ class Dastan:
 		return SelectedSquare
 
 	def __UseMoveOptionOffer(self):
-		ReplaceChoice = int(input("Choose the move option from your queue to replace (1 to 5): "))
+		while True:
+			ReplaceChoice = int(input("Choose the move option from your queue to replace (1 to 5): "))
+			price = 10 - (ReplaceChoice * 2)
+			if price > self._CurrentPlayer.GetScore():
+				print("You cannot afford to put your move option here. Try a cheaper position in the queue (further down the queue).")
+			else:
+				break
 		self._CurrentPlayer.UpdateMoveOptionQueueWithOffer(ReplaceChoice - 1, self.__CreateMoveOption(self._MoveOptionOffer[self._MoveOptionOfferPosition], self._CurrentPlayer.GetDirection()))
-		self._CurrentPlayer.ChangeScore(-(10 - (ReplaceChoice * 2)))
+		self._CurrentPlayer.ChangeScore(-price)
 		self._MoveOptionOfferPosition = random.randint(0, 4)
 
 	def __GetPointsForOccupancyByPlayer(self, CurrentPlayer):
@@ -130,30 +136,6 @@ class Dastan:
 		if self._Board[self.__GetIndexOfSquare(FinishSquareReference)].GetPieceInSquare() is not None:
 			return self._Board[self.__GetIndexOfSquare(FinishSquareReference)].GetPieceInSquare().GetPointsIfCaptured()
 		return 0
-	
-	def __allowPlayerShuffle(self):
-		if self._CurrentPlayer.GetScore() < 10:
-			print(f'{self._CurrentPlayer.GetName()} cannot shuffle as they do not have 10 points.')
-			return
-		
-		opponent = self._Players[1] if self._CurrentPlayer.SameAs(self._Players[0]) else self._Players[0]
-
-		willShuffle = input(f'\n{self._CurrentPlayer.GetName()}, your opponent\'s queue is currently: {opponent.GetQueue().GetQueueAsString()}\nWould you like to shuffle your opponents queue for 10 points (y/n)? ').lower()
-		while willShuffle not in ['y', 'n']:
-			print("Please enter 'y' or 'n'.")
-			willShuffle = input(f'\n{self._CurrentPlayer.GetName()}, your opponent\'s queue is currently: {opponent.GetQueue().GetQueueAsString()}\nWould you like to shuffle your opponents queue for 10 points (y/n)? ').lower()
-		
-		if willShuffle == 'n':
-			return
-		
-		self._CurrentPlayer.ChangeScore(-10)
-
-		
-		opponent.ShuffleQueue()
-
-		print('You successfully shuffled your opponent, you saucy Michael Rosen!')
-
-
 
 	def PlayGame(self):
 		GameOver = False
@@ -162,6 +144,7 @@ class Dastan:
 			SquareIsValid = False
 			Choice = 0
 			while Choice < 1 or Choice > 3:
+				#if self._CurrentPlayer.GetScore()
 				Choice = int(input("Choose move option to use from queue (1 to 3) or 9 to take the offer: "))
 				if Choice == 9:
 					self.__UseMoveOptionOffer()
@@ -181,9 +164,6 @@ class Dastan:
 				self.__UpdateBoard(StartSquareReference, FinishSquareReference)
 				self.__UpdatePlayerScore(PointsForPieceCapture)
 				print("New score: " + str(self._CurrentPlayer.GetScore()) + "\n")
-
-			self.__allowPlayerShuffle()
-
 			if self._CurrentPlayer.SameAs(self._Players[0]):
 				self._CurrentPlayer = self._Players[1]
 			else:
@@ -455,9 +435,6 @@ class MoveOptionQueue:
 
 	def GetMoveOptionInPosition(self, Pos):
 		return self.__Queue[Pos]
-	
-	def ShuffleQueue(self) -> None:
-		random.shuffle(self.__Queue)
 
 class Player:
 	def __init__(self, N, D):
@@ -501,12 +478,6 @@ class Player:
 	def CheckPlayerMove(self, Pos, StartSquareReference, FinishSquareReference):
 		Temp = self.__Queue.GetMoveOptionInPosition(Pos - 1)
 		return Temp.CheckIfThereIsAMoveToSquare(StartSquareReference, FinishSquareReference)
-	
-	def GetQueue(self) -> MoveOptionQueue:
-		return self.__Queue
-	
-	def ShuffleQueue(self):
-		self.__Queue.ShuffleQueue()
 
 def Main():
 	ThisGame = Dastan(6, 6, 4)
