@@ -156,21 +156,28 @@ class Dastan:
 
 			checkedBoard = copy.deepcopy(self._Board)
 
-			for rowNum in range(6):
-				for columnNum in range(6):
+			for rowNum in range(1,7):
+				for columnNum in range(1,7):
 					checkedSquareReference = int(f'{rowNum}{columnNum}')
-			
-					checkedMoveLegal = self._CurrentPlayer.CheckPlayerMove(Choice, StartSquareReference, checkedSquareReference)
-					
+					print(checkedSquareReference)
 
-					if checkedMoveLegal is True:
+					checkedMoveLegal = self._CurrentPlayer.CheckPlayerMove(Choice, StartSquareReference, checkedSquareReference)
+					checkedMoveValid = self.__CheckSquareIsValid(checkedSquareReference, False)
+					
+					
+					if checkedMoveLegal is True and checkedMoveValid is True:
 						checkedSquareIndex = self.__GetIndexOfSquare(checkedSquareReference)
 						checkedBoard[checkedSquareIndex].SetSymbol('X')
 
-			self.__DisplayBoard(checkedBoard)
+			
+			
 			
 			SquareIsValid = False
 			while not SquareIsValid:
+				print()
+				self.__DisplayBoard(checkedBoard)
+				print('All of the legal moves are indicated by X\'s, please choose one of them.')
+
 				FinishSquareReference = self.__GetSquareReference("to move to")
 				SquareIsValid = self.__CheckSquareIsValid(FinishSquareReference, False)
 			MoveLegal = self._CurrentPlayer.CheckPlayerMove(Choice, StartSquareReference, FinishSquareReference)
