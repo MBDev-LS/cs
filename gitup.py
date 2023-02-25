@@ -1,22 +1,5 @@
 
-def removeItemFromList(lst: list, item) -> list:
-
-	while item in lst:
-		lst.remove(item)
-	
-	return lst
-
-
-def main():
-	import sys
-	import os
-
-	arguments = sys.argv
-	if len(arguments) == 1:
-		print('error: please provide a commit reason (or command, \'py gitup help\' for help)')
-		exit(1)
-	elif arguments[1] == 'help':
-		print("""
+HELP_MESSAGE = """
 GitUp Help
 
 Normal Usage: py gitup.py "<commit message"
@@ -29,7 +12,35 @@ Flags
 -status, -s	: Will display status after attempting to push commit
 -sp		: Will add a '[SP] ' tag to the front of the commit reason
 
-		""")
+"""
+
+
+def removeItemFromList(lst: list, item) -> list:
+
+	while item in lst:
+		lst.remove(item)
+	
+	return lst
+
+
+def removeItemsFromList(lstToRemoveFrom: list, listOfItemsToRemove: list) -> list:
+
+	for item in listOfItemsToRemove:
+		lstToRemoveFrom = removeItemFromList(lstToRemoveFrom, item)
+	
+	return lstToRemoveFrom
+
+
+def main():
+	import sys
+	import os
+
+	arguments = sys.argv
+	if len(arguments) == 1:
+		print('error: please provide a commit reason (or command, \'py gitup help\' for help)')
+		exit(1)
+	elif arguments[1] == 'help':
+		print(HELP_MESSAGE)
 		exit(0)
 	elif len(arguments) > 4:
 		print(f'error: expected max 3 argument, {len(arguments) - 1} given')
@@ -40,11 +51,7 @@ Flags
 	addSpTag = '-sp' in arguments
 	addSpTagText = '[SP] ' if addSpTag else ''
 
-	arguments = removeItemFromList(arguments, '-dontpull')
-	arguments = removeItemFromList(arguments, '-dp')
-	arguments = removeItemFromList(arguments, '-status')
-	arguments = removeItemFromList(arguments, '-s')
-	arguments = removeItemFromList(arguments, '-sp')
+	arguments = removeItemsFromList(arguments, ['-dontpull', '-dp', '-status', '-s', '-sp'])
 	
 	if len(arguments) < 2:
 		print('error: please provide a commit message (or a command, \'py gitup help\' for help)')
