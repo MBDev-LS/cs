@@ -1,0 +1,14 @@
+{
+    "1": {
+        "url": "https://api.nytimes.com/svc/archive/v1/{0}/{1}.json?api-key=eBq6OD6zH4nB44UytxFeMNsJtL8A4pdv",
+        "alias": "nytimes",
+        "json_key": {
+            "filter": ["response", "docs"],
+            "attribute": {
+                "H1": "abstract",
+                "H2": "lead_paragraph",
+                "published_date": "pub_date"
+            }
+        }
+    }
+}
