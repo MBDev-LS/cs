@@ -26,3 +26,5 @@ class NYT_Newswire():
 		return responseDict
 	
 
+
+nw = NYT_Newswire()

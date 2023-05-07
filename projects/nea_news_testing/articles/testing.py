@@ -12,10 +12,10 @@
 
 import bbc_feeds
 
-stories = bbc_feeds.news().top_stories('uk', limit=3)
+stories = bbc_feeds.news().top_stories('uk', limit=1)
 forestHillWeather = bbc_feeds.weather().forecast('se23')
 
-print(forestHillWeather)
+print(stories)
 
 # for story in stories:
 #     print(story.title)
