@@ -1,1 +1,1 @@
-{"A": {"meta": {"x_coord": 0, "y_coord": 0}, "edges": {"B": 2, "C": 7}}, "B": {"meta": {"x_coord": 0, "y_coord": 1}, "edges": {"A": 2}}, "C": {"meta": {"x_coord": 1, "y_coord": 1}, "edges": {"A": 7}}}
+{"A": {"B": 2, "C": 7}, "B": {"A": 2}, "C": {"A": 7}}

@@ -30,15 +30,16 @@ def main():
 	numOfChars = intInput('Enter the number of characters you would like to input: ')
 	charList = getNChars(numOfChars)
 	charCountList = sorted(getCharCountFromList(charList), key=lambda d: d['count'])
+	print(charCountList)
 
 	if len(charCountList) == 0:
 		print('No data provided')
 	elif len(charCountList) == 1:
 		print('No data provided')
-	elif charCountList[-1]["char"] == charCountList[-2]["char"]:
+	elif charCountList[-1]["count"] < 2:
 		print('Data was multimodal.')
 	else:
-		print(f'Most Frequently Entered: {charCountList[-1]["char"]} (Entered {charCountList[-1]["count"]} time(s))')
+		print(f'\nMost Frequently Entered: {charCountList[-1]["char"]}\nEntered {charCountList[-1]["count"]} time(s)\n')
 
 
 if __name__ == '__main__':

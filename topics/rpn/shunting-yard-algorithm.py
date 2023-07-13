@@ -29,11 +29,11 @@ OPERATOR_DICT = {
 		'associativity': 'l',
 		'operandNum': 2
 	},
-	# '~': {
-	# 	'precedence': 2,
-	# 	'associativity': 'r',
-	# 	'operandNum': 2
-	# }
+	'~': {
+		'precedence': 2,
+		'associativity': 'r',
+		'operandNum': 2
+	}
 	# This does not yet work. Speak to sir about it.
 }
 
@@ -59,6 +59,7 @@ def split_into_components(inputStr: str) -> list:
 
 def infix_to_rpn(inputStr: str) -> str:
 	inputList = split_into_components(inputStr)
+	print('H(IIIIIII', inputList)
 	outputList = []
 	operatorStack = []
 
@@ -98,4 +99,4 @@ operatorStack: {operatorStack}
 	
 	return ' '.join(outputList)
 
-print(infix_to_rpn('3 + ~ 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3'))
+print(infix_to_rpn('9 ~ c d - e / +'))
